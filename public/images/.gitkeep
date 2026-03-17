@@ -1,0 +1,12 @@
+# MTS Travels India - Images Folder
+# ===================================
+# Place all your .webp images in this folder
+# See IMAGES_REQUIRED.md in root folder for complete list of required images
+#
+# Quick Reference:
+# - logo.webp (website logo)
+# - favicon.webp (browser tab icon)
+# - og-image.webp (social share preview)
+# - heroposter.webp (hero section car)
+# - qr-code.webp (payment QR code)
+# - And many more... see IMAGES_REQUIRED.md

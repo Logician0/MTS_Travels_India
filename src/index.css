@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+:root {
+  --primary: #ffc800;
+  --primary-dark: #e6b400;
+  --accent: #ffc800;
+  --bg-white: #FFFFFF;
+  --bg-light: #F8FAFC;
+  --text-dark: #111827;
+  --text-gray: #6B7280;
+}
+
+* {
+  font-family: 'Inter', sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-white);
+  color: var(--text-dark);
+}
+
+.gradient-text {
+  background: linear-gradient(135deg, #ffc800, #111827);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.yellow-text {
+  color: #ffc800;
+}
+
+.gradient-bg {
+  background: linear-gradient(135deg, #ffc800, #e6b400);
+}
+
+.gradient-bg-dark {
+  background: linear-gradient(135deg, #111827, #1f2937);
+}
+
+.gradient-border {
+  position: relative;
+}
+
+.gradient-border::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 2px;
+  background: linear-gradient(135deg, #ffc800, #111827);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+
+.card-hover {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(255, 200, 0, 0.15);
+}
+
+.btn-hover {
+  transition: transform 0.2s ease, background-color 0.2s ease;
+}
+
+.btn-hover:hover {
+  transform: scale(1.02);
+}
+
+.floating-shape {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.3;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+.animate-float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in-up {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+/* Hide scrollbar for horizontal scroll */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Smooth touch scrolling */
+.touch-pan-x {
+  touch-action: pan-x;
+}
+
+/* Selection color */
+::selection {
+  background-color: #ffc800;
+  color: #111827;
+}
