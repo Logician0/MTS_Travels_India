@@ -5,7 +5,7 @@ import SEO from '../components/SEO';
 const PaymentPage: React.FC = () => {
   const [copied, setCopied] = useState(false);
   
-  const upiId = 'mtstravelsindia@upi';
+  const upiId = '7217667160-1@okbizaxis';
   const whatsappNumber = '917217667160';
   const whatsappMessage = encodeURIComponent('Hi MTS Travels India! I have made a payment and attached the screenshot for confirmation. Please verify my booking.');
   
@@ -15,72 +15,14 @@ const PaymentPage: React.FC = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  // CLEANED UP: Just storing the image paths now for cleaner code
   const upiApps = [
-    {
-      name: 'Google Pay',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <path fill="#4285F4" d="M12.545 10.239v3.821h5.445c-.712 2.315-2.647 3.972-5.445 3.972a6.033 6.033 0 110-12.064c1.498 0 2.866.549 3.921 1.453l2.814-2.814A9.969 9.969 0 0012.545 2C7.021 2 2.543 6.477 2.543 12s4.478 10 10.002 10c8.396 0 10.249-7.85 9.426-11.748l-9.426-.013z"/>
-        </svg>
-      ),
-      color: 'bg-white',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    },
-    {
-      name: 'PhonePe',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <circle fill="#5f259f" cx="12" cy="12" r="12"/>
-          <path fill="#fff" d="M15.5 7H9.8c-.7 0-1.3.6-1.3 1.3v7.4c0 .7.6 1.3 1.3 1.3h.9v-3.5h2.8c1.9 0 3.5-1.6 3.5-3.5S17.4 7 15.5 7zm0 5.2h-2.8V8.8h2.8c1 0 1.8.8 1.8 1.7s-.8 1.7-1.8 1.7z"/>
-        </svg>
-      ),
-      color: 'bg-[#5f259f]',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    },
-    {
-      name: 'Paytm',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <rect fill="#00BAF2" width="24" height="24" rx="4"/>
-          <path fill="#fff" d="M6 8h2.5c1.4 0 2.5 1.1 2.5 2.5S9.9 13 8.5 13H7.5v3H6V8zm1.5 3.5h1c.6 0 1-.4 1-1s-.4-1-1-1h-1v2zm5.5-3.5h2.5c1.4 0 2.5 1.1 2.5 2.5 0 1-.6 1.9-1.5 2.3l2 3.2h-1.8l-1.7-2.8V16H13V8zm1.5 3.5h1c.6 0 1-.4 1-1s-.4-1-1-1h-1v2z"/>
-        </svg>
-      ),
-      color: 'bg-[#00BAF2]',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    },
-    {
-      name: 'BHIM',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <rect fill="#00C853" width="24" height="24" rx="4"/>
-          <path fill="#fff" d="M12 4L6 8v8l6 4 6-4V8l-6-4zm0 2.2L16 9v6l-4 2.7L8 15V9l4-2.8z"/>
-        </svg>
-      ),
-      color: 'bg-[#00C853]',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    },
-    {
-      name: 'Amazon Pay',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <rect fill="#FF9900" width="24" height="24" rx="4"/>
-          <path fill="#232F3E" d="M12 7c-2.8 0-5 2.2-5 5s2.2 5 5 5c1.5 0 2.9-.7 3.8-1.8l-1.2-1c-.6.8-1.5 1.2-2.6 1.2-1.9 0-3.4-1.5-3.4-3.4s1.5-3.4 3.4-3.4c1.1 0 2 .5 2.6 1.2l1.2-1C14.9 7.7 13.5 7 12 7z"/>
-        </svg>
-      ),
-      color: 'bg-[#FF9900]',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    },
-    {
-      name: 'Bank UPI',
-      icon: (
-        <svg viewBox="0 0 24 24" className="w-8 h-8 sm:w-10 sm:h-10">
-          <rect fill="#1a1a1a" width="24" height="24" rx="4"/>
-          <path fill="#ffc800" d="M12 3L3 8v2h18V8L12 3zm0 2.5L17 8H7l5-2.5zM5 12v6h2v-6H5zm4 0v6h2v-6H9zm4 0v6h2v-6h-2zm4 0v6h2v-6h-2zM3 20v2h18v-2H3z"/>
-        </svg>
-      ),
-      color: 'bg-gray-100',
-      link: `upi://pay?pa=${upiId}&pn=MTS%20Travels%20India&cu=INR`
-    }
+    { name: 'Google Pay', icon: '/images/gpay.webp' },
+    { name: 'PhonePe', icon: '/images/phonepe.webp' },
+    { name: 'Paytm', icon: '/images/paytm.webp' },
+    { name: 'BHIM', icon: '/images/bhim.webp' },
+    { name: 'Amazon Pay', icon: '/images/amazonpay.webp' },
+    { name: 'Any UPI App', icon: '/images/upi.webp' }
   ];
 
   return (
@@ -154,23 +96,30 @@ const PaymentPage: React.FC = () => {
                 )}
               </div>
 
-              {/* UPI Apps */}
+              {/* UPI Apps - BULLETPROOF SIZING */}
               <div>
-                <p className="text-sm text-gray-500 text-center mb-4">Pay using your favorite UPI app</p>
-                <div className="grid grid-cols-3 sm:grid-cols-6 gap-3">
+                <p className="text-sm text-gray-500 text-center mb-4">Supported UPI Apps</p>
+                <div className="grid grid-cols-3 sm:grid-cols-6 gap-3 lg:gap-4">
                   {upiApps.map((app, index) => (
-                    <a
+                    <div
                       key={index}
-                      href={app.link}
-                      className="flex flex-col items-center gap-2 p-3 rounded-xl bg-gray-50 hover:bg-yellow-50 hover:shadow-md transition-all duration-300 group"
+                      className="flex flex-col items-center justify-start gap-2 p-2 lg:p-3 rounded-xl bg-gray-50"
                     >
-                      <div className="rounded-xl overflow-hidden shadow-sm group-hover:shadow-md transition-shadow">
-                        {app.icon}
+                      {/* The magic happens here: 
+                          1. Explicit width/height on the white wrapper box 
+                          2. shrink-0 stops it from squishing 
+                      */}
+                      <div className="w-10 h-10 sm:w-12 sm:h-12 lg:w-15 lg:h-15 shrink-0 bg-white rounded-xl shadow-sm flex items-center justify-center p-1.5 lg:p-3 overflow-hidden">
+                        <img 
+                          src={app.icon} 
+                          alt={app.name} 
+                          className="w-full h-full object-contain" 
+                        />
                       </div>
-                      <span className="text-[10px] sm:text-xs text-gray-600 font-medium text-center leading-tight">
+                      <span className="text-[10px] sm:text-xs lg:text-sm text-gray-600 font-medium text-center leading-tight">
                         {app.name}
                       </span>
-                    </a>
+                    </div>
                   ))}
                 </div>
               </div>

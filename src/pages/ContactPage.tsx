@@ -31,14 +31,87 @@ const ContactPage = () => {
     message: '',
   });
 
-  const handleOneWaySubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    alert('Thank you for your One Way booking request! We will contact you shortly.');
+  // --- NEW: Google Sheets integration function ---
+  const submitToGoogleSheet = async (data: any, tripType: string) => {
+    // ⚠️ IMPORTANT: Replace this with your actual Google Apps Script Web App URL
+    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybpbgK76uDp3drv_fO9sZJAQOKASuMaOIN6aFVxXPzTnhBue-82ljC0yddfrHDhbp_hw/exec';
+    
+    try {
+      await fetch(GOOGLE_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          timestamp: new Date().toLocaleString(),
+          tripType: tripType,
+          ...data
+        })
+      });
+    } catch (error) {
+      console.error('Error saving to Google Sheets:', error);
+    }
   };
 
-  const handleRoundTripSubmit = (e: React.FormEvent) => {
+  // --- UPDATED: One Way Submit Handler ---
+  const handleOneWaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert('Thank you for your Round Trip booking request! We will contact you shortly.');
+    
+    // 1. Send data to Google Sheet silently
+    await submitToGoogleSheet(oneWayForm, 'One Way');
+
+    // 2. Format the message for WhatsApp
+    const message = `*New Booking Request: One Way* 🚖
+    
+*Name:* ${oneWayForm.name}
+*Phone:* ${oneWayForm.phone}
+*Email:* ${oneWayForm.email || 'N/A'}
+
+*Pickup Location:* ${oneWayForm.pickup}
+*Drop Location:* ${oneWayForm.dropoff}
+*Date:* ${oneWayForm.date}
+*Time:* ${oneWayForm.time}
+*Passengers:* ${oneWayForm.passengers}
+
+*Additional Message:* ${oneWayForm.message || 'None'}`;
+
+    // 3. Open WhatsApp
+    const whatsappUrl = `https://wa.me/917217667160?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // 4. Clear form
+    setOneWayForm({ name: '', phone: '', email: '', pickup: '', dropoff: '', date: '', time: '', passengers: '', message: '' });
+  };
+
+  // --- UPDATED: Round Trip Submit Handler ---
+  const handleRoundTripSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    // 1. Send data to Google Sheet
+    await submitToGoogleSheet(roundTripForm, 'Round Trip');
+
+    // 2. Format the message for WhatsApp
+    const message = `*New Booking Request: Round Trip* 🚖
+    
+*Name:* ${roundTripForm.name}
+*Phone:* ${roundTripForm.phone}
+*Email:* ${roundTripForm.email || 'N/A'}
+
+*Pickup Location:* ${roundTripForm.pickup}
+*Drop Location:* ${roundTripForm.dropoff}
+*Departure Date:* ${roundTripForm.departureDate} at ${roundTripForm.departureTime}
+*Return Date:* ${roundTripForm.returnDate} at ${roundTripForm.returnTime}
+*Passengers:* ${roundTripForm.passengers}
+
+*Additional Message:* ${roundTripForm.message || 'None'}`;
+
+    // 3. Open WhatsApp
+    const whatsappUrl = `https://wa.me/917217667160?text=${encodeURIComponent(message)}`;
+    window.open(whatsappUrl, '_blank');
+    
+    // 4. Clear form
+    setRoundTripForm({ name: '', phone: '', email: '', pickup: '', dropoff: '', departureDate: '', departureTime: '', returnDate: '', returnTime: '', passengers: '', message: '' });
   };
 
   const contactInfo = [
@@ -462,10 +535,11 @@ const ContactPage = () => {
 
             {/* Map & Info */}
             <div className="space-y-6">
-              {/* Map */}
+             {/* Map */}
               <div className="bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm border border-gray-100">
                 <iframe
-                  src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d110502.55850589!2d78.00121385!3d30.31664235!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390929c356c888af%3A0x4c3562c032518799!2sDehradun%2C%20Uttarakhand!5e0!3m2!1sen!2sin!4v1650000000000!5m2!1sen!2sin"
+                  title="MTS Travels India Location"
+                  src="https://maps.google.com/maps?q=MTS+Travels+India,+Dehradun,+Uttarakhand&t=&z=15&ie=UTF8&iwloc=&output=embed"
                   width="100%"
                   height="300"
                   style={{ border: 0 }}

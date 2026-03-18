@@ -26,10 +26,18 @@ const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
     <div className="text-center">
-      <div className="w-16 h-16 bg-[#ffc800] rounded-2xl flex items-center justify-center mx-auto mb-4 animate-pulse">
-        <span className="text-black font-bold text-2xl">M</span>
+      <div className="w-20 h-20 mx-auto mb-4 animate-pulse">
+        <img 
+          src="/images/logo.webp" 
+          alt="MTS Travels India" 
+          className="w-full h-full object-contain"
+        />
       </div>
-      <p className="text-[#6B7280]">Loading...</p>
+      <div className="flex items-center justify-center gap-1">
+        <div className="w-2 h-2 bg-[#ffc800] rounded-full animate-bounce" style={{ animationDelay: '0ms' }}></div>
+        <div className="w-2 h-2 bg-[#ffc800] rounded-full animate-bounce" style={{ animationDelay: '150ms' }}></div>
+        <div className="w-2 h-2 bg-[#ffc800] rounded-full animate-bounce" style={{ animationDelay: '300ms' }}></div>
+      </div>
     </div>
   </div>
 );
