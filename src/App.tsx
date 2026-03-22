@@ -9,6 +9,8 @@ const HomePage = lazy(() => import('./pages/HomePage'));
 const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PaymentPage = lazy(() => import('./pages/PaymentPage'));
+const VerifyBookingPage = lazy(() => import('./pages/VerifyBookingPage')); 
+const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
 const CabsPage = lazy(() => import('./pages/CabsPage'));
@@ -73,6 +75,8 @@ function App() {
                 <Route path="/about" element={<AboutPage />} />
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
+                <Route path="/verify-booking" element={<VerifyBookingPage />} /> 
+                <Route path="/admin" element={<AdminDashboard />} />
                 
                 {/* Legal Pages */}
                 <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

@@ -14,6 +14,10 @@ const PackageDetailPage = () => {
 
   const otherPackages = packagesData.filter(p => p.slug !== pkg.slug).slice(0, 3);
 
+  // --- DYNAMIC WHATSAPP LINK ---
+  const whatsappText = `Hi MTS Travels! I am interested in booking the "${pkg.title}" package (${pkg.duration}). Please share more details and pricing.`;
+  const whatsappLink = `https://wa.me/917217667160?text=${encodeURIComponent(whatsappText)}`;
+
   return (
     <>
       <SEO
@@ -32,9 +36,8 @@ const PackageDetailPage = () => {
             ← Back to Packages
           </Link>
 
-          {/* Mobile: Image first, then content. Desktop: Image left, content right */}
           <div className="grid lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-12 items-start">
-            {/* Image - Shows first on mobile */}
+            {/* Image */}
             <div className="relative order-1 lg:order-1">
               <img
                 src={pkg.image}
@@ -48,7 +51,7 @@ const PackageDetailPage = () => {
               </div>
             </div>
 
-            {/* Content - Shows second on mobile */}
+            {/* Content */}
             <div className="order-2 lg:order-2">
               <h1 className="text-2xl sm:text-4xl lg:text-5xl font-bold text-[#111827] mb-3 sm:mb-4">
                 {pkg.title}
@@ -77,7 +80,7 @@ const PackageDetailPage = () => {
                 </div>
               </div>
 
-              {/* Highlights - 2 columns always */}
+              {/* Highlights */}
               <div className="mb-6 sm:mb-8">
                 <h3 className="font-semibold text-[#111827] mb-2 sm:mb-3 text-sm sm:text-base">Package Highlights</h3>
                 <div className="grid grid-cols-2 gap-2 sm:gap-3">
@@ -102,14 +105,17 @@ const PackageDetailPage = () => {
                 </div>
               </div>
 
+              {/* Buttons */}
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap">
-                <Link
-                  to="/contact"
+                <a
+                  href={whatsappLink}
+                  target="_blank"
+                  rel="noreferrer"
                   className="bg-[#ffc800] text-[#111827] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover hover:bg-[#e6b400] flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   Book This Package
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
+                </a>
                 <Link
                   to="/payment"
                   className="bg-[#111827] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover hover:bg-black flex items-center justify-center gap-2 text-sm sm:text-base"
@@ -144,7 +150,7 @@ const PackageDetailPage = () => {
                     {item.day}
                   </div>
                 </div>
-                <div className="bg-[#F8FAFC] rounded-xl sm:rounded-2xl p-4 sm:p-6 flex-1">
+                <div className="bg-[#F8FAFC] rounded-xl sm:rounded-2xl p-4 sm:p-6 flex-1 border border-gray-100 shadow-sm">
                   <h3 className="font-bold text-[#111827] text-sm sm:text-lg mb-1 sm:mb-2">{item.title}</h3>
                   <p className="text-[#6B7280] text-xs sm:text-base">{item.description}</p>
                 </div>
@@ -165,7 +171,7 @@ const PackageDetailPage = () => {
               <Link
                 key={p.slug}
                 to={`/packages/${p.slug}`}
-                className="bg-white rounded-xl sm:rounded-2xl overflow-hidden card-hover border border-gray-100"
+                className="bg-white rounded-xl sm:rounded-2xl overflow-hidden card-hover border border-gray-100 shadow-sm"
               >
                 <img src={p.image} alt={p.title} className="w-full h-28 sm:h-40 object-cover" />
                 <div className="p-3 sm:p-4">

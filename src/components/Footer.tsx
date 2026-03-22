@@ -3,13 +3,13 @@ import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, Shield } fr
 
 const Footer = () => {
   return (
-    <footer className="bg-[#111827] text-white">
+    <footer className="bg-[#111827] text-white relative overflow-hidden"> {/* Added overflow-hidden to stop the scrollbar */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-16">
         <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-10">
           {/* Company Info */}
           <div className="col-span-2 lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4 sm:mb-6">
-              { <img src="/images/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" /> }
+              <img src="/images/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-xl font-bold">MTS Travels</span>
                 <span className="text-[10px] sm:text-xs text-gray-400 -mt-0.5 sm:-mt-1">India</span>
@@ -20,7 +20,6 @@ const Footer = () => {
               We provide premium transportation solutions for local, outstation, and pilgrimage travel.
             </p>
             
-            {/* Government Approved Badge */}
             <div className="inline-flex items-center gap-2 bg-[#ffc800]/10 text-[#ffc800] px-3 py-1.5 rounded-full text-xs sm:text-sm font-medium mb-4 sm:mb-6">
               <Shield className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               Government Approved
@@ -67,7 +66,7 @@ const Footer = () => {
             </ul>
           </div>
 
-          {/* Contact - Full width on mobile */}
+          {/* Contact */}
           <div className="col-span-2 lg:col-span-1">
             <h4 className="text-sm sm:text-lg font-semibold mb-4 sm:mb-6">Contact Us</h4>
             <ul className="space-y-3 sm:space-y-4">
@@ -89,11 +88,23 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Bottom Bar - Scrollbar fix applied here */}
         <div className="border-t border-white/10 mt-8 sm:mt-12 pt-6 sm:pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-gray-400 text-xs sm:text-sm text-center md:text-left">
             © 2024 MTS Travels India. All rights reserved.
           </p>
+
+          {/* 🕵️ SECRET INVISIBLE LINK MOVED TO MIDDLE */}
+          <a 
+            href="https://www.instagram.com/logiciancreatives/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="w-10 h-4 bg-transparent opacity-0 cursor-default select-none mx-2"
+            aria-hidden="true"
+          >
+            .
+          </a>
+
           <div className="flex flex-wrap justify-center gap-4 sm:gap-6">
             <Link to="/privacy-policy" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Privacy Policy</Link>
             <Link to="/terms-of-service" className="text-gray-400 hover:text-white transition-colors text-xs sm:text-sm">Terms of Service</Link>

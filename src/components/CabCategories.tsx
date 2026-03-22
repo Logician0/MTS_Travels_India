@@ -23,61 +23,60 @@ const CabCategories = () => {
           </p>
         </div>
 
-        {/* Cabs Grid */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 md:gap-6">
+        {/* Cabs Grid - 3 COLS MOBILE, 5 COLS DESKTOP */}
+        <div className="grid grid-cols-3 md:grid-cols-3 lg:grid-cols-5 gap-2 sm:gap-4 md:gap-6">
           {cabsData.map((cab, index) => (
             <Link
               key={cab.slug}
               to={`/cabs/${cab.slug}`}
-              className="group bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 card-hover border border-gray-100"
+              className="group bg-white rounded-xl sm:rounded-2xl lg:rounded-3xl overflow-hidden shadow-[0_2px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 card-hover border border-gray-100 flex flex-col"
               style={{ animationDelay: `${index * 0.1}s` }}
             >
-              {/* Image */}
-              <div className="relative h-28 sm:h-36 md:h-44 lg:h-48 overflow-hidden bg-gradient-to-br from-[#F8FAFC] to-gray-100">
+              {/* Image Container - PURE WHITE BG so edges disappear, NO padding so it fills the card */}
+              <div className="relative h-20 sm:h-36 md:h-44 lg:h-40 overflow-hidden bg-white flex items-center justify-center shrink-0 border-b border-gray-50">
                 <img
                   src={cab.image}
                   alt={cab.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
                 />
-                {/* Type Badge */}
-                <div className="absolute top-2 right-2 sm:top-3 sm:right-3">
-                  <span className="px-2 py-0.5 sm:px-3 sm:py-1 bg-[#ffc800] text-[#111827] text-[9px] sm:text-xs font-semibold rounded-full">
-                    {cab.type}
-                  </span>
-                </div>
               </div>
 
-              {/* Content */}
-              <div className="p-3 sm:p-4 md:p-5">
-                <h3 className="text-sm sm:text-base md:text-lg lg:text-xl font-bold text-[#111827] mb-2 sm:mb-3 group-hover:text-[#ffc800] transition-colors">
+              {/* Content Container */}
+              <div className="p-2 sm:p-4 md:p-5 flex flex-col items-center sm:items-start flex-grow bg-white">
+                
+                {/* Title */}
+                <h3 className="text-[11px] sm:text-base md:text-lg lg:text-xl font-black text-[#111827] mb-1.5 sm:mb-3 text-center sm:text-left leading-tight group-hover:text-[#ffc800] transition-colors w-full truncate">
                   {cab.name}
                 </h3>
 
                 {/* Specs */}
-                <div className="flex flex-wrap gap-2 sm:gap-3 mb-3 sm:mb-4">
-                  <div className="flex items-center gap-1 text-[#6B7280]">
-                    <Users className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="text-[10px] sm:text-xs">{cab.seating}</span>
+                <div className="flex flex-row flex-wrap justify-center sm:justify-start gap-1 sm:gap-3 mb-2 sm:mb-4 w-full">
+                  <div className="flex items-center gap-0.5 sm:gap-1.5 text-[#6B7280] bg-gray-50 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[9px] sm:text-xs font-bold">
+                    <Users className="w-3 h-3 sm:w-4 sm:h-4 text-[#0F8A7C]" />
+                    {cab.seating.split(' ')[0]}
                   </div>
-                  <div className="flex items-center gap-1 text-[#6B7280]">
-                    <Briefcase className="w-3 h-3 sm:w-4 sm:h-4" />
-                    <span className="text-[10px] sm:text-xs">{cab.luggage}</span>
+                  <div className="flex items-center gap-0.5 sm:gap-1.5 text-[#6B7280] bg-gray-50 px-1.5 py-0.5 sm:px-2 sm:py-1 rounded text-[9px] sm:text-xs font-bold">
+                    <Briefcase className="w-3 h-3 sm:w-4 sm:h-4 text-[#0F8A7C]" />
+                    {cab.luggage.split(' ')[0]}
                   </div>
                   {cab.ac && (
-                    <div className="flex items-center gap-1 text-[#6B7280]">
-                      <Snowflake className="w-3 h-3 sm:w-4 sm:h-4" />
-                      <span className="text-[10px] sm:text-xs">AC</span>
+                    <div className="hidden sm:flex items-center gap-1.5 text-[#6B7280] bg-gray-50 px-2 py-1 rounded-md">
+                      <Snowflake className="w-3 h-3 sm:w-4 sm:h-4 text-[#0F8A7C]" />
+                      <span className="text-[9px] sm:text-xs font-bold text-gray-700">AC</span>
                     </div>
                   )}
                 </div>
 
-                {/* Book Button */}
-                <div className="flex items-center justify-between">
-                  <span className="text-[10px] sm:text-xs md:text-sm font-medium text-[#111827] flex items-center gap-1 group-hover:text-[#ffc800]">
-                    View Details
-                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
+                {/* Bottom CTA Row */}
+                <div className="flex w-full items-center justify-center sm:justify-between pt-1.5 sm:pt-3 border-t border-gray-50 sm:border-gray-100 mt-auto">
+                  <span className="hidden sm:block text-[10px] sm:text-xs md:text-sm font-bold text-[#111827] group-hover:text-[#0F8A7C] transition-colors line-clamp-1">
+                    Details
                   </span>
+                  <div className="w-5 h-5 sm:w-8 sm:h-8 bg-gray-50 rounded-full flex items-center justify-center group-hover:bg-[#ffc800] group-hover:-rotate-45 transition-all duration-300 shrink-0">
+                    <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-[#111827]" />
+                  </div>
                 </div>
+                
               </div>
             </Link>
           ))}

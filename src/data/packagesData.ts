@@ -114,6 +114,24 @@ export const packagesData: PackageData[] = [
       { day: "Day 5", title: "Dharamshala Visit", description: "McLeodganj, Dalai Lama Temple complex" },
       { day: "Day 6", title: "Return Journey", description: "Return to Dehradun via scenic route" }
     ]
+  },
+  {
+    slug: "goa-tour-package-from-dehradun",
+    title: "Goa Beach Delight Special",
+    shortDescription: "Experience the ultimate tropical getaway with beaches, heritage, and nightlife.",
+    description: "Experience the ultimate tropical getaway with our Goa Delight package. From the white sandy beaches of North Goa to the peaceful churches of South Goa, enjoy a perfect mix of adventure, nightlife, and relaxation.",
+    duration: "4 Nights / 5 Days",
+    destinations: ["Dehradun", "Panjim", "North Goa", "South Goa"],
+    includes: ["Airport Transfers", "Daily Breakfast", "Sightseeing in AC Cab", "Stay in 3/4 Star Hotels", "All Entry Fees"],
+    highlights: ["North Goa Beach Tour", "South Goa Heritage Sightseeing", "Mandovi River Cruise", "Watersports at Anjuna", "Premium Beach Resorts"],
+    image: "/images/goa-package.webp",
+    itinerary: [
+      { day: "Day 1", title: "Arrival in Goa & Leisure", description: "Arrival at Dabolim Airport/Mopa Airport. Transfer to the hotel. Spend the evening relaxing at the beach or exploring the local market." },
+      { day: "Day 2", title: "North Goa Sightseeing", description: "Explore the famous beaches of North Goa including Calangute, Baga, and Anjuna. Visit the historic Aguada Fort for a panoramic view." },
+      { day: "Day 3", title: "South Goa Heritage Tour", description: "Visit the Basilica of Bom Jesus and Se Cathedral in Old Goa. Later, visit Miramar Beach and enjoy a sunset cruise on the Mandovi River." },
+      { day: "Day 4", title: "Adventure & Watersports", description: "A day dedicated to adventure. Enjoy parasailing, jet-skiing, and banana boat rides at the beach, or visit a Spice Plantation." },
+      { day: "Day 5", title: "Departure", description: "After breakfast, check out from the hotel. You will be transferred back to the airport for your flight back home with beautiful memories." }
+    ]
   }
 ];
 

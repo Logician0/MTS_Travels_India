@@ -4,6 +4,15 @@ import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { routesData } from '../data/routesData';
 
+// --- EXACT PRICING DICTIONARY ---
+const basePrices: Record<string, number> = {
+  "Delhi": 3499, "Mussoorie": 1199, "Rishikesh": 1799, "Haridwar": 1799,
+  "Nainital": 4499, "Shimla": 3999, "Chandigarh": 2999, "Manali": 7499,
+  "Jammu": 8499, "Agra": 5499, "Ghaziabad": 3499, "Faridabad": 3499,
+  "Gurugram": 3799, "Mathura": 4999, "Uttarkashi": 4499, "Roorkee": 1499,
+  "Saharanpur": 1999, "Noida": 3499, "Greater Noida": 3699, "Jaipur": 6499
+};
+
 const RoutesPage = () => {
   return (
     <>
@@ -31,53 +40,72 @@ const RoutesPage = () => {
           </div>
 
           {/* Routes Grid */}
-          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
-            {routesData.map((route) => (
-              <Link
-                key={route.slug}
-                to={`/routes/${route.slug}`}
-                className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 card-hover border border-gray-100"
-              >
-                <div className="relative h-36 sm:h-48 overflow-hidden">
-                  <img
-                    src={route.image}
-                    alt={route.title}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
-                  <div className="absolute bottom-3 sm:bottom-4 left-3 sm:left-4 right-3 sm:right-4">
-                    <div className="flex items-center gap-1 sm:gap-2 text-white text-base sm:text-lg font-bold">
-                      <MapPin className="w-4 h-4 sm:w-5 sm:h-5" />
-                      <span>{route.from}</span>
-                      <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 mx-0.5 sm:mx-1" />
-                      <span>{route.to}</span>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 sm:gap-6 lg:gap-8">
+            {routesData.map((route) => {
+              // Find the price for this specific route. 
+              const startingPrice = basePrices[route.to] || 0;
+
+              return (
+                <Link
+                  key={route.slug}
+                  to={`/routes/${route.slug}`}
+                  className="group bg-white rounded-2xl sm:rounded-3xl overflow-hidden shadow-[0_2px_15px_rgba(0,0,0,0.04)] hover:shadow-[0_10px_30px_rgba(0,0,0,0.08)] transition-all duration-300 card-hover border border-gray-100 flex flex-col h-full"
+                >
+                  <div className="relative h-44 sm:h-52 overflow-hidden">
+                    <img
+                      src={route.image}
+                      alt={route.title}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-in-out"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
+                    <div className="absolute bottom-4 left-4 right-4">
+                      <div className="flex items-center gap-2 text-white text-lg sm:text-xl font-bold">
+                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-[#ffc800]" />
+                        <span>{route.from}</span>
+                        <ArrowRight className="w-3 h-3 sm:w-4 sm:h-4 text-white/70" />
+                        <span>{route.to}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="p-4 sm:p-6">
-                  <div className="flex items-center justify-between mb-3 sm:mb-4">
-                    <div className="flex items-center gap-3 sm:gap-4 text-xs sm:text-sm text-[#6B7280]">
-                      <div className="flex items-center gap-1">
-                        <Clock className="w-3 h-3 sm:w-4 sm:h-4" />
+                  
+                  <div className="p-5 sm:p-6 flex flex-col flex-grow">
+                    
+                    {/* INFO ROW: Time, Distance, and Price */}
+                    <div className="flex flex-wrap items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium mb-4">
+                      <div className="flex items-center gap-1.5 bg-gray-50 px-2.5 py-1 rounded-md text-[#6B7280]">
+                        <Clock className="w-3.5 h-3.5 text-[#0F8A7C]" />
                         <span>{route.travelTime}</span>
                       </div>
-                      <span>•</span>
-                      <span>{route.distance}</span>
+                      <div className="flex items-center gap-1.5 bg-gray-50 px-2.5 py-1 rounded-md text-[#6B7280]">
+                        <MapPin className="w-3.5 h-3.5 text-[#0F8A7C]" />
+                        <span>{route.distance}</span>
+                      </div>
+                      {/* Minimal Price Pill */}
+                      {startingPrice > 0 && (
+                        <div className="flex items-center bg-[#fffcf0] border border-[#ffc800]/30 px-2.5 py-1 rounded-md text-[#111827] font-bold shadow-sm">
+                          ₹{startingPrice}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <p className="text-[#6B7280] text-sm mb-6 line-clamp-2 flex-grow">
+                      {route.description}
+                    </p>
+                    
+                    <div className="flex items-center justify-between pt-4 border-t border-gray-100 mt-auto">
+                      <span className="text-[#111827] font-bold text-sm group-hover:text-[#0F8A7C] transition-colors">
+                        View Route Details
+                      </span>
+                      <div className="w-9 h-9 sm:w-10 sm:h-10 bg-[#0F8A7C] rounded-full flex items-center justify-center group-hover:bg-[#ffc800] group-hover:-rotate-45 transition-all duration-300 shadow-sm">
+                        <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white group-hover:text-[#111827] transition-colors" />
+                      </div>
                     </div>
                   </div>
-                  <p className="text-[#6B7280] text-xs sm:text-sm mb-4 line-clamp-2">
-                    {route.description}
-                  </p>
-                  <div className="flex items-center justify-between pt-3 sm:pt-4 border-t border-gray-100">
-                    <span className="text-[#0F8A7C] font-semibold text-sm">Book Now</span>
-                    <div className="w-8 h-8 sm:w-10 sm:h-10 bg-[#0F8A7C] rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
-                      <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5 text-white" />
-                    </div>
-                  </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>

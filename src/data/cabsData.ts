@@ -36,11 +36,38 @@ export const cabsData: Cab[] = [
       'First Aid Kit',
       'GPS Navigation'
     ],
-    description: 'Our premium sedan fleet includes well-maintained vehicles like Swift Dzire, Honda Amaze, and Toyota Etios. Perfect for business travel, airport transfers, and comfortable city rides with professional drivers.',
+    description: 'Our premium sedan fleet includes well-maintained vehicles like Maruti Swift Dzire, Toyota Etios, Honda Amaze, and Hyundai Aura. Perfect for business travel, airport transfers, and comfortable city rides with professional drivers.',
     bestFor: ['Business Travel', 'Airport Transfer', 'City Rides', 'Small Families']
   },
   {
     id: '2',
+    slug: 'muv',
+    name: 'MUV',
+    type: 'Multi-Utility Vehicle',
+    image: '/images/muv-card.webp', // <--- NEW UNIQUE IMAGE
+    images: [
+      '/images/muv1.webp', // <--- NEW UNIQUE IMAGES
+      '/images/muv2.webp',
+      '/images/muv3.webp',
+      '/images/muv4.webp'
+    ],
+    seating: '6-7 Passengers',
+    luggage: '3 Large Bags',
+    ac: true,
+    features: [
+      'Air Conditioning',
+      'Comfortable Interiors',
+      'Music System',
+      'Phone Charger',
+      'First Aid Kit',
+      'GPS Navigation',
+      'Roof Carrier Available'
+    ],
+    description: 'Our MUV fleet includes Maruti Ertiga, Toyota Rumion, and Kia Carens. The perfect balance of 6-seater space and affordability. Ideal for family tours and weekend getaways with a smooth, car-like ride.',
+    bestFor: ['Family Trips', 'Weekend Getaways', 'Budget Group Travel', 'Outstation Tours']
+  },
+  {
+    id: '3',
     slug: 'suv',
     name: 'SUV',
     type: 'Luxury SUV',
@@ -64,11 +91,11 @@ export const cabsData: Cab[] = [
       'Extra Legroom',
       'Roof Carrier Available'
     ],
-    description: 'Our SUV fleet includes Innova, Innova Crysta, Ertiga, and similar premium vehicles. Ideal for family trips, group travel, and hill station journeys with ample space and comfort.',
-    bestFor: ['Family Trips', 'Group Travel', 'Hill Stations', 'Outstation Tours']
+    description: 'Our luxury SUV fleet includes Toyota Innova, Innova Crysta, Mahindra Scorpio, Mahindra TUV, and Toyota Fortuner. Experience maximum power, VIP road presence, and ultimate comfort for hilly terrains and long journeys.',
+    bestFor: ['Luxury Family Trips', 'Hilly Terrains', 'VIP Travel', 'Long Outstation Tours']
   },
   {
-    id: '3',
+    id: '4',
     slug: 'tempo-traveller',
     name: 'Tempo Traveller',
     type: 'Group Transport',
@@ -78,7 +105,7 @@ export const cabsData: Cab[] = [
       '/images/tempo-traveller2.webp',
       '/images/tempo-traveller3.webp'
     ],
-    seating: '9-15 Passengers',
+    seating: '9-16 Passengers',
     luggage: '10+ Bags',
     ac: true,
     features: [
@@ -91,11 +118,11 @@ export const cabsData: Cab[] = [
       'Large Windows',
       'Ample Luggage Space'
     ],
-    description: 'Our Tempo Travellers are perfect for group tours, pilgrimages, and corporate outings. Available in 9, 12, and 15 seater configurations with push-back seats and entertainment systems.',
+    description: 'Our Tempo Travellers are perfect for group tours, pilgrimages, and corporate outings. Available in 12 and 16 seater configurations with premium push-back seats and entertainment systems.',
     bestFor: ['Group Tours', 'Pilgrimages', 'Corporate Events', 'Wedding Functions']
   },
   {
-    id: '4',
+    id: '5',
     slug: 'bus',
     name: 'AC / Non-AC Bus',
     type: 'Large Group Transport',
