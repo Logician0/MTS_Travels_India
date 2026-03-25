@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate, Link } from 'react-router-dom'; // 👈 Added Link for terms and conditions
+import { useLocation, useNavigate, Link } from 'react-router-dom';
 import { Calendar, Clock, Info, Phone, User, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -21,7 +21,10 @@ const VerifyBookingPage = () => {
 
   const [minDate, setMinDate] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
-  const [acceptedTerms, setAcceptedTerms] = useState(false); // 👈 New state for the checkbox
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
+  
+  // 👈 New state for Bike Rental age/license verification
+  const [acceptedAgeLicense, setAcceptedAgeLicense] = useState(false);
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -36,6 +39,9 @@ const VerifyBookingPage = () => {
       </div>
     );
   }
+
+  // 👈 Smart check: Is this a bike rental?
+  const isBikeRental = bookingData.tripType === 'bike_rental' || bookingData.vehicleType === 'bike';
 
   const maxPassengers = bookingData.vehicleType === 'sedan' ? 4 : 6;
   const [formData, setFormData] = useState({ 
@@ -52,9 +58,15 @@ const VerifyBookingPage = () => {
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    // Extra safety check
+    // Extra safety checks
     if (!acceptedTerms) {
       alert("Please accept the terms and conditions to proceed.");
+      return;
+    }
+    
+    // 👈 Prevent submission if it's a bike rental and they didn't check the license box
+    if (isBikeRental && !acceptedAgeLicense) {
+      alert("You must confirm you are 18+ and have a valid driving license.");
       return;
     }
 
@@ -95,7 +107,7 @@ const VerifyBookingPage = () => {
         amount: orderData.order.amount, 
         currency: "INR",
         name: "MTS Travels India",
-        description: `Cab Booking: ${bookingData.direction}`,
+        description: `${isBikeRental ? 'Bike Rental' : 'Cab Booking'}: ${bookingData.direction}`,
         image: "/images/logo.png",
         order_id: orderData.order.id, 
         
@@ -154,6 +166,9 @@ const VerifyBookingPage = () => {
     }
   };
 
+  // 👈 Determine if the button should be disabled based on what they are booking
+  const isFormValid = isBikeRental ? (acceptedTerms && acceptedAgeLicense) : acceptedTerms;
+
   return (
     <>
       <SEO title="Verify Booking - MTS Travels India" description="Complete your booking details safely and securely." />
@@ -163,7 +178,7 @@ const VerifyBookingPage = () => {
           
           <div className="mb-8">
             <h1 className="text-3xl font-black text-[#111827] mb-2">Almost Done!</h1>
-            <p className="text-gray-500">Please fill in your travel details to secure your cab.</p>
+            <p className="text-gray-500">Please fill in your details to secure your {isBikeRental ? 'bike' : 'cab'}.</p>
           </div>
 
           <div className="grid lg:grid-cols-12 gap-8">
@@ -193,7 +208,10 @@ const VerifyBookingPage = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">Pickup Date</label>
+                      {/* 👈 Dynamic Label */}
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        {isBikeRental ? 'Bike Pickup Date' : 'Pickup Date'}
+                      </label>
                       <div className="relative">
                         <Calendar className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
                         <input 
@@ -205,7 +223,10 @@ const VerifyBookingPage = () => {
                     </div>
 
                     <div>
-                      <label className="block text-sm font-bold text-gray-700 mb-2">Pickup Time</label>
+                      {/* 👈 Dynamic Label */}
+                      <label className="block text-sm font-bold text-gray-700 mb-2">
+                        {isBikeRental ? 'Bike Pickup Time' : 'Pickup Time'}
+                      </label>
                       <div className="flex gap-2">
                         <div className="relative flex-1">
                           <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
@@ -255,39 +276,40 @@ const VerifyBookingPage = () => {
                     <Info className="w-6 h-6 text-amber-500 flex-shrink-0" />
                     <p className="text-sm text-amber-800 font-medium">
                       <strong className="block text-amber-900 mb-0.5">Advance Booking Required</strong>
-                      {/* 🚨 Updated from 5 hours to 3 hours */}
-                      Please ensure your selected pickup time is at least <span className="font-bold underline">3 hours from now</span> to allow us to assign the best driver for your route.
+                      Please ensure your selected pickup time is at least <span className="font-bold underline">3 hours from now</span> to allow us to assign the best {isBikeRental ? 'vehicle' : 'driver'} for your route.
                     </p>
                   </div>
 
-                  <div className="pt-4">
-                    <label className="block text-sm font-bold text-gray-700 mb-3">Number of Passengers</label>
-                    <div className="flex flex-wrap gap-3">
-                      {[...Array(maxPassengers)].map((_, i) => {
-                        const num = i + 1;
-                        const isMax = num === maxPassengers;
-                        const isSelected = formData.passengers === num;
-                        
-                        return (
-                          <button
-                            key={num}
-                            type="button"
-                            onClick={() => setFormData({...formData, passengers: num})}
-                            className={`relative px-5 sm:px-6 py-3 rounded-xl border-2 font-bold text-sm transition-all duration-200 ${
-                              isSelected 
-                                ? 'border-[#111827] bg-[#111827] text-white shadow-md transform scale-105' 
-                                : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
-                            }`}
-                          >
-                            {num} {isMax && <span className={`text-[10px] ml-1 uppercase tracking-wider ${isSelected ? 'text-[#ffc800]' : 'text-gray-400'}`}>(Max)</span>}
-                            {isSelected && <CheckCircle2 className="absolute -top-2 -right-2 w-5 h-5 text-[#ffc800] bg-[#111827] rounded-full" />}
-                          </button>
-                        );
-                      })}
+                  {/* 👈 Hides passengers if it's a bike rental */}
+                  {!isBikeRental && (
+                    <div className="pt-4">
+                      <label className="block text-sm font-bold text-gray-700 mb-3">Number of Passengers</label>
+                      <div className="flex flex-wrap gap-3">
+                        {[...Array(maxPassengers)].map((_, i) => {
+                          const num = i + 1;
+                          const isMax = num === maxPassengers;
+                          const isSelected = formData.passengers === num;
+                          
+                          return (
+                            <button
+                              key={num}
+                              type="button"
+                              onClick={() => setFormData({...formData, passengers: num})}
+                              className={`relative px-5 sm:px-6 py-3 rounded-xl border-2 font-bold text-sm transition-all duration-200 ${
+                                isSelected 
+                                  ? 'border-[#111827] bg-[#111827] text-white shadow-md transform scale-105' 
+                                  : 'border-gray-200 bg-white text-gray-600 hover:border-gray-300 hover:bg-gray-50'
+                              }`}
+                            >
+                              {num} {isMax && <span className={`text-[10px] ml-1 uppercase tracking-wider ${isSelected ? 'text-[#ffc800]' : 'text-gray-400'}`}>(Max)</span>}
+                              {isSelected && <CheckCircle2 className="absolute -top-2 -right-2 w-5 h-5 text-[#ffc800] bg-[#111827] rounded-full" />}
+                            </button>
+                          );
+                        })}
+                      </div>
                     </div>
-                  </div>
+                  )}
 
-                  {/* 🚨 NEW: Terms and Conditions Checkbox */}
                   <div className="pt-4 flex items-start gap-3 mt-2">
                     <div className="flex items-center h-5">
                       <input 
@@ -309,12 +331,33 @@ const VerifyBookingPage = () => {
                     </div>
                   </div>
 
+                  {/* 👈 New Checkbox just for Bike Rentals */}
+                  {isBikeRental && (
+                    <div className="flex items-start gap-3 mt-2">
+                      <div className="flex items-center h-5">
+                        <input 
+                          id="licenseCheck" 
+                          type="checkbox" 
+                          required
+                          checked={acceptedAgeLicense}
+                          onChange={(e) => setAcceptedAgeLicense(e.target.checked)}
+                          className="w-5 h-5 border-2 border-gray-300 rounded focus:ring-[#ffc800] text-[#111827] cursor-pointer"
+                        />
+                      </div>
+                      <div className="text-sm">
+                        <label htmlFor="licenseCheck" className="font-medium text-gray-700 cursor-pointer">
+                          I confirm that I am 18 years or older and possess a valid, original Driving License.
+                        </label>
+                      </div>
+                    </div>
+                  )}
+
                   <div className="pt-4 border-t mt-4">
-                    {/* 🚨 Button is now DISABLED if terms aren't accepted */}
+                    {/* 👈 Dynamic Disabled State based on isFormValid */}
                     <button 
                       type="submit" 
-                      disabled={isProcessing || !acceptedTerms}
-                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 transform ${(isProcessing || !acceptedTerms) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#ffc800] text-[#111827] shadow-[0_4px_14px_0_rgba(255,200,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,200,0,0.23)] hover:bg-[#e6b400] hover:-translate-y-0.5'}`}
+                      disabled={isProcessing || !isFormValid}
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 transform ${(isProcessing || !isFormValid) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#ffc800] text-[#111827] shadow-[0_4px_14px_0_rgba(255,200,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,200,0,0.23)] hover:bg-[#e6b400] hover:-translate-y-0.5'}`}
                     >
                       <ShieldCheck className="w-6 h-6" /> 
                       {isProcessing ? 'Connecting to secure server...' : 'Proceed to Secure Payment'}
@@ -338,7 +381,9 @@ const VerifyBookingPage = () => {
                   
                   <div className="space-y-4 text-sm relative z-10">
                     <div>
-                      <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold mb-1">Route</span> 
+                      <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold mb-1">
+                        {isBikeRental ? 'Duration' : 'Route'}
+                      </span> 
                       <span className="font-bold text-base">{bookingData.direction}</span>
                     </div>
                     
@@ -356,7 +401,7 @@ const VerifyBookingPage = () => {
                     <div className="pt-4 mt-2 border-t border-gray-700">
                       <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold mb-1">Total Fare</span> 
                       <span className="text-3xl font-black text-[#25D366]">₹{bookingData.price}</span>
-                      <span className="text-xs text-gray-400 block mt-1">Inclusive of GST. Tolls extra.</span>
+                      <span className="text-xs text-gray-400 block mt-1">Inclusive of GST. {isBikeRental ? 'Fuel extra.' : 'Tolls extra.'}</span>
                     </div>
                   </div>
                 </div>

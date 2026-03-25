@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, Calendar as CalendarIcon, ArrowUpDown } from 'lucide-react'; // 👈 Added icons
+import { Filter, Calendar as CalendarIcon, ArrowUpDown } from 'lucide-react'; 
 
 const AdminDashboard = () => {
     const [pin, setPin] = useState('');
@@ -20,7 +20,6 @@ const AdminDashboard = () => {
         setLoading(true);
         setError('');
         try {
-            // 🚀 LIVE RENDER URL
             const response = await fetch(`https://mts-travels-india-backend.onrender.com/api/bookings?pin=${pin}`);
             const data = await response.json();
             if (data.success) {
@@ -40,63 +39,82 @@ const AdminDashboard = () => {
     const processedBookings = useMemo(() => {
         let result = [...bookings];
 
-        // 1. Filter by Trip Type
+        // 1. Filter by Trip Type (Case-insensitive matching for robust filtering)
         if (filterTrip !== 'all') {
             result = result.filter(b => {
-                // Adjust these strings based on exactly how they save in your database
-                if (filterTrip === 'one_way') return b.tripType === 'one_way';
-                if (filterTrip === 'round_trip') return b.tripType === 'round_trip';
+                if (!b.tripType) return false;
+                const type = b.tripType.toLowerCase();
+                if (filterTrip === 'one_way') return type === 'one_way' || type === 'oneway';
+                if (filterTrip === 'round_trip') return type === 'round_trip' || type === 'roundtrip';
+                if (filterTrip === 'tour_package') return type === 'tour_package';
+                if (filterTrip === 'bike_rental') return type === 'bike_rental';
                 return true;
             });
         }
 
-        // 2. Filter by Date Range
+        // 2. Filter by Date Range (Uses createdAt if available, fallback to booking date)
         if (dateRange !== 'all') {
             const today = new Date();
-            today.setHours(0, 0, 0, 0); // Reset to midnight for accurate day math
+            today.setHours(0, 0, 0, 0); 
 
             result = result.filter(b => {
-                if (!b.date) return false;
-                const bookingDate = new Date(b.date);
+                // Use createdAt for when the booking was made, or date for when the trip is
+                const dateToCheck = b.createdAt ? new Date(b.createdAt) : new Date(b.date);
+                if (isNaN(dateToCheck.getTime())) return true; // Skip invalid dates
 
                 if (dateRange === 'last_7') {
                     const sevenDaysAgo = new Date(today);
                     sevenDaysAgo.setDate(today.getDate() - 7);
-                    return bookingDate >= sevenDaysAgo && bookingDate <= new Date(); // Up to exactly right now
+                    return dateToCheck >= sevenDaysAgo && dateToCheck <= new Date(); 
                 }
                 
                 if (dateRange === 'last_30') {
                     const thirtyDaysAgo = new Date(today);
                     thirtyDaysAgo.setDate(today.getDate() - 30);
-                    return bookingDate >= thirtyDaysAgo && bookingDate <= new Date();
+                    return dateToCheck >= thirtyDaysAgo && dateToCheck <= new Date();
                 }
 
                 if (dateRange === 'custom' && customStart && customEnd) {
                     const start = new Date(customStart);
+                    start.setHours(0,0,0,0);
                     const end = new Date(customEnd);
-                    end.setHours(23, 59, 59, 999); // Include the full end day
-                    return bookingDate >= start && bookingDate <= end;
+                    end.setHours(23, 59, 59, 999); 
+                    return dateToCheck >= start && dateToCheck <= end;
                 }
 
                 return true;
             });
         }
 
-        // 3. Sorting
+        // 3. Advanced Sorting
         result.sort((a, b) => {
-            if (sortBy === 'date_desc') return new Date(b.date).getTime() - new Date(a.date).getTime();
-            if (sortBy === 'date_asc') return new Date(a.date).getTime() - new Date(b.date).getTime();
-            if (sortBy === 'price_desc') return b.price - a.price;
-            if (sortBy === 'price_asc') return a.price - b.price;
+            // Helper to get a reliable timestamp
+            const getTime = (obj: any) => {
+                const dateStr = obj.createdAt || obj.date;
+                if (!dateStr) return 0;
+                return new Date(dateStr).getTime();
+            };
+
+            // Helper to ensure price is a pure number
+            const getPrice = (obj: any) => {
+                const p = Number(obj.price);
+                return isNaN(p) ? 0 : p;
+            };
+
+            if (sortBy === 'date_desc') return getTime(b) - getTime(a);
+            if (sortBy === 'date_asc') return getTime(a) - getTime(b);
+            if (sortBy === 'price_desc') return getPrice(b) - getPrice(a);
+            if (sortBy === 'price_asc') return getPrice(a) - getPrice(b);
+            
             return 0;
         });
 
         return result;
     }, [bookings, filterTrip, dateRange, customStart, customEnd, sortBy]);
 
-    // 📊 GOD-TIER CALCULATIONS: Now runs on `processedBookings` instead of raw bookings!
+    // 📊 GOD-TIER CALCULATIONS
     const stats = useMemo(() => {
-        const totalRevenue = processedBookings.reduce((sum, b) => sum + (b.price || 0), 0);
+        const totalRevenue = processedBookings.reduce((sum, b) => sum + (Number(b.price) || 0), 0);
         const totalBookings = processedBookings.length;
         const avgValue = totalBookings > 0 ? (totalRevenue / totalBookings).toFixed(0) : 0;
         return { totalRevenue, totalBookings, avgValue };
@@ -150,7 +168,7 @@ const AdminDashboard = () => {
 
             <div className="max-w-7xl mx-auto px-4 sm:px-8 mt-8">
                 
-                {/* 🚀 TOP CLASS STAT CARDS (Now dynamically updates based on filters) */}
+                {/* 🚀 TOP CLASS STAT CARDS */}
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
                     <div className="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm hover:shadow-md transition-shadow">
                         <p className="text-slate-500 text-sm font-semibold uppercase tracking-wider">Filtered Revenue</p>
@@ -181,9 +199,11 @@ const AdminDashboard = () => {
                                 onChange={(e) => setFilterTrip(e.target.value)}
                                 className="bg-transparent outline-none text-sm font-medium text-slate-700 w-full cursor-pointer"
                             >
-                                <option value="all">All Trip Types</option>
-                                <option value="one_way">One Way</option>
-                                <option value="round_trip">Round Trip</option>
+                                <option value="all">All Services</option>
+                                <option value="one_way">Cab: One Way</option>
+                                <option value="round_trip">Cab: Round Trip</option>
+                                <option value="tour_package">Tour Packages</option>
+                                <option value="bike_rental">Bike Rentals</option>
                             </select>
                         </div>
 
@@ -202,7 +222,7 @@ const AdminDashboard = () => {
                             </select>
                         </div>
 
-                        {/* Custom Date Inputs (Only shows if 'Custom Range' is selected) */}
+                        {/* Custom Date Inputs */}
                         {dateRange === 'custom' && (
                             <div className="flex items-center gap-2 w-full sm:w-auto animate-fade-in">
                                 <input 
@@ -230,10 +250,10 @@ const AdminDashboard = () => {
                             onChange={(e) => setSortBy(e.target.value)}
                             className="bg-transparent outline-none text-sm font-medium text-slate-700 w-full cursor-pointer"
                         >
-                            <option value="date_desc">Newest First</option>
-                            <option value="date_asc">Oldest First</option>
-                            <option value="price_desc">Highest Price</option>
-                            <option value="price_asc">Lowest Price</option>
+                            <option value="date_desc">Newest Bookings</option>
+                            <option value="date_asc">Oldest Bookings</option>
+                            <option value="price_desc">Highest Price First</option>
+                            <option value="price_asc">Lowest Price First</option>
                         </select>
                     </div>
 
@@ -267,9 +287,17 @@ const AdminDashboard = () => {
                                     {processedBookings.map((booking) => (
                                         <tr key={booking._id} className="hover:bg-slate-50 transition-colors group">
                                             <td className="px-6 sm:px-8 py-5">
-                                                <span className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
-                                                    <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
-                                                    PAID
+                                                <span className="flex flex-col gap-1">
+                                                    <span className="flex items-center gap-2 text-emerald-600 font-bold text-sm">
+                                                        <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                                                        PAID
+                                                    </span>
+                                                    {/* Display exact booking timestamp if available */}
+                                                    {booking.createdAt && (
+                                                        <span className="text-[10px] text-slate-400 font-mono">
+                                                            Booked: {new Date(booking.createdAt).toLocaleDateString()}
+                                                        </span>
+                                                    )}
                                                 </span>
                                             </td>
                                             <td className="px-6 sm:px-8 py-5">
@@ -278,7 +306,7 @@ const AdminDashboard = () => {
                                             </td>
                                             <td className="px-6 sm:px-8 py-5">
                                                 <div className="text-sm font-semibold text-slate-800">{booking.route || booking.direction}</div>
-                                                <div className="text-xs text-slate-400 font-medium uppercase mt-1">📅 {booking.date} at {booking.time}</div>
+                                                <div className="text-xs text-slate-400 font-medium uppercase mt-1">📅 {booking.date} {booking.time ? `at ${booking.time}` : ''}</div>
                                             </td>
                                             <td className="px-6 sm:px-8 py-5">
                                                 <div className="text-sm text-slate-700 font-medium">{booking.specificVehicle}</div>

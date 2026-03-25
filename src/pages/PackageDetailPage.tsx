@@ -1,12 +1,22 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
-import { Calendar, MapPin, Check, ArrowRight, Phone, CreditCard } from 'lucide-react';
+import React, { useState, useRef } from 'react';
+import { useParams, Link, Navigate, useNavigate } from 'react-router-dom';
+import { Calendar, MapPin, Check, ArrowRight, Phone, MessageCircle, Car } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { getPackageBySlug, packagesData } from '../data/packagesData';
 
 const PackageDetailPage = () => {
   const { packageSlug } = useParams();
+  const navigate = useNavigate();
   const pkg = getPackageBySlug(packageSlug || '');
+
+  // --- INTERACTIVE WIDGET STATES ---
+  const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
+  const [selectedCar, setSelectedCar] = useState<any | null>(null);
+
+  // --- AUTO-SCROLL REFS ---
+  const modelsRef = useRef<HTMLDivElement>(null);
+  const checkoutRef = useRef<HTMLDivElement>(null);
 
   if (!pkg) {
     return <Navigate to="/packages" replace />;
@@ -14,9 +24,69 @@ const PackageDetailPage = () => {
 
   const otherPackages = packagesData.filter(p => p.slug !== pkg.slug).slice(0, 3);
 
+  // --- VEHICLE DATABASE ---
+  const vehicleCategories = [
+    { id: 'Sedan', name: 'Sedan', icon: '🚗', desc: '4 Seats • 2 Bags' },
+    { id: 'SUV', name: 'SUV / MUV', icon: '🚙', desc: '6 Seats • 3 Bags' },
+    { id: 'Premium', name: 'Premium SUV', icon: '✨', desc: '6 Seats • 4 Bags' },
+    { id: 'Tempo', name: 'Tempo Traveller', icon: '🚌', desc: '12-16 Seats' },
+  ];
+
+  // 🚨 Perfected Image Paths matching your exact public/images folder
+  const carDatabase: Record<string, any[]> = {
+    Sedan: [
+      { id: 'dzire', name: 'Swift Dzire', image: '/images/swift-dzire-1.webp' },
+      { id: 'etios', name: 'Toyota Etios', image: '/images/toyota-etios-1.webp' },
+      { id: 'amaze', name: 'Honda Amaze', image: '/images/honda-amaze-1.webp' },
+      { id: 'aura', name: 'Hyundai Aura', image: '/images/hyundai-aura-1.webp' },
+    ],
+    SUV: [
+      { id: 'ertiga', name: 'Maruti Ertiga', image: '/images/maruti-ertiga-1.webp' },
+      { id: 'carens', name: 'Kia Carens', image: '/images/kia-carens-1.webp' },
+      { id: 'scorpio', name: 'Mahindra Scorpio', image: '/images/mahindra-scorpio-1.webp' },
+    ],
+    Premium: [
+      { id: 'crysta', name: 'Innova Crysta', image: '/images/innova-crysta-1.webp' },
+      { id: 'innova', name: 'Toyota Innova', image: '/images/toyota-innova-1.webp' },
+      { id: 'fortuner', name: 'Toyota Fortuner', image: '/images/toyota-fortuner-1.webp' },
+    ],
+    Tempo: [
+      { id: 'tempo', name: 'Tempo Traveller', image: '/images/tempo-traveller1.webp' },
+    ]
+  };
+
+  // --- EVENT HANDLERS FOR SMOOTH SCROLLING ---
+  const handleCategorySelect = (id: string) => {
+    setSelectedCategory(id);
+    setSelectedCar(null);
+    setTimeout(() => {
+      // 'center' ensures it looks perfect on mobile without the top nav blocking it
+      modelsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  };
+
+  const handleCarSelect = (car: any) => {
+    setSelectedCar(car);
+    setTimeout(() => {
+      checkoutRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }, 150);
+  };
+
+  const handleProceedToVerify = () => {
+    navigate('/verify-booking', {
+      state: {
+        direction: pkg.title,
+        tripType: 'tour_package',
+        specificVehicle: selectedCar.name,
+        vehicleType: selectedCategory?.toLowerCase(),
+        price: pkg.price || 0 
+      }
+    });
+  };
+
   // --- DYNAMIC WHATSAPP LINK ---
-  const whatsappText = `Hi MTS Travels! I am interested in booking the "${pkg.title}" package (${pkg.duration}). Please share more details and pricing.`;
-  const whatsappLink = `https://wa.me/917217667160?text=${encodeURIComponent(whatsappText)}`;
+  const dynamicWhatsappText = `Hi MTS Travels! I want to book the "${pkg.title}" package (${pkg.duration}). I have selected the ${selectedCar?.name || 'car'}. Please share details!`;
+  const whatsappLink = `https://wa.me/917217667160?text=${encodeURIComponent(dynamicWhatsappText)}`;
 
   return (
     <>
@@ -75,7 +145,7 @@ const PackageDetailPage = () => {
                   </div>
                   <div className="flex items-center gap-2">
                     <Calendar className="w-4 h-4 sm:w-5 sm:h-5" />
-                    <span className="text-sm sm:text-base">Contact for Dates</span>
+                    <span className="text-sm sm:text-base">Flexible Dates</span>
                   </div>
                 </div>
               </div>
@@ -105,32 +175,100 @@ const PackageDetailPage = () => {
                 </div>
               </div>
 
-              {/* Buttons */}
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 flex-wrap">
-                <a
-                  href={whatsappLink}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="bg-[#ffc800] text-[#111827] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover hover:bg-[#e6b400] flex items-center justify-center gap-2 text-sm sm:text-base"
-                >
-                  Book This Package
-                  <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </a>
-                <Link
-                  to="/payment"
-                  className="bg-[#111827] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover hover:bg-black flex items-center justify-center gap-2 text-sm sm:text-base"
-                >
-                  <CreditCard className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Pay Now
-                </Link>
-                <a
-                  href="tel:+917217667160"
-                  className="border-2 border-[#111827] text-[#111827] px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover flex items-center justify-center gap-2 text-sm sm:text-base"
-                >
-                  <Phone className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Call Now
-                </a>
+              {/* 🚀 THE NEW INTERACTIVE VEHICLE WIDGET 🚀 */}
+              <div className="mt-10 bg-white rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.06)] border border-gray-100">
+                
+                {/* Step 1: Category */}
+                <h2 className="text-lg sm:text-xl font-black text-gray-900 mb-5 flex items-center gap-2">
+                  <span className="bg-[#111827] text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">1</span> 
+                  Select Vehicle Category
+                </h2>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-2">
+                  {vehicleCategories.map((cat) => (
+                    <button
+                      key={cat.id}
+                      onClick={() => handleCategorySelect(cat.id)}
+                      className={`p-3 sm:p-4 rounded-xl border-2 text-left transition-all ${selectedCategory === cat.id ? 'border-[#111827] bg-[#111827] text-white shadow-md' : 'border-gray-200 bg-white hover:border-gray-300'}`}
+                    >
+                      <div className="text-xl sm:text-2xl mb-1 sm:mb-2">{cat.icon}</div>
+                      <div className="font-bold text-sm sm:text-base">{cat.name}</div>
+                      <div className={`text-[10px] sm:text-xs mt-1 ${selectedCategory === cat.id ? 'text-gray-300' : 'text-gray-500'}`}>{cat.desc}</div>
+                    </button>
+                  ))}
+                </div>
+
+                {/* Step 2: Car Models */}
+                {selectedCategory && (
+                  <div ref={modelsRef} className="animate-fade-in pt-8 mt-6 border-t border-gray-100 scroll-mt-24">
+                    <h2 className="text-lg sm:text-xl font-black text-gray-900 mb-5 flex items-center gap-2">
+                      <span className="bg-[#111827] text-white w-7 h-7 rounded-full flex items-center justify-center text-xs">2</span> 
+                      Choose Your Model
+                    </h2>
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
+                      {carDatabase[selectedCategory].map((car) => (
+                        <button
+                          key={car.id}
+                          onClick={() => handleCarSelect(car)}
+                          className={`relative overflow-hidden rounded-2xl border-2 text-left transition-all group bg-white ${selectedCar?.id === car.id ? 'border-[#ffc800] ring-4 ring-[#ffc800]/20 shadow-md' : 'border-gray-100 hover:border-[#ffc800]/50 hover:shadow-sm'}`}
+                        >
+                          {/* 🚨 BIG IMAGES LOGIC: Taller box, object-contain, and scale-125 to fill the card */}
+                          <div className="w-full h-48 sm:h-56 bg-gradient-to-b from-white to-gray-50 relative flex items-center justify-center overflow-hidden p-2">
+                            <img 
+                              src={car.image} 
+                              alt={car.name} 
+                              className="w-full h-full object-cover sm:object-contain transform scale-125 group-hover:scale-[1.35] transition-transform duration-500 origin-center" 
+                            />
+                          </div>
+                          <div className={`p-4 transition-colors ${selectedCar?.id === car.id ? 'bg-[#ffc800] text-[#111827]' : 'bg-white text-gray-900 border-t border-gray-100'}`}>
+                            <h4 className="font-black text-lg text-center">{car.name}</h4>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 3: Checkout Action */}
+                {selectedCategory && selectedCar && (
+                  <div ref={checkoutRef} className="animate-fade-in pt-8 mt-8 border-t border-gray-100 scroll-mt-24">
+                    <div className="bg-[#111827] rounded-2xl p-6 sm:p-8 flex flex-col lg:flex-row items-center justify-between gap-6 shadow-xl relative overflow-hidden">
+                      
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-[#ffc800] opacity-10 rounded-full blur-2xl" />
+
+                      <div className="w-full lg:w-auto text-center lg:text-left relative z-10">
+                        <p className="text-[#ffc800] text-xs sm:text-sm font-bold uppercase tracking-wider mb-1">Selected Vehicle</p>
+                        <h3 className="text-2xl sm:text-3xl font-black text-white mb-3">{selectedCar.name}</h3>
+                        
+                        {/* 🚨 UPDATED: Removed "Tolls Extra", Added "Tolls and GST Included" */}
+                        <div className="inline-flex items-center gap-2 bg-[#25D366]/20 px-3 py-1.5 rounded-lg border border-[#25D366]/30">
+                          <Check className="w-4 h-4 text-[#25D366]" />
+                          <span className="text-[#25D366] text-xs sm:text-sm font-bold tracking-wide">Tolls and GST Included</span>
+                        </div>
+                      </div>
+                      
+                      <div className="flex flex-col sm:flex-row gap-3 w-full lg:w-auto relative z-10">
+                        <button 
+                          onClick={handleProceedToVerify} 
+                          className="w-full sm:w-auto bg-[#ffc800] text-[#111827] px-6 py-4 rounded-xl font-black hover:bg-white transition-all shadow-[0_0_15px_rgba(255,200,0,0.3)] flex items-center justify-center gap-2"
+                        >
+                          <Car className="w-5 h-5" /> Proceed to Book
+                        </button>
+                        <a 
+                          href={whatsappLink} 
+                          target="_blank" 
+                          rel="noreferrer"
+                          className="w-full sm:w-auto bg-[#25D366] text-white px-6 py-4 rounded-xl font-bold hover:bg-[#1ebd5a] transition-all flex items-center justify-center gap-2 shadow-md"
+                        >
+                          <MessageCircle className="w-5 h-5" /> Enquire
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
               </div>
+              {/* End of Interactive Widget */}
+
             </div>
           </div>
         </div>

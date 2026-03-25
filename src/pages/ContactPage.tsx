@@ -1,9 +1,13 @@
 import { useState } from 'react';
 import { Phone, Mail, MapPin, Clock, Send, ArrowRight, ArrowLeftRight } from 'lucide-react';
+import { Link } from 'react-router-dom'; // 👈 Added Link import
 import SEO from '../components/SEO';
 
 const ContactPage = () => {
   const [tripType, setTripType] = useState<'oneway' | 'roundtrip'>('oneway');
+  
+  // 👈 New state for terms and conditions
+  const [acceptedTerms, setAcceptedTerms] = useState(false);
   
   const [oneWayForm, setOneWayForm] = useState({
     name: '',
@@ -58,6 +62,11 @@ const ContactPage = () => {
   const handleOneWaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     
+    if (!acceptedTerms) {
+      alert("Please accept the terms and conditions to proceed.");
+      return;
+    }
+    
     // 1. Send data to Google Sheet silently
     await submitToGoogleSheet(oneWayForm, 'One Way');
 
@@ -80,13 +89,19 @@ const ContactPage = () => {
     const whatsappUrl = `https://wa.me/917217667160?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     
-    // 4. Clear form
+    // 4. Clear form and terms
     setOneWayForm({ name: '', phone: '', email: '', pickup: '', dropoff: '', date: '', time: '', passengers: '', message: '' });
+    setAcceptedTerms(false);
   };
 
   // --- UPDATED: Round Trip Submit Handler ---
   const handleRoundTripSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    if (!acceptedTerms) {
+      alert("Please accept the terms and conditions to proceed.");
+      return;
+    }
     
     // 1. Send data to Google Sheet
     await submitToGoogleSheet(roundTripForm, 'Round Trip');
@@ -110,8 +125,9 @@ const ContactPage = () => {
     const whatsappUrl = `https://wa.me/917217667160?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
     
-    // 4. Clear form
+    // 4. Clear form and terms
     setRoundTripForm({ name: '', phone: '', email: '', pickup: '', dropoff: '', departureDate: '', departureTime: '', returnDate: '', returnTime: '', passengers: '', message: '' });
+    setAcceptedTerms(false);
   };
 
   const contactInfo = [
@@ -353,9 +369,36 @@ const ContactPage = () => {
                     />
                   </div>
 
+                  {/* 👈 NEW: Terms Checkbox */}
+                  <div className="flex items-start gap-3 mt-4 mb-2">
+                    <div className="flex items-center h-5">
+                      <input 
+                        id="terms-oneway" 
+                        type="checkbox" 
+                        required
+                        checked={acceptedTerms}
+                        onChange={(e) => setAcceptedTerms(e.target.checked)}
+                        className="w-5 h-5 border-2 border-gray-300 rounded focus:ring-[#ffc800] text-[#111827] cursor-pointer"
+                      />
+                    </div>
+                    <div className="text-sm">
+                      <label htmlFor="terms-oneway" className="font-medium text-gray-700 cursor-pointer">
+                        I have read and accept the{' '}
+                        <Link to="/terms-of-service" target="_blank" className="text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                          terms and conditions
+                        </Link>.
+                      </label>
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full bg-[#ffc800] text-[#111827] py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold btn-hover hover:bg-[#e6b400] flex items-center justify-center gap-2 text-sm sm:text-base"
+                    disabled={!acceptedTerms}
+                    className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold flex items-center justify-center gap-2 text-sm sm:text-base transition-all ${
+                      !acceptedTerms 
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                        : 'bg-[#ffc800] text-[#111827] btn-hover hover:bg-[#e6b400]'
+                    }`}
                   >
                     <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                     Submit Booking Request
@@ -522,9 +565,36 @@ const ContactPage = () => {
                     />
                   </div>
 
+                  {/* 👈 NEW: Terms Checkbox */}
+                  <div className="flex items-start gap-3 mt-4 mb-2">
+                    <div className="flex items-center h-5">
+                      <input 
+                        id="terms-roundtrip" 
+                        type="checkbox" 
+                        required
+                        checked={acceptedTerms}
+                        onChange={(e) => setAcceptedTerms(e.target.checked)}
+                        className="w-5 h-5 border-2 border-gray-300 rounded focus:ring-[#ffc800] text-[#111827] cursor-pointer"
+                      />
+                    </div>
+                    <div className="text-sm">
+                      <label htmlFor="terms-roundtrip" className="font-medium text-gray-700 cursor-pointer">
+                        I have read and accept the{' '}
+                        <Link to="/terms-of-service" target="_blank" className="text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                          terms and conditions
+                        </Link>.
+                      </label>
+                    </div>
+                  </div>
+
                   <button
                     type="submit"
-                    className="w-full bg-[#ffc800] text-[#111827] py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold btn-hover hover:bg-[#e6b400] flex items-center justify-center gap-2 text-sm sm:text-base"
+                    disabled={!acceptedTerms}
+                    className={`w-full py-3 sm:py-4 rounded-xl sm:rounded-2xl font-semibold flex items-center justify-center gap-2 text-sm sm:text-base transition-all ${
+                      !acceptedTerms 
+                        ? 'bg-gray-300 text-gray-500 cursor-not-allowed' 
+                        : 'bg-[#ffc800] text-[#111827] btn-hover hover:bg-[#e6b400]'
+                    }`}
                   >
                     <Send className="w-4 h-4 sm:w-5 sm:h-5" />
                     Submit Round Trip Request

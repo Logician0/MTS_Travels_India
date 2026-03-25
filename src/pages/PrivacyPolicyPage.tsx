@@ -148,7 +148,7 @@ const PrivacyPolicyPage = () => {
                   <p className="text-[#111827] font-semibold mb-2">MTS Travels India</p>
                   <p className="text-[#6B7280] text-sm sm:text-base">Email: info@mtstravelsindia.com</p>
                   <p className="text-[#6B7280] text-sm sm:text-base">Phone: +91 72176 67160</p>
-                  <p className="text-[#6B7280] text-sm sm:text-base">Address: 123 Rajpur Road, Dehradun, Uttarakhand 248001</p>
+                  <p className="text-[#6B7280] text-sm sm:text-base">Address: Near Barhatwal Sweet Shop, Chakrata Road, Selaqui, Dehradun 248011</p>
                 </div>
               </section>
             </div>
