@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { Calendar, Clock, Info, Phone, Mail, User, ShieldCheck, CheckCircle2 } from 'lucide-react';
+import { useLocation, useNavigate, Link } from 'react-router-dom'; // 👈 Added Link for terms and conditions
+import { Calendar, Clock, Info, Phone, User, ShieldCheck, CheckCircle2 } from 'lucide-react';
 import SEO from '../components/SEO';
 
 // Safely loads the Razorpay checkout script
@@ -21,6 +21,7 @@ const VerifyBookingPage = () => {
 
   const [minDate, setMinDate] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [acceptedTerms, setAcceptedTerms] = useState(false); // 👈 New state for the checkbox
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -48,12 +49,17 @@ const VerifyBookingPage = () => {
     passengers: 1 
   });
 
-  // --- FULL FULL-STACK RAZORPAY INTEGRATION ---
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
+    
+    // Extra safety check
+    if (!acceptedTerms) {
+      alert("Please accept the terms and conditions to proceed.");
+      return;
+    }
+
     setIsProcessing(true);
 
-    // 1. Load the script
     const res = await loadRazorpayScript();
     if (!res) {
       alert("Razorpay SDK failed to load. Are you online?");
@@ -63,7 +69,6 @@ const VerifyBookingPage = () => {
 
     const finalFormattedTime = `${formData.timeHour}:${formData.timeMinute} ${formData.timePeriod}`;
     
-    // Combine all data into one clean package
     const finalBookingData = {
       ...bookingData,
       ...formData,
@@ -71,7 +76,6 @@ const VerifyBookingPage = () => {
     };
 
     try {
-      // 2. Ask your Node.js Server to create an Order securely (🚀 LIVE URL APPLIED HERE)
       const orderResponse = await fetch('https://mts-travels-india-backend.onrender.com/api/create-order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -86,21 +90,18 @@ const VerifyBookingPage = () => {
         return;
       }
 
-      // 3. Setup Razorpay Options using the secure order_id from your server
       const options = {
-        key: "rzp_test_STscSgnGmHCBqa", // Your exact test key
+        key: "rzp_test_STscSgnGmHCBqa", 
         amount: orderData.order.amount, 
         currency: "INR",
         name: "MTS Travels India",
         description: `Cab Booking: ${bookingData.direction}`,
         image: "/images/logo.png",
-        order_id: orderData.order.id, // 🚨 Secure ID from your server!
+        order_id: orderData.order.id, 
         
-        // 4. What happens when the payment is successful
         handler: async function (response: any) {
           console.log("Payment completed on frontend, verifying with server...");
           
-          // Send the receipt to your server to mathematically verify it (🚀 LIVE URL APPLIED HERE)
           const verifyResponse = await fetch('https://mts-travels-india-backend.onrender.com/api/verify-payment', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -108,17 +109,22 @@ const VerifyBookingPage = () => {
               razorpay_order_id: response.razorpay_order_id,
               razorpay_payment_id: response.razorpay_payment_id,
               razorpay_signature: response.razorpay_signature,
-              bookingData: finalBookingData // Send all the traveler details to the server too!
+              bookingData: finalBookingData 
             })
           });
 
           const verifyData = await verifyResponse.json();
 
           if (verifyData.success) {
-            alert(`Payment Successful! Your cab is booked.\nWe will contact you shortly at ${formData.phone}.`);
-            navigate('/');
+            navigate('/booking-success', { 
+                state: { 
+                    booking: finalBookingData,
+                    paymentId: response.razorpay_payment_id
+                } 
+            });
           } else {
             alert("Payment verification failed! Please contact support.");
+            setIsProcessing(false);
           }
         },
         
@@ -132,11 +138,11 @@ const VerifyBookingPage = () => {
         },
       };
 
-      // 5. Open the Razorpay Checkout Window
       const paymentObject = new (window as any).Razorpay(options);
       
       paymentObject.on('payment.failed', function (response: any) {
         alert(`Payment Failed: ${response.error.description}`);
+        setIsProcessing(false);
       });
 
       paymentObject.open();
@@ -144,9 +150,8 @@ const VerifyBookingPage = () => {
     } catch (error) {
       console.error("Payment Error:", error);
       alert("Could not connect to the payment server. Is your Node.js server running?");
+      setIsProcessing(false);
     }
-
-    setIsProcessing(false);
   };
 
   return (
@@ -163,7 +168,6 @@ const VerifyBookingPage = () => {
 
           <div className="grid lg:grid-cols-12 gap-8">
             
-            {/* LEFT COLUMN: The Form */}
             <div className="lg:col-span-8">
               <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-[0_8px_30px_rgb(0,0,0,0.04)] border border-gray-100">
                 <h2 className="text-xl font-bold mb-6 text-gray-900 border-b pb-4 flex items-center gap-2">
@@ -172,7 +176,6 @@ const VerifyBookingPage = () => {
                 
                 <form onSubmit={handlePayment} className="space-y-6">
                   
-                  {/* Personal Info Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                     <div className="md:col-span-2">
                       <label className="block text-sm font-bold text-gray-700 mb-2">Full Name</label>
@@ -188,10 +191,7 @@ const VerifyBookingPage = () => {
                     </div>
                   </div>
 
-                  {/* Travel Date & CUSTOM Time Grid */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
-                    
-                    {/* Date Picker */}
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-2">Pickup Date</label>
                       <div className="relative">
@@ -204,11 +204,9 @@ const VerifyBookingPage = () => {
                       </div>
                     </div>
 
-                    {/* Custom Premium Time Picker */}
                     <div>
                       <label className="block text-sm font-bold text-gray-700 mb-2">Pickup Time</label>
                       <div className="flex gap-2">
-                        {/* Hour Dropdown */}
                         <div className="relative flex-1">
                           <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 pointer-events-none" />
                           <select 
@@ -221,7 +219,6 @@ const VerifyBookingPage = () => {
                           </select>
                         </div>
                         
-                        {/* Minute Dropdown */}
                         <div className="relative flex-1">
                           <span className="absolute -left-1.5 top-1/2 transform -translate-y-1/2 font-bold text-gray-400">:</span>
                           <select 
@@ -234,7 +231,6 @@ const VerifyBookingPage = () => {
                           </select>
                         </div>
 
-                        {/* AM / PM Interactive Toggle */}
                         <div className="flex bg-gray-100 p-1 rounded-xl border-2 border-gray-100 flex-col sm:flex-row gap-1">
                           <button 
                             type="button" 
@@ -253,19 +249,17 @@ const VerifyBookingPage = () => {
                         </div>
                       </div>
                     </div>
-
                   </div>
 
-                  {/* Premium Notice Alert */}
                   <div className="bg-amber-50 border-l-4 border-amber-400 p-4 rounded-r-xl flex gap-3 shadow-sm mt-6">
                     <Info className="w-6 h-6 text-amber-500 flex-shrink-0" />
                     <p className="text-sm text-amber-800 font-medium">
                       <strong className="block text-amber-900 mb-0.5">Advance Booking Required</strong>
-                      Please ensure your selected pickup time is at least <span className="font-bold underline">5 hours from now</span> to allow us to assign the best driver for your route.
+                      {/* 🚨 Updated from 5 hours to 3 hours */}
+                      Please ensure your selected pickup time is at least <span className="font-bold underline">3 hours from now</span> to allow us to assign the best driver for your route.
                     </p>
                   </div>
 
-                  {/* Interactive Passenger Selection */}
                   <div className="pt-4">
                     <label className="block text-sm font-bold text-gray-700 mb-3">Number of Passengers</label>
                     <div className="flex flex-wrap gap-3">
@@ -293,15 +287,37 @@ const VerifyBookingPage = () => {
                     </div>
                   </div>
 
-                  {/* Submit Button */}
-                  <div className="pt-6 border-t mt-6">
+                  {/* 🚨 NEW: Terms and Conditions Checkbox */}
+                  <div className="pt-4 flex items-start gap-3 mt-2">
+                    <div className="flex items-center h-5">
+                      <input 
+                        id="terms" 
+                        type="checkbox" 
+                        required
+                        checked={acceptedTerms}
+                        onChange={(e) => setAcceptedTerms(e.target.checked)}
+                        className="w-5 h-5 border-2 border-gray-300 rounded focus:ring-[#ffc800] text-[#111827] cursor-pointer"
+                      />
+                    </div>
+                    <div className="text-sm">
+                      <label htmlFor="terms" className="font-medium text-gray-700 cursor-pointer">
+                        I have read and accept the{' '}
+                        <Link to="/terms-of-service" target="_blank" className="text-blue-600 hover:text-blue-800 hover:underline font-bold">
+                          terms and conditions
+                        </Link>.
+                      </label>
+                    </div>
+                  </div>
+
+                  <div className="pt-4 border-t mt-4">
+                    {/* 🚨 Button is now DISABLED if terms aren't accepted */}
                     <button 
                       type="submit" 
-                      disabled={isProcessing}
-                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 transform ${isProcessing ? 'bg-gray-300 text-gray-600 cursor-not-allowed' : 'bg-[#ffc800] text-[#111827] shadow-[0_4px_14px_0_rgba(255,200,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,200,0,0.23)] hover:bg-[#e6b400] hover:-translate-y-0.5'}`}
+                      disabled={isProcessing || !acceptedTerms}
+                      className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 transform ${(isProcessing || !acceptedTerms) ? 'bg-gray-300 text-gray-500 cursor-not-allowed' : 'bg-[#ffc800] text-[#111827] shadow-[0_4px_14px_0_rgba(255,200,0,0.39)] hover:shadow-[0_6px_20px_rgba(255,200,0,0.23)] hover:bg-[#e6b400] hover:-translate-y-0.5'}`}
                     >
                       <ShieldCheck className="w-6 h-6" /> 
-                      {isProcessing ? 'Securely Loading Razorpay...' : 'Proceed to Secure Payment'}
+                      {isProcessing ? 'Connecting to secure server...' : 'Proceed to Secure Payment'}
                     </button>
                     <p className="text-center text-xs text-gray-400 mt-3 flex items-center justify-center gap-1">
                       Payments are 100% secure & encrypted by Razorpay
@@ -312,11 +328,9 @@ const VerifyBookingPage = () => {
               </div>
             </div>
 
-            {/* RIGHT COLUMN: Summary & Support Details */}
             <div className="lg:col-span-4 space-y-6">
               <div className="sticky top-24 space-y-6">
                 
-                {/* Booking Summary Card */}
                 <div className="bg-[#111827] text-white rounded-3xl p-6 shadow-2xl relative overflow-hidden">
                   <div className="absolute -top-10 -right-10 w-32 h-32 bg-[#ffc800] opacity-10 rounded-full blur-2xl" />
                   
@@ -347,7 +361,6 @@ const VerifyBookingPage = () => {
                   </div>
                 </div>
 
-                {/* Contact & Support Card */}
                 <div className="bg-white rounded-3xl p-6 shadow-sm border border-gray-100">
                   <h3 className="text-base font-bold text-gray-900 mb-4">Need Help with Booking?</h3>
                   <p className="text-sm text-gray-500 mb-5">Our support team is available 24/7 to assist you with your travel plans.</p>

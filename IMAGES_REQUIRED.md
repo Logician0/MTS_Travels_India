@@ -1,8 +1,8 @@
 # 📸 MTS Travels India - Required Images List
 
-This document lists ALL images you need to add to the `/public/images/` folder for the website to display properly.
+This document lists ALL images used in the website and where they are referenced in the code.
 
-All images must be in **WebP format** for better performance.
+All images must be in **WebP format** for better performance, except where noted.
 
 ---
 
@@ -17,161 +17,206 @@ public/
 
 ## 🔷 BRANDING & SEO IMAGES
 
-| Filename | Purpose | Recommended Size | Description |
-|----------|---------|------------------|-------------|
-| `logo.webp` | Website Logo | 200x60 px | Main logo for navbar |
-| `favicon.webp` | Browser Tab Icon | 32x32 px or 64x64 px | Small icon shown in browser tab |
-| `og-image.webp` | Social Media Preview | 1200x630 px | Image shown when sharing on Facebook, Twitter, WhatsApp |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `logo.webp` | Website Logo | 200x60 px | Navbar.tsx, Footer.tsx, App.tsx, BookingSuccessPage.tsx | Main logo displayed in navbar and footer across all pages |
+| `logo.png` | Logo Fallback | 200x60 px | VerifyBookingPage.tsx, BookingSuccessPage.tsx | Fallback image if webp fails to load |
+| `favicon.webp` | Browser Tab Icon | 32x32 px or 64x64 px | index.html | Small icon shown in browser tab and bookmarks |
+| `og-image.webp` | Social Media Preview | 1200x630 px | index.html, SEO.tsx | Image shown when sharing website on Facebook, Twitter, WhatsApp |
 
 ---
 
 ## 🚗 HERO SECTION
 
-| Filename | Purpose | Recommended Size | Description |
-|----------|---------|------------------|-------------|
-| `heroposter.webp` | Main Hero Car Image | 800x600 px | Premium car image for hero section |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `heroposter.webp` | Main Hero Car Image | 800x600 px | HeroSection.tsx | Premium car image displayed in homepage hero section |
 
 ---
 
-## 🚙 VEHICLE FLEET IMAGES
+## 🚙 VEHICLE FLEET - CARD THUMBNAILS (5 images)
 
-### Card Thumbnails (for listing pages)
-
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `sedan-card.webp` | Sedan thumbnail | 400x300 px |
-| `suv-card.webp` | SUV thumbnail | 400x300 px |
-| `tempo-traveller-card.webp` | Tempo Traveller thumbnail | 400x300 px |
-| `bus-card.webp` | Bus thumbnail | 400x300 px |
-
-### Gallery Images (for detail pages)
-
-#### Sedan Images
-| Filename | Purpose |
-|----------|---------|
-| `sedan1.webp` | Sedan gallery image 1 |
-| `sedan2.webp` | Sedan gallery image 2 |
-| `sedan3.webp` | Sedan gallery image 3 |
-
-#### SUV Images
-| Filename | Purpose |
-|----------|---------|
-| `suv1.webp` | SUV gallery image 1 |
-| `suv2.webp` | SUV gallery image 2 |
-| `suv3.webp` | SUV gallery image 3 |
-| `suv4.webp` | SUV gallery image 4 |
-
-#### Tempo Traveller Images
-| Filename | Purpose |
-|----------|---------|
-| `tempo-traveller1.webp` | Tempo Traveller gallery image 1 |
-| `tempo-traveller2.webp` | Tempo Traveller gallery image 2 |
-| `tempo-traveller3.webp` | Tempo Traveller gallery image 3 |
-
-#### Bus Images
-| Filename | Purpose |
-|----------|---------|
-| `bus1.webp` | Bus gallery image 1 |
-| `bus2.webp` | Bus gallery image 2 |
-| `bus3.webp` | Bus gallery image 3 |
-| `bus4.webp` | Bus gallery image 4 |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `sedan-card.webp` | Sedan Card Thumbnail | 400x300 px | cabsData.ts, CabCategories.tsx | Display card for Sedan vehicles on fleet listing page |
+| `muv-card.webp` | MUV Card Thumbnail | 400x300 px | cabsData.ts, CabCategories.tsx | Display card for MUV (Multi-Utility Vehicle) on fleet listing page |
+| `suv-card.webp` | SUV Card Thumbnail | 400x300 px | cabsData.ts, CabCategories.tsx | Display card for SUV vehicles on fleet listing page |
+| `tempo-traveller-card.webp` | Tempo Traveller Card Thumbnail | 400x300 px | cabsData.ts, CabCategories.tsx | Display card for Tempo Traveller on fleet listing page |
+| `bus-card.webp` | Bus Card Thumbnail | 400x300 px | cabsData.ts, CabCategories.tsx | Display card for AC/Non-AC Bus on fleet listing page |
 
 ---
 
-## 🛎️ SERVICE IMAGES
+## 🚕 SEDAN VEHICLES
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `service-local.webp` | Local Taxi Service | 800x500 px |
-| `service-airport.webp` | Airport Transfer Service | 800x500 px |
-| `service-oneway.webp` | One Way Taxi Service | 800x500 px |
-| `service-roundtrip.webp` | Round Trip Taxi Service | 800x500 px |
-| `service-wedding.webp` | Wedding Taxi Service | 800x500 px |
-| `service-adventure.webp` | Adventure Tours Service | 800x500 px |
+### Generic Sedan Gallery (3 images)
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `sedan1.webp` | Sedan Gallery Image 1 | 800x600 px | cabsData.ts | Primary gallery image for sedan vehicles |
+| `sedan2.webp` | Sedan Gallery Image 2 | 800x600 px | cabsData.ts | Secondary gallery image for sedan vehicles |
+| `sedan3.webp` | Sedan Gallery Image 3 | 800x600 px | cabsData.ts | Tertiary gallery image for sedan vehicles |
+
+### Sedan Model-Specific Images
+| Filename | Model | Recommended Size | Used In | Description |
+|----------|-------|------------------|---------|-------------|
+| `swift-dzire-1.webp` - `swift-dzire-4.webp` | Maruti Swift Dzire | 800x600 px | CabDetailPage.tsx | 4 images showing Maruti Swift Dzire from different angles |
+| `toyota-etios-1.webp` - `toyota-etios-4.webp` | Toyota Etios | 800x600 px | CabDetailPage.tsx | 4 images showing Toyota Etios from different angles |
+| `honda-amaze-1.webp` - `honda-amaze-4.webp` | Honda Amaze | 800x600 px | CabDetailPage.tsx | 4 images showing Honda Amaze from different angles |
+| `hyundai-aura-1.webp` - `hyundai-aura-4.webp` | Hyundai Aura | 800x600 px | CabDetailPage.tsx | 4 images showing Hyundai Aura from different angles |
+
+---
+
+## 🚐 MUV (Multi-Utility Vehicle)
+
+### Generic MUV Gallery (4 images)
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `muv1.webp` | MUV Gallery Image 1 | 800x600 px | cabsData.ts | Primary gallery image for MUV vehicles |
+| `muv2.webp` | MUV Gallery Image 2 | 800x600 px | cabsData.ts | Secondary gallery image for MUV vehicles |
+| `muv3.webp` | MUV Gallery Image 3 | 800x600 px | cabsData.ts | Tertiary gallery image for MUV vehicles |
+| `muv4.webp` | MUV Gallery Image 4 | 800x600 px | cabsData.ts | Fourth gallery image for MUV vehicles |
+
+### MUV Model-Specific Images
+| Filename | Model | Recommended Size | Used In | Description |
+|----------|-------|------------------|---------|-------------|
+| `maruti-ertiga-1.webp` - `maruti-ertiga-4.webp` | Maruti Ertiga | 800x600 px | CabDetailPage.tsx | 4 images showing Maruti Ertiga from different angles |
+| `toyota-rumion-1.webp` - `toyota-rumion-4.webp` | Toyota Rumion | 800x600 px | CabDetailPage.tsx | 4 images showing Toyota Rumion from different angles |
+| `kia-carens-1.webp` - `kia-carens-4.webp` | Kia Carens | 800x600 px | CabDetailPage.tsx | 4 images showing Kia Carens from different angles |
+
+---
+
+## 🚙 SUV (Luxury SUV)
+
+### Generic SUV Gallery (4 images)
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `suv1.webp` | SUV Gallery Image 1 | 800x600 px | cabsData.ts, WhyChooseUs.tsx | Primary gallery image for SUV vehicles, also used in Why Choose Us section |
+| `suv2.webp` | SUV Gallery Image 2 | 800x600 px | cabsData.ts | Secondary gallery image for SUV vehicles |
+| `suv3.webp` | SUV Gallery Image 3 | 800x600 px | cabsData.ts | Tertiary gallery image for SUV vehicles |
+| `suv4.webp` | SUV Gallery Image 4 | 800x600 px | cabsData.ts | Fourth gallery image for SUV vehicles |
+
+### SUV Model-Specific Images
+| Filename | Model | Recommended Size | Used In | Description |
+|----------|-------|------------------|---------|-------------|
+| `toyota-innova-1.webp` - `toyota-innova-4.webp` | Toyota Innova | 800x600 px | CabDetailPage.tsx | 4 images showing Toyota Innova from different angles |
+| `innova-crysta-1.webp` - `innova-crysta-4.webp` | Innova Crysta | 800x600 px | CabDetailPage.tsx | 4 images showing Innova Crysta from different angles |
+| `mahindra-scorpio-1.webp` - `mahindra-scorpio-4.webp` | Mahindra Scorpio | 800x600 px | CabDetailPage.tsx | 4 images showing Mahindra Scorpio from different angles |
+| `mahindra-tuv-1.webp` - `mahindra-tuv-4.webp` | Mahindra TUV | 800x600 px | CabDetailPage.tsx | 4 images showing Mahindra TUV from different angles |
+| `toyota-fortuner-1.webp` - `toyota-fortuner-4.webp` | Toyota Fortuner | 800x600 px | CabDetailPage.tsx | 4 images showing Toyota Fortuner from different angles |
+
+---
+
+## 🚌 TEMPO TRAVELLER & BUS
+
+### Tempo Traveller Gallery (3 images)
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `tempo-traveller1.webp` | Tempo Traveller Gallery Image 1 | 800x600 px | cabsData.ts | Primary gallery image for Tempo Traveller |
+| `tempo-traveller2.webp` | Tempo Traveller Gallery Image 2 | 800x600 px | cabsData.ts | Secondary gallery image for Tempo Traveller |
+| `tempo-traveller3.webp` | Tempo Traveller Gallery Image 3 | 800x600 px | cabsData.ts | Tertiary gallery image for Tempo Traveller |
+
+### Bus Gallery (4 images)
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `bus1.webp` | Bus Gallery Image 1 | 800x600 px | cabsData.ts | Primary gallery image for AC/Non-AC Bus |
+| `bus2.webp` | Bus Gallery Image 2 | 800x600 px | cabsData.ts | Secondary gallery image for AC/Non-AC Bus |
+| `bus3.webp` | Bus Gallery Image 3 | 800x600 px | cabsData.ts | Tertiary gallery image for AC/Non-AC Bus |
+| `bus4.webp` | Bus Gallery Image 4 | 800x600 px | cabsData.ts | Fourth gallery image for AC/Non-AC Bus |
+
+---
+
+## 🛎️ SERVICE IMAGES (6 images)
+
+| Filename | Service | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `service-local.webp` | Local Taxi Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | Local area taxi service display image |
+| `service-airport.webp` | Airport Transfer Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | Airport pickup and drop service display image |
+| `service-oneway.webp` | One Way Taxi Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | One-way taxi service display image |
+| `service-roundtrip.webp` | Round Trip Taxi Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | Round trip taxi service display image |
+| `service-wedding.webp` | Wedding Taxi Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | Wedding function transportation service display image |
+| `service-adventure.webp` | Adventure Tours Service | 800x500 px | servicesData.ts, ServicesSection.tsx, ServiceDetailPage.tsx | Adventure tour and travel service display image |
 
 ---
 
 ## 🗺️ ROUTE IMAGES (19 Routes)
 
-| Filename | Route | Recommended Size |
-|----------|-------|------------------|
-| `route-delhi.webp` | Dehradun to Delhi | 800x500 px |
-| `route-mussoorie.webp` | Dehradun to Mussoorie | 800x500 px |
-| `route-rishikesh.webp` | Dehradun to Rishikesh | 800x500 px |
-| `route-haridwar.webp` | Dehradun to Haridwar | 800x500 px |
-| `route-nainital.webp` | Dehradun to Nainital | 800x500 px |
-| `route-shimla.webp` | Dehradun to Shimla | 800x500 px |
-| `route-chandigarh.webp` | Dehradun to Chandigarh | 800x500 px |
-| `route-manali.webp` | Dehradun to Manali | 800x500 px |
-| `route-jammu.webp` | Dehradun to Jammu | 800x500 px |
-| `route-agra.webp` | Dehradun to Agra | 800x500 px |
-| `route-ghaziabad.webp` | Dehradun to Ghaziabad | 800x500 px |
-| `route-faridabad.webp` | Dehradun to Faridabad | 800x500 px |
-| `route-gurugram.webp` | Dehradun to Gurugram | 800x500 px |
-| `route-mathura.webp` | Dehradun to Mathura | 800x500 px |
-| `route-uttarkashi.webp` | Dehradun to Uttarkashi | 800x500 px |
-| `route-roorkee.webp` | Dehradun to Roorkee | 800x500 px |
-| `route-saharanpur.webp` | Dehradun to Saharanpur | 800x500 px |
-| `route-noida.webp` | Dehradun to Noida | 800x500 px |
-| `route-jaipur.webp` | Dehradun to Jaipur | 800x500 px |
+| Filename | Route | Recommended Size | Used In | Description |
+|----------|-------|------------------|---------|-------------|
+| `route-delhi.webp` | Dehradun to Delhi | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Delhi taxi route |
+| `route-mussoorie.webp` | Dehradun to Mussoorie | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Mussoorie taxi route |
+| `route-rishikesh.webp` | Dehradun to Rishikesh | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Rishikesh taxi route |
+| `route-haridwar.webp` | Dehradun to Haridwar | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Haridwar taxi route |
+| `route-nainital.webp` | Dehradun to Nainital | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Nainital taxi route |
+| `route-shimla.webp` | Dehradun to Shimla | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Shimla taxi route |
+| `route-chandigarh.webp` | Dehradun to Chandigarh | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Chandigarh taxi route |
+| `route-manali.webp` | Dehradun to Manali | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Manali taxi route |
+| `route-jammu.webp` | Dehradun to Jammu | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Jammu taxi route |
+| `route-agra.webp` | Dehradun to Agra | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Agra (Taj Mahal) taxi route |
+| `route-ghaziabad.webp` | Dehradun to Ghaziabad | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Ghaziabad taxi route |
+| `route-faridabad.webp` | Dehradun to Faridabad | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Faridabad taxi route |
+| `route-gurugram.webp` | Dehradun to Gurugram | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Gurugram taxi route |
+| `route-mathura.webp` | Dehradun to Mathura | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Mathura (Krishna Janmabhoomi) taxi route |
+| `route-uttarkashi.webp` | Dehradun to Uttarkashi | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Uttarkashi (Char Dham) taxi route |
+| `route-roorkee.webp` | Dehradun to Roorkee | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Roorkee (IIT Roorkee) taxi route |
+| `route-saharanpur.webp` | Dehradun to Saharanpur | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Saharanpur taxi route |
+| `route-noida.webp` | Dehradun to Noida | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Noida (IT Hub) taxi route |
+| `route-jaipur.webp` | Dehradun to Jaipur | 800x500 px | routesData.ts, RoutesPage.tsx, RouteDetailPage.tsx | Display image for Dehradun to Jaipur (Pink City) taxi route |
 
 ---
 
-## 📦 TOUR PACKAGE IMAGES
+## 📦 TOUR PACKAGE IMAGES (7 Packages)
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `package-chardham.webp` | Char Dham Yatra package | 800x500 px |
-| `package-nainital.webp` | Nainital Tour package | 800x500 px |
-| `package-shimla.webp` | Shimla Tour package | 800x500 px |
-| `package-manali.webp` | Manali Tour package | 800x500 px |
-| `package-mussoorie.webp` | Mussoorie Tour package | 800x500 px |
-| `package-dalhousie.webp` | Jammu-Dalhousie Tour package | 800x500 px |
+| Filename | Package | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `package-chardham.webp` | Char Dham Yatra | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Complete spiritual journey to four sacred dhams of Uttarakhand |
+| `package-nainital.webp` | Nainital Tour | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Explore the beautiful lake city and nearby attractions |
+| `package-shimla.webp` | Shimla Tour | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Visit the Queen of Hills with scenic mountain views |
+| `package-manali.webp` | Manali Tour | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Adventure and serenity in the beautiful Kullu-Manali valley |
+| `package-mussoorie.webp` | Mussoorie Tour | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Queen of Hills - perfect weekend getaway from Dehradun |
+| `package-dalhousie.webp` | Jammu-Dalhousie Tour | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Explore mini Switzerland of India (Khajjiar) and Dalhousie |
+| `goa-package.webp` | Goa Beach Delight Special | 800x500 px | packagesData.ts, TourPackages.tsx, PackageDetailPage.tsx | Ultimate tropical getaway with beaches, heritage, and nightlife |
 
 ---
 
-## 🎥 TESTIMONIAL IMAGES
+## 🎥 TESTIMONIAL IMAGES (3 Videos)
 
-These are thumbnail images for video testimonials (vertical format):
-
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `testimonial-1.webp` | Customer 1 photo/thumbnail | 400x600 px (vertical) |
-| `testimonial-2.webp` | Customer 2 photo/thumbnail | 400x600 px (vertical) |
-| `testimonial-3.webp` | Customer 3 photo/thumbnail | 400x600 px (vertical) |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `testimonial-1.webp` | Customer 1 Thumbnail | 400x600 px (vertical) | Testimonials.tsx | Thumbnail/poster image for testimonial video 1 |
+| `testimonial-2.webp` | Customer 2 Thumbnail | 400x600 px (vertical) | Testimonials.tsx | Thumbnail/poster image for testimonial video 2 |
+| `testimonial-3.webp` | Customer 3 Thumbnail | 400x600 px (vertical) | Testimonials.tsx | Thumbnail/poster image for testimonial video 3 |
 
 ---
 
 ## 🏢 ABOUT PAGE IMAGE
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `about-team.webp` | Team/Company photo | 800x600 px |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `about-team.webp` | Team/Company Photo | 800x600 px | AboutPage.tsx | Team photograph or company image displayed on About page |
 
 ---
 
 ## ✅ WHY CHOOSE US SECTION
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `why-choose-us.webp` | Vehicle/Feature image | 600x500 px |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `suv1.webp` | Vehicle/Feature Image | 600x500 px | WhyChooseUs.tsx | Premium vehicle image showcasing comfort and features (uses SUV1) |
 
 ---
 
-## 💳 PAYMENT PAGE
+## 🏍️ BIKE RENTAL IMAGES (2 Images)
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `qr-code.webp` | UPI Payment QR Code | 300x300 px |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `bike-hero.webp` | Bike Hero & Section Image | 800x600 px | BikeRentSection.tsx, BikeRentalPage.tsx | Main hero image and section display for bike rental services |
+| `bike-rental-why.webp` | Bike Rental Why Choose Us | 800x600 px | BikeRentalPage.tsx | Why Choose Us section image for bike rental page |
 
 ---
 
-## 🏍️ BIKE RENTAL IMAGES
+## 💳 PAYMENT PAGE (Optional)
 
-| Filename | Purpose | Recommended Size |
-|----------|---------|------------------|
-| `bike-hero.webp` | Bike rental hero & section image | 800x600 px |
-| `bike-rental-why.webp` | Why choose us section image | 800x600 px |
+| Filename | Purpose | Recommended Size | Used In | Description |
+|----------|---------|------------------|---------|-------------|
+| `qr-code.webp` | UPI Payment QR Code | 300x300 px | PaymentPage.tsx (if needed) | QR code for UPI payment integration |
 
 ---
 
@@ -179,37 +224,120 @@ These are thumbnail images for video testimonials (vertical format):
 
 Copy this checklist and check off images as you add them:
 
-### Branding (3 images)
+### Branding (4 images)
 - [ ] `logo.webp`
+- [ ] `logo.png` (fallback)
 - [ ] `favicon.webp`
 - [ ] `og-image.webp`
 
 ### Hero (1 image)
 - [ ] `heroposter.webp`
 
-### Vehicle Cards (4 images)
+### Vehicle Fleet Cards (5 images)
 - [ ] `sedan-card.webp`
+- [ ] `muv-card.webp`
 - [ ] `suv-card.webp`
 - [ ] `tempo-traveller-card.webp`
 - [ ] `bus-card.webp`
 
-### Sedan Gallery (3 images)
+### Sedan Gallery (3 generic + 16 model-specific)
+**Generic:**
 - [ ] `sedan1.webp`
 - [ ] `sedan2.webp`
 - [ ] `sedan3.webp`
 
-### SUV Gallery (4 images)
+**Maruti Swift Dzire (4 images):**
+- [ ] `swift-dzire-1.webp`
+- [ ] `swift-dzire-2.webp`
+- [ ] `swift-dzire-3.webp`
+- [ ] `swift-dzire-4.webp`
+
+**Toyota Etios (4 images):**
+- [ ] `toyota-etios-1.webp`
+- [ ] `toyota-etios-2.webp`
+- [ ] `toyota-etios-3.webp`
+- [ ] `toyota-etios-4.webp`
+
+**Honda Amaze (4 images):**
+- [ ] `honda-amaze-1.webp`
+- [ ] `honda-amaze-2.webp`
+- [ ] `honda-amaze-3.webp`
+- [ ] `honda-amaze-4.webp`
+
+**Hyundai Aura (4 images):**
+- [ ] `hyundai-aura-1.webp`
+- [ ] `hyundai-aura-2.webp`
+- [ ] `hyundai-aura-3.webp`
+- [ ] `hyundai-aura-4.webp`
+
+### MUV Gallery (4 generic + 12 model-specific)
+**Generic:**
+- [ ] `muv1.webp`
+- [ ] `muv2.webp`
+- [ ] `muv3.webp`
+- [ ] `muv4.webp`
+
+**Maruti Ertiga (4 images):**
+- [ ] `maruti-ertiga-1.webp`
+- [ ] `maruti-ertiga-2.webp`
+- [ ] `maruti-ertiga-3.webp`
+- [ ] `maruti-ertiga-4.webp`
+
+**Toyota Rumion (4 images):**
+- [ ] `toyota-rumion-1.webp`
+- [ ] `toyota-rumion-2.webp`
+- [ ] `toyota-rumion-3.webp`
+- [ ] `toyota-rumion-4.webp`
+
+**Kia Carens (4 images):**
+- [ ] `kia-carens-1.webp`
+- [ ] `kia-carens-2.webp`
+- [ ] `kia-carens-3.webp`
+- [ ] `kia-carens-4.webp`
+
+### SUV Gallery (4 generic + 20 model-specific)
+**Generic:**
 - [ ] `suv1.webp`
 - [ ] `suv2.webp`
 - [ ] `suv3.webp`
 - [ ] `suv4.webp`
 
-### Tempo Traveller Gallery (3 images)
+**Toyota Innova (4 images):**
+- [ ] `toyota-innova-1.webp`
+- [ ] `toyota-innova-2.webp`
+- [ ] `toyota-innova-3.webp`
+- [ ] `toyota-innova-4.webp`
+
+**Innova Crysta (4 images):**
+- [ ] `innova-crysta-1.webp`
+- [ ] `innova-crysta-2.webp`
+- [ ] `innova-crysta-3.webp`
+- [ ] `innova-crysta-4.webp`
+
+**Mahindra Scorpio (4 images):**
+- [ ] `mahindra-scorpio-1.webp`
+- [ ] `mahindra-scorpio-2.webp`
+- [ ] `mahindra-scorpio-3.webp`
+- [ ] `mahindra-scorpio-4.webp`
+
+**Mahindra TUV (4 images):**
+- [ ] `mahindra-tuv-1.webp`
+- [ ] `mahindra-tuv-2.webp`
+- [ ] `mahindra-tuv-3.webp`
+- [ ] `mahindra-tuv-4.webp`
+
+**Toyota Fortuner (4 images):**
+- [ ] `toyota-fortuner-1.webp`
+- [ ] `toyota-fortuner-2.webp`
+- [ ] `toyota-fortuner-3.webp`
+- [ ] `toyota-fortuner-4.webp`
+
+### Tempo Traveller (3 images)
 - [ ] `tempo-traveller1.webp`
 - [ ] `tempo-traveller2.webp`
 - [ ] `tempo-traveller3.webp`
 
-### Bus Gallery (4 images)
+### Bus (4 images)
 - [ ] `bus1.webp`
 - [ ] `bus2.webp`
 - [ ] `bus3.webp`
@@ -244,13 +372,14 @@ Copy this checklist and check off images as you add them:
 - [ ] `route-noida.webp`
 - [ ] `route-jaipur.webp`
 
-### Tour Packages (6 images)
+### Tour Packages (7 images)
 - [ ] `package-chardham.webp`
 - [ ] `package-nainital.webp`
 - [ ] `package-shimla.webp`
 - [ ] `package-manali.webp`
 - [ ] `package-mussoorie.webp`
 - [ ] `package-dalhousie.webp`
+- [ ] `goa-package.webp`
 
 ### Testimonials (3 images)
 - [ ] `testimonial-1.webp`
@@ -260,64 +389,124 @@ Copy this checklist and check off images as you add them:
 ### About Page (1 image)
 - [ ] `about-team.webp`
 
-### Why Choose Us (1 image)
-- [ ] `why-choose-us.webp`
-
-### Payment Page (1 image)
-- [ ] `qr-code.webp`
-
 ### Bike Rental (2 images)
 - [ ] `bike-hero.webp`
 - [ ] `bike-rental-why.webp`
 
+### Payment (1 image - Optional)
+- [ ] `qr-code.webp`
+
 ---
 
-## 📊 TOTAL IMAGES REQUIRED: **61 images**
+## 📊 TOTAL IMAGES REQUIRED: **134 images**
+
+**Breakdown:**
+- Branding: 4 images
+- Hero Section: 1 image
+- Vehicle Fleet Cards: 5 images
+- Sedan (Generic + Models): 19 images
+- MUV (Generic + Models): 16 images
+- SUV (Generic + Models): 24 images
+- Tempo Traveller: 3 images
+- Bus: 4 images
+- Services: 6 images
+- Routes: 19 images
+- Tour Packages: 7 images
+- Testimonials: 3 images
+- About Page: 1 image
+- Bike Rental: 2 images
+- Payment (Optional): 1 image
 
 ---
 
 ## 💡 IMAGE TIPS
 
-1. **Format**: Use WebP for all images (best compression + quality)
-2. **Optimization**: Compress images before uploading (use TinyPNG or Squoosh)
-3. **Naming**: Keep filenames exactly as listed above
-4. **Quality**: Use high-quality images that represent your brand well
-5. **Consistency**: Maintain similar style/lighting across vehicle images
+1. **Format**: Use WebP format for all images (best compression + quality ratio)
+2. **Logo PNG Fallback**: Keep `logo.png` as fallback for browsers that don't support WebP
+3. **Optimization**: Compress images before uploading using TinyPNG.com or Squoosh
+4. **Naming**: Keep filenames exactly as listed (case-sensitive and match code references)
+5. **Quality**: Use high-quality images (minimum 600px width for content images)
+6. **Consistency**: Maintain similar style, lighting, and color grading across vehicle images
+7. **Vehicle Photos**: 
+   - For each car model, get 4 different angles (front, rear, side, interior)
+   - Use professional photography or high-quality stock images
+   - Ensure consistent background (white or neutral) for product-like presentation
 
 ---
 
-## 🔗 WHERE IMAGES ARE USED
+## 🔗 WHERE IMAGES ARE USED (Complete Reference)
 
-| Image | Used In |
-|-------|---------|
-| `logo.webp` | Navbar (all pages) |
-| `favicon.webp` | Browser tab icon |
-| `og-image.webp` | Social media shares |
-| `heroposter.webp` | Homepage hero section |
-| `*-card.webp` | Fleet listing page, category cards |
-| `sedan/suv/tempo/bus*.webp` | Vehicle detail pages |
-| `service-*.webp` | Services section, service detail pages |
-| `route-*.webp` | Routes section, route detail pages |
-| `package-*.webp` | Tour packages section, package detail pages |
-| `testimonial-*.webp` | Testimonials section |
-| `about-team.webp` | About page |
-| `why-choose-us.webp` | Why Choose Us section |
-| `qr-code.webp` | Payment page |
-| `bike-hero.webp` | Bike rental page hero & section |
-| `bike-rental-why.webp` | Bike rental why choose us |
+### Navigation & Layout (Used on All Pages)
+| Image | File Location(s) |
+|-------|------------------|
+| `logo.webp` | Navbar.tsx, Footer.tsx, App.tsx |
+| `logo.png` (fallback) | BookingSuccessPage.tsx, VerifyBookingPage.tsx |
+| `favicon.webp` | index.html (browser tab) |
+| `og-image.webp` | index.html (SEO), SEO.tsx (default for social sharing) |
+
+### Home Page
+| Image | Component | Used For |
+|-------|-----------|----------|
+| `heroposter.webp` | HeroSection.tsx | Main hero image |
+| `sedan-card.webp`, `muv-card.webp`, `suv-card.webp`, `tempo-traveller-card.webp`, `bus-card.webp` | CabCategories.tsx | Vehicle category cards |
+| `service-*.webp` (6 images) | ServicesSection.tsx | Service offerings section |
+| All `route-*.webp` (19 images) | PopularRoutes.tsx | Featured routes |
+| All `package-*.webp` & `goa-package.webp` (7 images) | TourPackages.tsx | Tour packages section |
+| `suv1.webp` | WhyChooseUs.tsx | Why Choose Us section |
+| `testimonial-1/2/3.webp` | Testimonials.tsx | Video testimonials section |
+| `bike-hero.webp` | BikeRentSection.tsx | Bike rental CTA section |
+
+### Cab/Vehicle Pages
+| Image | Page | Used For |
+|-------|------|----------|
+| All sedan images | CabDetailPage.tsx (sedan slug) | Sedan vehicle showcase |
+| All muv images | CabDetailPage.tsx (muv slug) | MUV vehicle showcase |
+| All suv images | CabDetailPage.tsx (suv slug) | SUV vehicle showcase |
+| `tempo-traveller*.webp` | CabDetailPage.tsx (tempo-traveller slug) | Tempo Traveller showcase |
+| `bus*.webp` | CabDetailPage.tsx (bus slug) | Bus showcase |
+| **Model-Specific Images:** | CabDetailPage.tsx | Individual car model galleries with 4 angles each |
+| - `swift-dzire-*.webp` | | Maruti Swift Dzire |
+| - `toyota-etios-*.webp` | | Toyota Etios |
+| - `honda-amaze-*.webp` | | Honda Amaze |
+| - `hyundai-aura-*.webp` | | Hyundai Aura |
+| - `maruti-ertiga-*.webp` | | Maruti Ertiga |
+| - `toyota-rumion-*.webp` | | Toyota Rumion |
+| - `kia-carens-*.webp` | | Kia Carens |
+| - `toyota-innova-*.webp` | | Toyota Innova |
+| - `innova-crysta-*.webp` | | Innova Crysta |
+| - `mahindra-scorpio-*.webp` | | Mahindra Scorpio |
+| - `mahindra-tuv-*.webp` | | Mahindra TUV |
+| - `toyota-fortuner-*.webp` | | Toyota Fortuner |
+
+### Route Pages
+| Image | Page | Used For |
+|-------|------|----------|
+| All `route-*.webp` (19 images) | RoutesPage.tsx, RouteDetailPage.tsx | Route showcase and detail pages |
+
+### Package Pages
+| Image | Page | Used For |
+|-------|------|----------|
+| All `package-*.webp` (7 images) | PackagesPage.tsx, PackageDetailPage.tsx | Package showcase and detail pages |
+| `goa-package.webp` | PackagesPage.tsx, PackageDetailPage.tsx | Goa Beach Delight package |
+
+### Service Pages
+| Image | Page | Used For |
+|-------|------|----------|
+| All `service-*.webp` (6 images) | ServicesPage.tsx, ServiceDetailPage.tsx | Service showcase and detail pages |
+
+### Special Pages
+| Image | Page | Used For |
+|-------|------|----------|
+| `about-team.webp` | AboutPage.tsx | About page team/company image |
+| `bike-hero.webp` | BikeRentalPage.tsx | Bike rental page hero section |
+| `bike-rental-why.webp` | BikeRentalPage.tsx | Bike rental Why Choose Us section |
+| `qr-code.webp` | PaymentPage.tsx (optional) | UPI payment QR code |
 
 ---
 
-## 📝 NOTES
+## 🗺️ ROUTE DETAILS (Complete Reference)
 
-- All images are referenced from `/images/filename.webp` path
-- Make sure images are placed inside `public/images/` folder
-- Image files are case-sensitive, use exact filenames as listed
-- After adding images, refresh the browser to see changes
-
----
-
-## 🗺️ ROUTE DETAILS (For Reference)
+All 19 routes stored in `src/data/routesData.ts`:
 
 | # | Route | Distance | Travel Time | Image Filename |
 |---|-------|----------|-------------|----------------|
@@ -340,3 +529,69 @@ Copy this checklist and check off images as you add them:
 | 17 | Dehradun → Saharanpur | 90 km | 2-2.5 hours | `route-saharanpur.webp` |
 | 18 | Dehradun → Noida | 240 km | 5-6 hours | `route-noida.webp` |
 | 19 | Dehradun → Jaipur | 480 km | 8-9 hours | `route-jaipur.webp` |
+
+---
+
+## 🚗 VEHICLE MODELS REFERENCE
+
+All vehicle models with image gallery stored in `src/pages/CabDetailPage.tsx`:
+
+### Sedan Models (4 models × 4 images each = 16 images)
+1. **Maruti Swift Dzire** - `swift-dzire-1.webp` to `swift-dzire-4.webp`
+2. **Toyota Etios** - `toyota-etios-1.webp` to `toyota-etios-4.webp`
+3. **Honda Amaze** - `honda-amaze-1.webp` to `honda-amaze-4.webp`
+4. **Hyundai Aura** - `hyundai-aura-1.webp` to `hyundai-aura-4.webp`
+
+### MUV Models (3 models × 4 images each = 12 images)
+1. **Maruti Ertiga** - `maruti-ertiga-1.webp` to `maruti-ertiga-4.webp`
+2. **Toyota Rumion** - `toyota-rumion-1.webp` to `toyota-rumion-4.webp`
+3. **Kia Carens** - `kia-carens-1.webp` to `kia-carens-4.webp`
+
+### SUV Models (5 models × 4 images each = 20 images)
+1. **Toyota Innova** - `toyota-innova-1.webp` to `toyota-innova-4.webp`
+2. **Innova Crysta** - `innova-crysta-1.webp` to `innova-crysta-4.webp`
+3. **Mahindra Scorpio** - `mahindra-scorpio-1.webp` to `mahindra-scorpio-4.webp`
+4. **Mahindra TUV** - `mahindra-tuv-1.webp` to `mahindra-tuv-4.webp`
+5. **Toyota Fortuner** - `toyota-fortuner-1.webp` to `toyota-fortuner-4.webp`
+
+---
+
+## 📦 TOUR PACKAGES (7 packages)
+
+All tour packages stored in `src/data/packagesData.ts`:
+
+| Package | Duration | Destinations | Image |
+|---------|----------|--------------|-------|
+| Char Dham Yatra | 10-12 Days | Yamunotri, Gangotri, Kedarnath, Badrinath | `package-chardham.webp` |
+| Nainital Tour | 3-4 Days | Nainital, Bhimtal, Sattal, Mukteshwar | `package-nainital.webp` |
+| Shimla Tour | 3-4 Days | Shimla, Kufri, Chail, Naldehra | `package-shimla.webp` |
+| Manali Tour | 5-6 Days | Manali, Solang Valley, Rohtang Pass, Kullu | `package-manali.webp` |
+| Mussoorie Tour | 1-2 Days | Mussoorie, Kempty Falls, Dhanaulti | `package-mussoorie.webp` |
+| Jammu-Dalhousie Tour | 5-6 Days | Jammu, Dalhousie, Khajjiar, Dharamshala | `package-dalhousie.webp` |
+| Goa Beach Delight Special | 4 Nights / 5 Days | Panjim, North Goa, South Goa, Dabolim | `goa-package.webp` |
+
+---
+
+## 🛎️ SERVICES (6 Services)
+
+All services stored in `src/data/servicesData.ts`:
+
+| Service | Image |
+|---------|-------|
+| Local Taxi Service | `service-local.webp` |
+| Airport Transfer Service | `service-airport.webp` |
+| One Way Taxi Service | `service-oneway.webp` |
+| Round Trip Taxi Service | `service-roundtrip.webp` |
+| Wedding Taxi Service | `service-wedding.webp` |
+| Adventure Tours Service | `service-adventure.webp` |
+
+---
+
+## 📝 NOTES
+
+- All images are referenced from `/images/filename.webp` path in the code
+- Make sure images are placed inside `public/images/` folder
+- Image filenames are case-sensitive - use exact filenames as listed
+- After adding images, refresh the browser (Ctrl+Shift+R on Windows) to clear cache and see changes
+- PNG fallback for logo is used when WebP is not supported
+- For WebP conversion, use online tools: https://squoosh.app or https://tinypng.com
