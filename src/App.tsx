@@ -26,6 +26,9 @@ const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const BikeRentalPage = lazy(() => import('./pages/BikeRentalPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
+// 🚨 IMPORTED THE SECRET TEST PAGE
+const TestPaymentPage = lazy(() => import('./pages/TestPaymentPage')); 
+
 // Loading component
 const PageLoader = () => (
   <div className="min-h-screen flex items-center justify-center bg-[#F8FAFC]">
@@ -80,6 +83,9 @@ function App() {
                 <Route path="/verify-booking" element={<VerifyBookingPage />} /> 
                 <Route path="/booking-success" element={<BookingSuccessPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
+                
+                {/* 🚨 THE SECRET ROUTE FOR SYSTEM TESTING */}
+                <Route path="/test-system-secret-123" element={<TestPaymentPage />} />
                 
                 {/* Legal Pages */}
                 <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
