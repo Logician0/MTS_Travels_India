@@ -88,7 +88,7 @@ const VerifyBookingPage = () => {
     };
 
     // 🚨 SMART BACKEND URL: Uses your environment variable, falls back to live server
-    const API_URL = import.meta.env.VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
+    const API_URL = ((import.meta as any).env as any).VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
 
     try {
       const orderResponse = await fetch(`${API_URL}/api/create-order`, {
@@ -107,7 +107,7 @@ const VerifyBookingPage = () => {
 
       const options = {
         // 🚨 CRITICAL FIX: Pulled the key from environment variables instead of hardcoding the test key!
-        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
+        key: ((import.meta as any).env as any).VITE_RAZORPAY_KEY_ID, 
         amount: orderData.order.amount, 
         currency: "INR",
         name: "MTS Travels India",
