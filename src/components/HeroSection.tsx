@@ -8,9 +8,9 @@ import {
 import { routesData } from '../data/routesData'; 
 
 const heroImages = [
-  { url: 'https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?w=1920&q=80', location: 'Scenic Routes', country: 'Uttarakhand' },
+  { url: 'https://images.unsplash.com/photo-1715082040655-881a31faa34a?w=1920&q=80', location: 'Scenic Routes', country: 'Uttarakhand' },
   { url: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=80', location: 'Highway Drives', country: 'Delhi to Dehradun' },
-  { url: 'https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1920&q=80', location: 'Mountain Passes', country: 'Mussoorie' }
+  { url: 'https://images.unsplash.com/photo-1551952237-954a0e68786c?w=1920&q=80', location: 'Mountain Passes', country: 'Mussoorie' }
 ];
 
 const HeroSection = () => {
@@ -169,8 +169,8 @@ const HeroSection = () => {
           transition={{ duration: 0.8, delay: 0.2 }} 
           className="order-1 sm:order-3 w-full max-w-sm sm:max-w-xl md:max-w-3xl lg:max-w-3xl px-2 sm:px-4 mb-4 sm:mb-8 lg:mb-8 mt-0 relative z-50"
         >
-          {/* 🚨 Added border-white/20 for the glass border effect */}
-          <div className="bg-transparent rounded-full p-1.5 sm:p-2 w-full border border-white/20">
+          {/* 🚨 Changed border to border-2 for a thicker glass outline */}
+          <div className="bg-transparent rounded-full p-1.5 sm:p-2 w-full border-2 border-white/20 shadow-[0_8px_32px_rgba(0,0,0,0.3)]">
             <div className="flex flex-row items-center gap-0.5 sm:gap-2 w-full">
               
               <div className="relative flex-1 min-w-0">
