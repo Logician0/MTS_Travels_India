@@ -1,8 +1,11 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
+import { Suspense, lazy } from 'react';
 import { Check, ArrowRight, Phone } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { getServiceBySlug, servicesData } from '../data/servicesData';
+
+const WeddingCarRental = lazy(() => import('../components/WeddingCarRental'));
 
 const ServiceDetailPage = () => {
   const { serviceSlug } = useParams();
@@ -85,6 +88,13 @@ const ServiceDetailPage = () => {
           </div>
         </div>
       </section>
+
+      {/* 🚨 Show specific booking UI only for wedding cars */}
+      {service.slug === 'wedding-taxi-service' && (
+        <Suspense fallback={<div className="py-20" />}>
+          <WeddingCarRental />
+        </Suspense>
+      )}
 
       {/* Benefits - 2 columns on mobile */}
       <section className="py-12 sm:py-16 lg:py-20 bg-white">

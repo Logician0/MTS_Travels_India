@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Car, Plane, ArrowRight, RotateCcw, Heart, Mountain } from 'lucide-react';
+import { Car, Plane, ArrowRight, RotateCcw, Heart, Mountain, Sparkles } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { servicesData } from '../data/servicesData';
@@ -43,35 +43,42 @@ const ServicesPage = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {servicesData.map((service) => {
               const IconComponent = iconMap[service.icon] || Car;
+              
+              // 🚨 Check if this is the wedding cars service
+              const isWedding = service.slug === 'wedding-taxi-service';
+              const displayTitle = isWedding ? 'Luxury Cars for Wedding' : service.title;
+              const displayDesc = isWedding ? 'Make your special day unforgettable with our premium luxury wedding cars.' : service.shortDescription;
+
               return (
                 <Link
                   key={service.slug}
                   to={`/services/${service.slug}`}
-                  className="group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 card-hover border border-gray-100"
+                  className={`group bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 card-hover border ${isWedding ? 'border-[#ffc800]/50 ring-2 ring-[#ffc800]/10' : 'border-gray-100'}`}
                 >
                   <div className="relative h-48 overflow-hidden">
                     <img
                       src={service.image}
-                      alt={service.title}
+                      alt={displayTitle}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                       loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
                     <div className="absolute bottom-4 left-4">
-                      <div className="w-12 h-12 bg-[#ffc800] rounded-xl flex items-center justify-center">
-                        <IconComponent className="w-6 h-6 text-[#111827]" />
+                      {/* 🚨 Swap icon and add gradient for the premium service */}
+                      <div className={`w-12 h-12 rounded-xl flex items-center justify-center ${isWedding ? 'bg-gradient-to-br from-[#ffc800] to-yellow-300 shadow-lg' : 'bg-[#ffc800]'}`}>
+                        {isWedding ? <Sparkles className="w-6 h-6 text-[#111827]" /> : <IconComponent className="w-6 h-6 text-[#111827]" />}
                       </div>
                     </div>
                   </div>
                   <div className="p-6">
-                    <h3 className="text-xl font-bold text-[#111827] mb-2 group-hover:text-[#ffc800] transition-colors">
-                      {service.title}
+                    <h3 className="text-xl font-bold text-[#111827] mb-2 group-hover:text-[#ffc800] transition-colors line-clamp-1">
+                      {displayTitle}
                     </h3>
                     <p className="text-[#6B7280] mb-4 line-clamp-2">
-                      {service.shortDescription}
+                      {displayDesc}
                     </p>
-                    <div className="flex items-center gap-2 text-[#111827] font-medium group-hover:text-[#ffc800]">
-                      <span>Learn More</span>
+                    <div className={`flex items-center gap-2 font-medium group-hover:text-[#ffc800] ${isWedding ? 'text-[#d97706]' : 'text-[#111827]'}`}>
+                      <span>{isWedding ? 'View Luxury Fleet' : 'Learn More'}</span>
                       <ArrowRight className="w-4 h-4 group-hover:translate-x-2 transition-transform" />
                     </div>
                   </div>
