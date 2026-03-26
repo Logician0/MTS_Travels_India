@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /admin
+Disallow: /payment
+Disallow: /verify-booking
+Disallow: /booking-success
+
+Sitemap: https://www.mtstravelsindia.com/sitemap.xml
