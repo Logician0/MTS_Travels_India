@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation, Navigate } from 'r
 import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import WhatsAppWidget from './components/WhatsAppWidget'; // 👈 IMPORTED THE WIDGET
 
 // Lazy load pages for code splitting
 const HomePage = lazy(() => import('./pages/HomePage'));
@@ -10,7 +11,7 @@ const AboutPage = lazy(() => import('./pages/AboutPage'));
 const ContactPage = lazy(() => import('./pages/ContactPage'));
 const PaymentPage = lazy(() => import('./pages/PaymentPage'));
 const VerifyBookingPage = lazy(() => import('./pages/VerifyBookingPage')); 
-const BookingSuccessPage = lazy(() => import('./pages/BookingSuccessPage')); // 👈 ADDED SUCCESS PAGE IMPORT
+const BookingSuccessPage = lazy(() => import('./pages/BookingSuccessPage'));
 const AdminDashboard = lazy(() => import('./pages/AdminDashboard'));
 const ServicesPage = lazy(() => import('./pages/ServicesPage'));
 const ServiceDetailPage = lazy(() => import('./pages/ServiceDetailPage'));
@@ -77,7 +78,7 @@ function App() {
                 <Route path="/contact" element={<ContactPage />} />
                 <Route path="/payment" element={<PaymentPage />} />
                 <Route path="/verify-booking" element={<VerifyBookingPage />} /> 
-                <Route path="/booking-success" element={<BookingSuccessPage />} /> {/* 👈 ADDED SUCCESS PAGE ROUTE */}
+                <Route path="/booking-success" element={<BookingSuccessPage />} />
                 <Route path="/admin" element={<AdminDashboard />} />
                 
                 {/* Legal Pages */}
@@ -134,6 +135,7 @@ function App() {
             </Suspense>
           </main>
           <Footer />
+          <WhatsAppWidget /> {/* 👈 ADDED THE WIDGET HERE */}
         </div>
       </Router>
     </HelmetProvider>
