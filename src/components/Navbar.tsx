@@ -55,13 +55,13 @@ const Navbar = () => {
           </div>
           {/* CTA Buttons */}
           <div className="hidden lg:flex items-center gap-3">
-            <Link
+            {/* <Link
               to="/payment"
               className="flex items-center gap-2 border-2 border-[#ffc800] text-[#111827] px-4 py-2 rounded-xl text-sm font-semibold hover:bg-[#ffc800]/10 transition-colors"
             >
               <CreditCard className="w-4 h-4" />
               Pay Now
-            </Link>
+            </Link> */}
             <Link
               to="/contact"
               className="bg-[#ffc800] text-[#111827] px-5 xl:px-6 py-2.5 rounded-xl text-sm font-semibold btn-hover hover:bg-[#e6b400] hover:shadow-lg hover:shadow-[#ffc800]/25"
@@ -71,13 +71,13 @@ const Navbar = () => {
           </div>
           {/* Mobile Menu Button */}
           <div className="flex items-center gap-1.5 sm:gap-2 lg:hidden">
-            <Link
+            {/*<Link
               to="/payment"
               className="flex items-center gap-1 border-2 border-[#ffc800] text-[#111827] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold"
             >
               <CreditCard className="w-3 h-3 sm:w-4 sm:h-4" />
               Pay
-            </Link>
+            </Link> */}
             <Link
               to="/contact"
               className="bg-[#ffc800] text-[#111827] px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold"
@@ -112,14 +112,14 @@ const Navbar = () => {
               ))}
               <div className="px-4 pt-4 border-t border-gray-100 mt-2">
                 <div className="grid grid-cols-2 gap-2">
-                  <Link
+                  {/*<Link
                     to="/payment"
                     onClick={() => setIsOpen(false)}
                     className="flex items-center justify-center gap-2 border-2 border-[#ffc800] text-[#111827] px-4 py-3 rounded-xl text-sm font-semibold"
                   >
                     <CreditCard className="w-4 h-4" />
                     Pay Now
-                  </Link>
+                  </Link>  */}
                   <Link
                     to="/contact"
                     onClick={() => setIsOpen(false)}

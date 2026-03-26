@@ -135,6 +135,7 @@ const RouteDetailPage = () => {
   };
 
   const getWhatsAppLink = () => {
+    if (!isReadyToBook) return '#'; // Provide a fallback if not ready
     const text = `Hi MTS Travels! I want to book a ${tripType?.replace('_', ' ')} trip.\n\nRoute: ${direction}\nVehicle: ${specificVehicle || vehicleType?.toUpperCase()}.\n\nPlease share the pricing and availability!`;
     return `https://wa.me/917217667160?text=${encodeURIComponent(text)}`;
   };
@@ -288,11 +289,19 @@ const RouteDetailPage = () => {
                 {/* Final Buttons */}
                 <div className="mt-4" ref={vehicleType && !['sedan', 'muv'].includes(vehicleType) ? checkoutRef : null}>
                   {forceWhatsappBooking ? (
-                    <a href={getWhatsAppLink()} target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-4 rounded-xl font-bold text-lg shadow-md active:scale-95 animate-fade-in hover:bg-[#1ebd5a] transition-colors">
-                      <Phone className="w-5 h-5 fill-current" /> Get Quote on WhatsApp
-                    </a>
+                    // 🚨 WHATSAPP BUTTON LOGIC UPDATED HERE
+                    isReadyToBook ? (
+                      <a href={getWhatsAppLink()} target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-4 rounded-xl font-bold text-lg shadow-md active:scale-95 animate-fade-in hover:bg-[#1ebd5a] transition-colors">
+                        <Phone className="w-5 h-5 fill-current" /> Get Quote on WhatsApp
+                      </a>
+                    ) : (
+                      <button disabled className="w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed">
+                        Complete Selection to Get Quote
+                      </button>
+                    )
                   ) : (
-                    <button onClick={handleBookNow} disabled={!isReadyToBook} className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 active:scale-95 ${isReadyToBook ? 'bg-[#111827] text-white shadow-lg hover:bg-gray-800 transform hover:-translate-y-0.5' : 'bg-gray-100 text-gray-400 border border-gray-200'}`}>
+                    // Regular Booking Button
+                    <button onClick={handleBookNow} disabled={!isReadyToBook} className={`w-full py-4 rounded-xl font-bold text-lg transition-all flex items-center justify-center gap-2 active:scale-95 ${isReadyToBook ? 'bg-[#111827] text-white shadow-lg hover:bg-gray-800 transform hover:-translate-y-0.5' : 'bg-gray-100 text-gray-400 border border-gray-200 cursor-not-allowed'}`}>
                       {isReadyToBook ? 'Review & Book Now' : 'Complete Selection to Book'} {isReadyToBook && <ArrowRight className="w-5 h-5" />}
                     </button>
                   )}

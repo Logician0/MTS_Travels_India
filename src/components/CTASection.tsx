@@ -34,13 +34,7 @@ const CTASection = () => {
             Book Taxi Now
             <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
           </Link>
-          <Link
-            to="/payment"
-            className="bg-white text-[#111827] px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold btn-hover hover:bg-gray-100 hover:shadow-xl flex items-center justify-center gap-2"
-          >
-            <CreditCard className="w-4 h-4 sm:w-5 sm:h-5" />
-            Pay Now
-          </Link>
+          
           <a
             href="tel:+917217667160"
             className="border-2 border-white text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold btn-hover hover:bg-white hover:text-[#111827] flex items-center justify-center gap-2"

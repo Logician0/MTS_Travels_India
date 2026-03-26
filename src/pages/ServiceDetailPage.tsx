@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { Check, ArrowRight, Phone, CreditCard } from 'lucide-react';
+import { Check, ArrowRight, Phone } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { getServiceBySlug, servicesData } from '../data/servicesData';
@@ -72,13 +72,6 @@ const ServiceDetailPage = () => {
                 >
                   Book Now
                   <ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />
-                </Link>
-                <Link
-                  to="/payment"
-                  className="bg-[#111827] text-white px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-semibold btn-hover hover:bg-black flex items-center justify-center gap-2 text-sm sm:text-base"
-                >
-                  <CreditCard className="w-4 h-4 sm:w-5 sm:h-5" />
-                  Pay Now
                 </Link>
                 <a
                   href="tel:+917217667160"
