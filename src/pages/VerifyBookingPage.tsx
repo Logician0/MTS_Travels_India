@@ -23,7 +23,7 @@ const VerifyBookingPage = () => {
   const [isProcessing, setIsProcessing] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   
-  // 👈 New state for Bike Rental age/license verification
+  // New state for Bike Rental age/license verification
   const [acceptedAgeLicense, setAcceptedAgeLicense] = useState(false);
 
   useEffect(() => {
@@ -40,19 +40,19 @@ const VerifyBookingPage = () => {
     );
   }
 
-  // 👈 Smart check: Is this a bike rental?
+  // Smart check: Is this a bike rental?
   const isBikeRental = bookingData.tripType === 'bike_rental' || bookingData.vehicleType === 'bike';
-
   const maxPassengers = bookingData.vehicleType === 'sedan' ? 4 : 6;
+
   const [formData, setFormData] = useState({ 
-    name: '', 
-    email: '', 
-    phone: '', 
-    date: '',
+    name: bookingData.name || '', // Auto-fill if passed from Test Page
+    email: bookingData.email || '', 
+    phone: bookingData.phone || '', 
+    date: bookingData.date || '', // Note: Standard HTML date inputs expect YYYY-MM-DD
     timeHour: '10',     
     timeMinute: '00',   
     timePeriod: 'AM',   
-    passengers: 1 
+    passengers: bookingData.passengers || 1 
   });
 
   const handlePayment = async (e: React.FormEvent) => {
@@ -64,7 +64,7 @@ const VerifyBookingPage = () => {
       return;
     }
     
-    // 👈 Prevent submission if it's a bike rental and they didn't check the license box
+    // Prevent submission if it's a bike rental and they didn't check the license box
     if (isBikeRental && !acceptedAgeLicense) {
       alert("You must confirm you are 18+ and have a valid driving license.");
       return;
@@ -87,8 +87,11 @@ const VerifyBookingPage = () => {
       time: finalFormattedTime
     };
 
+    // 🚨 SMART BACKEND URL: Uses your environment variable, falls back to live server
+    const API_URL = import.meta.env.VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
+
     try {
-      const orderResponse = await fetch('https://mts-travels-india-backend.onrender.com/api/create-order', {
+      const orderResponse = await fetch(`${API_URL}/api/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ amount: bookingData.price })
@@ -97,13 +100,14 @@ const VerifyBookingPage = () => {
       const orderData = await orderResponse.json();
 
       if (!orderData.success) {
-        alert("Failed to create order on server.");
+        alert("Failed to create order on server. Is your backend running?");
         setIsProcessing(false);
         return;
       }
 
       const options = {
-        key: "rzp_test_STscSgnGmHCBqa", 
+        // 🚨 CRITICAL FIX: Pulled the key from environment variables instead of hardcoding the test key!
+        key: import.meta.env.VITE_RAZORPAY_KEY_ID, 
         amount: orderData.order.amount, 
         currency: "INR",
         name: "MTS Travels India",
@@ -114,7 +118,7 @@ const VerifyBookingPage = () => {
         handler: async function (response: any) {
           console.log("Payment completed on frontend, verifying with server...");
           
-          const verifyResponse = await fetch('https://mts-travels-india-backend.onrender.com/api/verify-payment', {
+          const verifyResponse = await fetch(`${API_URL}/api/verify-payment`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -161,12 +165,12 @@ const VerifyBookingPage = () => {
 
     } catch (error) {
       console.error("Payment Error:", error);
-      alert("Could not connect to the payment server. Is your Node.js server running?");
+      alert("Could not connect to the payment server. Please try again later.");
       setIsProcessing(false);
     }
   };
 
-  // 👈 Determine if the button should be disabled based on what they are booking
+  // Determine if the button should be disabled based on what they are booking
   const isFormValid = isBikeRental ? (acceptedTerms && acceptedAgeLicense) : acceptedTerms;
 
   return (
@@ -208,7 +212,6 @@ const VerifyBookingPage = () => {
 
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-5 pt-4">
                     <div>
-                      {/* 👈 Dynamic Label */}
                       <label className="block text-sm font-bold text-gray-700 mb-2">
                         {isBikeRental ? 'Bike Pickup Date' : 'Pickup Date'}
                       </label>
@@ -223,7 +226,6 @@ const VerifyBookingPage = () => {
                     </div>
 
                     <div>
-                      {/* 👈 Dynamic Label */}
                       <label className="block text-sm font-bold text-gray-700 mb-2">
                         {isBikeRental ? 'Bike Pickup Time' : 'Pickup Time'}
                       </label>
@@ -280,7 +282,6 @@ const VerifyBookingPage = () => {
                     </p>
                   </div>
 
-                  {/* 👈 Hides passengers if it's a bike rental */}
                   {!isBikeRental && (
                     <div className="pt-4">
                       <label className="block text-sm font-bold text-gray-700 mb-3">Number of Passengers</label>
@@ -331,7 +332,6 @@ const VerifyBookingPage = () => {
                     </div>
                   </div>
 
-                  {/* 👈 New Checkbox just for Bike Rentals */}
                   {isBikeRental && (
                     <div className="flex items-start gap-3 mt-2">
                       <div className="flex items-center h-5">
@@ -353,7 +353,6 @@ const VerifyBookingPage = () => {
                   )}
 
                   <div className="pt-4 border-t mt-4">
-                    {/* 👈 Dynamic Disabled State based on isFormValid */}
                     <button 
                       type="submit" 
                       disabled={isProcessing || !isFormValid}
@@ -390,7 +389,7 @@ const VerifyBookingPage = () => {
                     <div className="grid grid-cols-2 gap-4">
                       <div>
                         <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold mb-1">Trip Type</span> 
-                        <span className="font-bold capitalize">{bookingData.tripType.replace('_', ' ')}</span>
+                        <span className="font-bold capitalize">{bookingData.tripType ? bookingData.tripType.replace('_', ' ') : 'N/A'}</span>
                       </div>
                       <div>
                         <span className="text-gray-400 block text-xs uppercase tracking-wider font-semibold mb-1">Vehicle</span> 
