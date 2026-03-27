@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate, useNavigate, useLocation } from 'react-router-dom';
-import { MapPin, Check, ArrowRight, Phone, Car, ArrowRightLeft, ShieldCheck, Map } from 'lucide-react';
+import { MapPin, Check, ArrowRight, Phone, Car, ArrowRightLeft, ShieldCheck, Map, Clock, Calendar } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
 import { getRouteBySlug, routesData } from '../data/routesData';
@@ -66,12 +66,14 @@ const RouteDetailPage = () => {
 
   // --- BOOKING ENGINE STATE ---
   const [tripType, setTripType] = useState<'one_way' | 'round_trip' | null>(null);
+  const [stayDuration, setStayDuration] = useState<'instant' | 'extended' | null>(null); // 👈 NEW STATE FOR DURATION
   const [direction, setDirection] = useState<string | null>(null);
   const [vehicleType, setVehicleType] = useState<'sedan' | 'muv' | 'suv' | 'tempo' | 'bus' | null>(null);
   const [specificVehicle, setSpecificVehicle] = useState<string | null>(null);
   const [calculatedPrice, setCalculatedPrice] = useState<number>(0);
 
   // --- AUTO-SCROLL REFS ---
+  const durationRef = useRef<HTMLDivElement>(null); // 👈 NEW REF
   const directionRef = useRef<HTMLDivElement>(null);
   const categoryRef = useRef<HTMLDivElement>(null);
   const modelsRef = useRef<HTMLDivElement>(null);
@@ -99,6 +101,20 @@ const RouteDetailPage = () => {
   // --- INTERACTIVE HANDLERS WITH AUTO-SCROLL ---
   const handleTripTypeSelect = (type: 'one_way' | 'round_trip') => {
     setTripType(type);
+    setStayDuration(null); // Reset duration if they change trip type
+    setDirection(null);
+    setVehicleType(null);
+    setSpecificVehicle(null);
+    
+    if (type === 'round_trip') {
+      setTimeout(() => durationRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+    } else {
+      setTimeout(() => directionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'center' }), 150);
+    }
+  };
+
+  const handleDurationSelect = (duration: 'instant' | 'extended') => {
+    setStayDuration(duration);
     setDirection(null);
     setVehicleType(null);
     setSpecificVehicle(null);
@@ -135,13 +151,14 @@ const RouteDetailPage = () => {
   };
 
   const getWhatsAppLink = () => {
-    if (!isReadyToBook) return '#'; // Provide a fallback if not ready
-    const text = `Hi MTS Travels! I want to book a ${tripType?.replace('_', ' ')} trip.\n\nRoute: ${direction}\nVehicle: ${specificVehicle || vehicleType?.toUpperCase()}.\n\nPlease share the pricing and availability!`;
+    if (!isReadyToBook) return '#'; 
+    const durationText = stayDuration === 'extended' ? ' (Multi-Day Stay)' : '';
+    const text = `Hi MTS Travels! I want to book a ${tripType?.replace('_', ' ')}${durationText}.\n\nRoute: ${direction}\nVehicle: ${specificVehicle || vehicleType?.toUpperCase()}.\n\nPlease share the pricing and availability!`;
     return `https://wa.me/917217667160?text=${encodeURIComponent(text)}`;
   };
 
-  // 🚀 Logic to decide if we MUST use WhatsApp (Custom route or large vehicles)
-  const forceWhatsappBooking = isCustomRoute || ['suv', 'tempo', 'bus'].includes(vehicleType || '');
+  // 🚨 SMART WHATSAPP LOGIC: Now triggers if it's a Custom Route, Large Vehicle, OR an Extended Stay Round Trip!
+  const forceWhatsappBooking = isCustomRoute || ['suv', 'tempo', 'bus'].includes(vehicleType || '') || stayDuration === 'extended';
 
   return (
     <>
@@ -199,15 +216,40 @@ const RouteDetailPage = () => {
                   </div>
                 </div>
 
-                {/* Step 2: Direction */}
-                {tripType && (
+                {/* Step 1.5: Stay Duration (ONLY shows if Round Trip is selected) */}
+                {tripType === 'round_trip' && (
+                  <div ref={durationRef} className="mb-6 animate-fade-in">
+                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">2. Stay Duration</label>
+                    <div className="grid grid-cols-2 gap-3">
+                      <button onClick={() => handleDurationSelect('instant')} className={`p-3 rounded-xl border-2 font-bold flex flex-col items-center text-center gap-2 transition-all ${stayDuration === 'instant' ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C] shadow-md' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                        <Clock className="w-5 h-5" /> 
+                        <div>
+                          <span className="block text-sm">Instant Return</span>
+                          <span className="block text-[10px] font-medium opacity-70 mt-0.5">Within 3-4 Hours</span>
+                        </div>
+                      </button>
+                      <button onClick={() => handleDurationSelect('extended')} className={`p-3 rounded-xl border-2 font-bold flex flex-col items-center text-center gap-2 transition-all ${stayDuration === 'extended' ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C] shadow-md' : 'border-gray-200 text-gray-600 hover:border-gray-300'}`}>
+                        <Calendar className="w-5 h-5" /> 
+                        <div>
+                          <span className="block text-sm">Stay Longer</span>
+                          <span className="block text-[10px] font-medium opacity-70 mt-0.5">Overnight / Multi-Day</span>
+                        </div>
+                      </button>
+                    </div>
+                  </div>
+                )}
+
+                {/* Step 2: Direction (Dynamic Numbering based on trip type) */}
+                {(tripType === 'one_way' || stayDuration !== null) && (
                   <div ref={directionRef} className="mb-6 animate-fade-in">
-                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">2. Route Direction</label>
+                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">
+                      {tripType === 'round_trip' ? '3. Route Direction' : '2. Route Direction'}
+                    </label>
                     <div className="flex flex-col sm:flex-row gap-2">
-                      <button onClick={() => handleDirectionSelect(`${route.from} to ${route.to}`)} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all ${direction === `${route.from} to ${route.to}` ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C]' : 'border-gray-200 text-gray-500'}`}>
+                      <button onClick={() => handleDirectionSelect(`${route.from} to ${route.to}`)} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all ${direction === `${route.from} to ${route.to}` ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`}>
                         {tripType === 'one_way' ? `${route.from} → ${route.to}` : `Start from ${route.from}`}
                       </button>
-                      <button onClick={() => handleDirectionSelect(`${route.to} to ${route.from}`)} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all ${direction === `${route.to} to ${route.from}` ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C]' : 'border-gray-200 text-gray-500'}`}>
+                      <button onClick={() => handleDirectionSelect(`${route.to} to ${route.from}`)} className={`flex-1 py-3 px-2 rounded-xl border-2 font-bold text-xs sm:text-sm transition-all ${direction === `${route.to} to ${route.from}` ? 'border-[#0F8A7C] bg-teal-50 text-[#0F8A7C]' : 'border-gray-200 text-gray-500 hover:bg-gray-50'}`}>
                         {tripType === 'one_way' ? `${route.to} → ${route.from}` : `Start from ${route.to}`}
                       </button>
                     </div>
@@ -217,11 +259,12 @@ const RouteDetailPage = () => {
                 {/* Step 3: Vehicle Category */}
                 {direction && (
                   <div ref={categoryRef} className="mb-6 animate-fade-in">
-                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">3. Select Category</label>
+                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">
+                      {tripType === 'round_trip' ? '4. Select Category' : '3. Select Category'}
+                    </label>
                     <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
                       {['sedan', 'muv', 'suv', 'tempo', 'bus'].map(type => (
                         <button key={type} onClick={() => handleCategorySelect(type)} className={`p-3 rounded-xl border-2 transition-all bg-white flex flex-col items-center justify-center ${vehicleType === type ? 'border-[#111827] ring-1 ring-[#111827] shadow-md transform scale-[1.02]' : 'border-gray-200 hover:border-gray-300'}`}>
-                          {/* 🚨 Zoomed IN Category Images */}
                           <div className="h-12 sm:h-14 w-full mb-2 flex items-center justify-center overflow-hidden">
                             <img src={getCategoryImage(type)} alt={type} className="h-full w-full object-contain mix-blend-multiply transform scale-150 sm:scale-[1.75] transition-transform" />
                           </div>
@@ -235,7 +278,9 @@ const RouteDetailPage = () => {
                 {/* Step 4: Specific Models (Sedan/MUV only) */}
                 {(vehicleType === 'sedan' || vehicleType === 'muv') && (
                   <div ref={modelsRef} className="mb-6 pt-4 border-t border-gray-100 animate-fade-in">
-                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">4. Choose {vehicleType.toUpperCase()} Model</label>
+                    <label className="block text-xs sm:text-sm font-bold text-gray-900 uppercase mb-3">
+                      {tripType === 'round_trip' ? '5. Choose Model' : '4. Choose Model'}
+                    </label>
                     
                     <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
                       {/* Any Available Option */}
@@ -247,7 +292,7 @@ const RouteDetailPage = () => {
                         <span className="text-xs sm:text-sm font-black text-gray-700 uppercase tracking-tight">Any Available</span>
                       </button>
 
-                      {/* Specific Car Options - 🚨 Zoomed OUT Model Images */}
+                      {/* Specific Car Options */}
                       {carModels[vehicleType as 'sedan' | 'muv'].map(car => (
                         <button 
                           key={car.name} 
@@ -268,8 +313,8 @@ const RouteDetailPage = () => {
                       ))}
                     </div>
 
-                    {/* Final Pricing Badge */}
-                    {specificVehicle && (
+                    {/* Final Pricing Badge (Hides if it's an extended stay round trip since they need a quote) */}
+                    {specificVehicle && !forceWhatsappBooking && (
                       <div ref={checkoutRef} className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between bg-gradient-to-r from-emerald-50 to-teal-50 p-5 rounded-2xl border border-emerald-100 shadow-inner animate-fade-in gap-4">
                         <div className="flex flex-col">
                           <span className="text-xs sm:text-sm font-black text-emerald-900 uppercase tracking-wider mb-1">Estimated Fare</span>
@@ -289,7 +334,6 @@ const RouteDetailPage = () => {
                 {/* Final Buttons */}
                 <div className="mt-4" ref={vehicleType && !['sedan', 'muv'].includes(vehicleType) ? checkoutRef : null}>
                   {forceWhatsappBooking ? (
-                    // 🚨 WHATSAPP BUTTON LOGIC UPDATED HERE
                     isReadyToBook ? (
                       <a href={getWhatsAppLink()} target="_blank" rel="noreferrer" className="w-full flex items-center justify-center gap-2 bg-[#25D366] text-white py-4 rounded-xl font-bold text-lg shadow-md active:scale-95 animate-fade-in hover:bg-[#1ebd5a] transition-colors">
                         <Phone className="w-5 h-5 fill-current" /> Get Quote on WhatsApp
