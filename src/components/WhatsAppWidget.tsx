@@ -1,10 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { X, Send, MessageCircle } from 'lucide-react';
+import { X, Send } from 'lucide-react';
+import { useLocation } from 'react-router-dom';
 
 const WhatsAppWidget = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [message, setMessage] = useState('');
   const [showTooltip, setShowTooltip] = useState(false);
+  const location = useLocation();
+
+  // 🚨 HIDE WIDGET ON ADMIN PAGE
+  // Check if the current URL contains '/admin'
+  if (location.pathname.includes('/admin')) {
+    return null; // Return nothing, completely hiding the widget
+  }
 
   // Phone number without the '+' symbol
   const phoneNumber = "917217667160";
