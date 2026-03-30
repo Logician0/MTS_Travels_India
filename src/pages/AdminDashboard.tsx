@@ -253,13 +253,18 @@ const AdminDashboard = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 font-sans pb-20">
-            {/* Top Navigation */}
-            <nav className="bg-white border-b border-slate-200 px-4 sm:px-8 py-3 sm:py-4 sticky top-0 z-20 flex justify-between items-center shadow-sm">
+            {/* Native App Magic: Hide Scrollbars */}
+            <style>{`
+                ::-webkit-scrollbar { display: none; }
+                * { -ms-overflow-style: none; scrollbar-width: none; }
+            `}</style>
+
+            {/* Top Navigation - Ultra Clean App Header */}
+            <nav className="bg-white border-b border-slate-200 px-4 sm:px-8 py-3 sm:py-4 sticky top-0 z-20 flex justify-center items-center shadow-sm">
                 <div className="flex items-center gap-2 sm:gap-3">
                     <div className="bg-emerald-600 text-white px-2 py-1.5 sm:p-2 rounded-lg font-bold text-sm sm:text-xl">MTS</div>
-                    <h1 className="text-sm sm:text-xl font-bold text-slate-800">Admin Panel</h1>
+                    <h1 className="text-base sm:text-xl font-black text-slate-800 tracking-tight">Admin Command</h1>
                 </div>
-                <button onClick={() => window.location.reload()} className="text-slate-500 hover:text-red-600 font-medium transition-colors text-xs sm:text-base">Logout</button>
             </nav>
 
             <div className="max-w-7xl mx-auto px-3 sm:px-8 mt-4 sm:mt-8">
