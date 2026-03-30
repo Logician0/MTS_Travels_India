@@ -419,7 +419,7 @@ const RouteDetailPage = () => {
                 </h3>
                 <ul className="space-y-2 text-gray-700">
                   <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Professional & Experienced Drivers</li>
-                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Well-Maintained AC Vehicles</span></li>
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Well-Maintained AC Vehicles</li>
                   <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Transparent Pricing (No Hidden Charges)</li>
                   <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> 24/7 Customer Support</li>
                   <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Flexible Booking & Cancellation</li>
