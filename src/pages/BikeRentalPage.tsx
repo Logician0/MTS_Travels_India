@@ -72,6 +72,7 @@ const BikeRentalPage = () => {
     { icon: Wrench, title: 'Well Maintained', description: 'All bikes are in new and excellent condition' },
   ];
 
+  // 🚨 FIXED SCHEMA: aggregateRating is now a direct child of the Service 🚨
   const bikeRentalSchema = {
     '@context': 'https://schema.org',
     '@type': 'Service',
@@ -94,6 +95,11 @@ const BikeRentalPage = () => {
       'name': 'Dehradun'
     },
     'serviceType': 'Bike and Scooter Rental',
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.7',
+      'ratingCount': '150'
+    },
     'offers': [
       {
         '@type': 'Offer',
@@ -109,12 +115,7 @@ const BikeRentalPage = () => {
         'priceCurrency': 'INR',
         'description': 'Rent bikes for a full day'
       }
-    ],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.7',
-      'ratingCount': '150'
-    }
+    ]
   };
 
   return (
