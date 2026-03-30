@@ -24,7 +24,7 @@ const HomePage = () => {
     'priceRange': '₹10-₹200 per km',
     'address': {
       '@type': 'PostalAddress',
-      'streetAddress': 'Dehradun',
+      'streetAddress': 'Near Sliver City Mall, Rajpur Road, Dehradun 248001',
       'addressLocality': 'Dehradun',
       'addressRegion': 'Uttarakhand',
       'postalCode': '248001',
