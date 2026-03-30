@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- STATIC PAGES (10) -->
+  
   <!-- Homepage - Highest Priority -->
   <url>
     <loc>https://www.mtstravelsindia.com/</loc>
@@ -22,7 +24,7 @@
     <priority>0.8</priority>
   </url>
 
-  <!-- Important Collections -->
+  <!-- Collection Pages - High Priority -->
   <url>
     <loc>https://www.mtstravelsindia.com/cabs</loc>
     <lastmod>2026-03-30</lastmod>
@@ -68,214 +70,234 @@
     <priority>0.5</priority>
   </url>
 
-  <!-- Route Detail Pages (24 Routes) -->
+  <!-- ROUTE DETAIL PAGES (20 routes) -->
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-delhi</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-mussoorie</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-rishikesh</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-haridwar</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-nainital</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-shimla</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-chandigarh</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-manali</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-jammu</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-agra</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-ghaziabad</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-faridabad</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-gurugram</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-mathura</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-uttarkashi</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-roorkee</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-saharanpur</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-noida</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.mtstravelsindia.com/routes/dehradun-to-greater-noida</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/routes/dehradun-to-jaipur</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.mtstravelsindia.com/routes/dehradun-to-bharatpur</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.mtstravelsindia.com/routes/dehradun-to-moradabad</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://www.mtstravelsindia.com/routes/dehradun-to-meerut</loc>
-    <lastmod>2026-03-30</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
 
-  <!-- Package Detail Pages (7 Packages) -->
+  <!-- PACKAGE DETAIL PAGES (7 packages) -->
   <url>
     <loc>https://www.mtstravelsindia.com/packages/char-dham-yatra</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/packages/nainital-tour</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/packages/shimla-tour</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/packages/manali-tour</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/packages/mussoorie-tour</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://www.mtstravelsindia.com/packages/jammu-dalhousie-tour</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/packages/goa-tour-package-from-dehradun</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- SERVICE DETAIL PAGES (6 services) -->
+  <url>
+    <loc>https://www.mtstravelsindia.com/services/local-taxi-service</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.mtstravelsindia.com/packages/goa-beach-delight</loc>
+    <loc>https://www.mtstravelsindia.com/services/airport-transfer</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/services/one-way-taxi</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/services/round-trip-taxi</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/services/wedding-taxi-service</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/services/adventure-tours</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
 
-  <!-- Service Detail Pages -->
+  <!-- CAB / FLEET DETAIL PAGES (5 cabs) - MISSING BEFORE! -->
   <url>
-    <loc>https://www.mtstravelsindia.com/services/airport-transfer</loc>
+    <loc>https://www.mtstravelsindia.com/cabs/sedan</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.mtstravelsindia.com/services/outstation-cabs</loc>
+    <loc>https://www.mtstravelsindia.com/cabs/muv</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.mtstravelsindia.com/services/local-taxi</loc>
+    <loc>https://www.mtstravelsindia.com/cabs/suv</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.mtstravelsindia.com/services/tour-packages</loc>
+    <loc>https://www.mtstravelsindia.com/cabs/tempo-traveller</loc>
     <lastmod>2026-03-30</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.mtstravelsindia.com/cabs/bus</loc>
+    <lastmod>2026-03-30</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 
 </urlset>
