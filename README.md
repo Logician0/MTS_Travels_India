@@ -56,58 +56,78 @@ A modern, premium taxi service website for **MTS Travels India** - a government-
 ## 📁 Project Structure
 
 ```
-mts-travels-india/
-├── public/
-│   └── images/                # All website images (see IMAGES_REQUIRED.md)
-├── IMAGES_REQUIRED.md         # Complete list of all required images
-├── src/
-│   ├── components/            # Reusable UI Components
-│   │   ├── Navbar.tsx         # Navigation bar
-│   │   ├── Footer.tsx         # Footer section
-│   │   ├── HeroSection.tsx    # Homepage hero section
-│   │   ├── TrustStrip.tsx     # Trust indicators strip
-│   │   ├── ServicesSection.tsx # Services grid
-│   │   ├── CabCategories.tsx  # Vehicle categories
-│   │   ├── PopularRoutes.tsx  # Popular taxi routes
-│   │   ├── TourPackages.tsx   # Tour packages grid
-│   │   ├── WhyChooseUs.tsx    # Features section
-│   │   ├── Testimonials.tsx   # Video testimonials
-│   │   ├── CTASection.tsx     # Call to action section
-│   │   └── SEO.tsx            # Meta tags component
+MTS Travel/
+├── MTS Program Files/
+│   ├── public/
+│   │   ├── images/                # All website images
+│   │   ├── robots.txt             # SEO robots file
+│   │   └── sitemap.xml            # XML sitemap
 │   │
-│   ├── data/                  # Data files (Edit these to update content)
-│   │   ├── routesData.ts      # All taxi routes data
-│   │   ├── servicesData.ts    # All services data
-│   │   ├── cabsData.ts        # All vehicle/cab data
-│   │   └── packagesData.ts    # All tour packages data
+│   ├── src/
+│   │   ├── components/            # Reusable UI Components
+│   │   │   ├── Navbar.tsx         # Navigation bar
+│   │   │   ├── Footer.tsx         # Footer section
+│   │   │   ├── HeroSection.tsx    # Homepage hero section
+│   │   │   ├── TrustStrip.tsx     # Trust indicators strip
+│   │   │   ├── ServicesSection.tsx # Services grid
+│   │   │   ├── CabCategories.tsx  # Vehicle categories
+│   │   │   ├── PopularRoutes.tsx  # Popular taxi routes
+│   │   │   ├── TourPackages.tsx   # Tour packages grid
+│   │   │   ├── WhyChooseUs.tsx    # Features section
+│   │   │   ├── Testimonials.tsx   # Video testimonials
+│   │   │   ├── CTASection.tsx     # Call to action section
+│   │   │   ├── BikeRentSection.tsx # Bike rental section
+│   │   │   ├── WeddingCarRental.tsx # Wedding car rental
+│   │   │   ├── WhatsAppWidget.tsx # WhatsApp chat widget
+│   │   │   └── SEO.tsx            # Meta tags component
+│   │   │
+│   │   ├── data/                  # Data files (Edit these to update content)
+│   │   │   ├── routesData.ts      # All taxi routes data
+│   │   │   ├── servicesData.ts    # All services data
+│   │   │   ├── cabsData.ts        # All vehicle/cab data
+│   │   │   ├── packagesData.ts    # All tour packages data
+│   │   │   └── weddingCarsData.ts # Wedding car rentals data
+│   │   │
+│   │   ├── pages/                 # Page Components
+│   │   │   ├── HomePage.tsx       # Main landing page
+│   │   │   ├── AboutPage.tsx      # About us page
+│   │   │   ├── ContactPage.tsx    # Contact & booking form
+│   │   │   ├── ServicesPage.tsx   # All services listing
+│   │   │   ├── ServiceDetailPage.tsx # Individual service detail
+│   │   │   ├── CabsPage.tsx       # All vehicles/fleet listing
+│   │   │   ├── CabDetailPage.tsx  # Individual vehicle detail
+│   │   │   ├── RoutesPage.tsx     # All routes listing
+│   │   │   ├── RouteDetailPage.tsx # Individual route detail
+│   │   │   ├── PackagesPage.tsx   # All packages listing
+│   │   │   ├── PackageDetailPage.tsx # Individual package detail
+│   │   │   ├── BikeRentalPage.tsx # Bike rental page
+│   │   │   ├── PaymentPage.tsx    # Payment/UPI page
+│   │   │   ├── BookingSuccessPage.tsx # Booking confirmation
+│   │   │   ├── VerifyBookingPage.tsx # Verify booking status
+│   │   │   ├── AdminDashboard.tsx # Admin dashboard
+│   │   │   ├── TestPaymentPage.tsx # Payment testing page
+│   │   │   ├── PrivacyPolicyPage.tsx # Privacy policy
+│   │   │   ├── TermsOfServicePage.tsx # Terms of service
+│   │   │   └── NotFoundPage.tsx   # 404 error page
+│   │   │
+│   │   ├── utils/                 # Utility functions
+│   │   │   └── cn.ts              # Class name utilities
+│   │   │
+│   │   ├── App.tsx                # Main app with routing
+│   │   ├── main.tsx               # React entry point
+│   │   └── index.css              # Global styles & Tailwind
 │   │
-│   ├── pages/                 # Page Components
-│   │   ├── HomePage.tsx       # Main landing page
-│   │   ├── AboutPage.tsx      # About us page
-│   │   ├── ContactPage.tsx    # Contact & booking form
-│   │   ├── ServicesPage.tsx   # All services listing
-│   │   ├── ServiceDetailPage.tsx # Individual service page
-│   │   ├── CabsPage.tsx       # All vehicles listing
-│   │   ├── CabDetailPage.tsx  # Individual vehicle page
-│   │   ├── RoutesPage.tsx     # All routes listing
-│   │   ├── RouteDetailPage.tsx # Individual route page
-│   │   ├── PackagesPage.tsx   # All packages listing
-│   │   ├── PackageDetailPage.tsx # Individual package page
-│   │   ├── PaymentPage.tsx    # Payment/UPI page
-│   │   ├── PrivacyPolicyPage.tsx # Privacy policy
-│   │   ├── TermsOfServicePage.tsx # Terms of service
-│   │   └── NotFoundPage.tsx   # 404 error page
-│   │
-│   ├── App.tsx                # Main app with routing
-│   ├── main.tsx               # React entry point
-│   └── index.css              # Global styles & Tailwind
+│   ├── IMAGES_REQUIRED.md         # Required images documentation
+│   ├── index.html                 # HTML template
+│   ├── package.json               # Frontend dependencies
+│   ├── tsconfig.json              # TypeScript configuration
+│   ├── vite.config.ts             # Vite build configuration
+│   ├── vercel.json                # Vercel deployment config
+│   └── README.md                  # This file
 │
-├── index.html                 # HTML template
-├── package.json               # Dependencies
-├── tailwind.config.js         # Tailwind configuration
-├── tsconfig.json              # TypeScript configuration
-├── vite.config.ts             # Vite configuration
-└── README.md                  # This file
+└── mts-backend/
+    ├── package.json               # Backend dependencies
+    └── server.js                  # Backend server file
 ```
 
 ---
@@ -127,9 +147,15 @@ mts-travels-india/
 | Route Detail | `/routes/:slug` | `src/pages/RouteDetailPage.tsx` |
 | All Packages | `/packages` | `src/pages/PackagesPage.tsx` |
 | Package Detail | `/packages/:slug` | `src/pages/PackageDetailPage.tsx` |
+| Bike Rental | `/bike-rental` | `src/pages/BikeRentalPage.tsx` |
 | Payment | `/payment` | `src/pages/PaymentPage.tsx` |
+| Booking Success | `/booking-success` | `src/pages/BookingSuccessPage.tsx` |
+| Verify Booking | `/verify-booking` | `src/pages/VerifyBookingPage.tsx` |
+| Admin Dashboard | `/admin` | `src/pages/AdminDashboard.tsx` |
+| Test Payment | `/test-payment` | `src/pages/TestPaymentPage.tsx` |
 | Privacy Policy | `/privacy-policy` | `src/pages/PrivacyPolicyPage.tsx` |
 | Terms of Service | `/terms-of-service` | `src/pages/TermsOfServicePage.tsx` |
+| Not Found | `*` | `src/pages/NotFoundPage.tsx` |
 
 ### SEO-Friendly Routes
 | SEO Route | Redirects To |

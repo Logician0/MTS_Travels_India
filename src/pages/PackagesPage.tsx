@@ -8,9 +8,9 @@ const PackagesPage = () => {
   return (
     <>
       <SEO
-        title="Tour Packages - Explore Amazing Destinations"
-        description="Discover our curated tour packages - Char Dham Yatra, Nainital, Shimla, Manali, Mussoorie, and more. All-inclusive packages with comfortable travel."
-        keywords="tour packages dehradun, char dham yatra, nainital tour, shimla manali tour"
+        title="Tour Packages from Dehradun | Char Dham, Nainital, Shimla, Manali | MTS Travels"
+        description="Explore 7 tour packages from Dehradun - Char Dham Yatra pilgrimage, Nainital adventure, Shimla Manali, Mussoorie nature tours. All-inclusive with comfortable transportation."
+        keywords="tour packages from dehradun, char dham yatra package, nainital tour, shimla manali tour, uttarakhand pilgrimage tour, dehradun tour packages"
       />
 
       {/* Hero */}
@@ -23,10 +23,13 @@ const PackagesPage = () => {
               Tour Packages
             </span>
             <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#111827] mb-4 sm:mb-6">
-              Explore Our <span className="gradient-text">Tour Packages</span>
+              7 Tour Packages from <span className="gradient-text">Dehradun</span>
             </h1>
-            <p className="text-sm sm:text-lg text-[#6B7280] max-w-2xl mx-auto px-4">
-              Discover amazing destinations with our curated tour packages. All-inclusive travel with comfortable vehicles and experienced drivers.
+            <p className="text-sm sm:text-lg text-[#6B7280] max-w-3xl mx-auto px-4 mb-6">
+              Experience unforgettable journeys with our all-inclusive tour packages from Dehradun. From sacred Char Dham pilgrimage yatra to adventure-filled Himalayan tours - explore Nainital, Shimla, Manali, Mussoorie, Jammu-Dalhousie, and Goa beach packages.
+            </p>
+            <p className="text-xs sm:text-base text-[#6B7280] max-w-3xl mx-auto px-4">
+              Professional drivers, comfortable vehicles, and carefully curated itineraries for religious, adventure, and relaxation destinations. Book flexible tour packages with transparent pricing.
             </p>
           </div>
 

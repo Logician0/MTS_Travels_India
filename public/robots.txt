@@ -1,8 +1,19 @@
+# MTS Travels India Robots Configuration
+# Allow all search engines to crawl public content
+
 User-agent: *
 Allow: /
+
+# Disallow sensitive pages
 Disallow: /admin
 Disallow: /payment
+Disallow: /test-payment
 Disallow: /verify-booking
 Disallow: /booking-success
+Disallow: /payment-success
 
+# Sitemap location for search engines
 Sitemap: https://www.mtstravelsindia.com/sitemap.xml
+
+# Crawl delay (optional - adjust if needed)
+# Crawl-delay: 1

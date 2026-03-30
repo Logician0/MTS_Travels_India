@@ -160,9 +160,43 @@ const RouteDetailPage = () => {
   // 🚨 SMART WHATSAPP LOGIC: Now triggers if it's a Custom Route, Large Vehicle, OR an Extended Stay Round Trip!
   const forceWhatsappBooking = isCustomRoute || ['suv', 'tempo', 'bus'].includes(vehicleType || '') || stayDuration === 'extended';
 
+  const tripSchema = !isCustomRoute ? {
+    '@context': 'https://schema.org',
+    '@type': 'Trip',
+    'name': route.title,
+    'description': route.seoDescription || route.description,
+    'departureLocation': {
+      '@type': 'Place',
+      'name': route.from
+    },
+    'arrivalLocation': {
+      '@type': 'Place',
+      'name': route.to
+    },
+    'distance': {
+      '@type': 'Distance',
+      'value': route.distance
+    },
+    'duration': route.travelTime,
+    'offers': {
+      '@type': 'Offer',
+      'url': `https://www.mtstravelsindia.com/routes/${route.slug}`,
+      'priceCurrency': 'INR',
+      'price': calculatedPrice || 'Contact for price'
+    }
+  } : null;
+
   return (
     <>
-      <SEO title={route.title} description={`Book ${route.title}. Distance: ${route.distance}.`} image={route.image} />
+      <SEO 
+        title={route.seoTitle || route.title}
+        description={route.seoDescription || `Book ${route.title}. Distance: ${route.distance}.`}
+        keywords={route.keywords?.join(', ')}
+        image={route.image}
+        url={`/routes/${route.slug}`}
+        canonical={`https://www.mtstravelsindia.com/routes/${route.slug}`}
+        schema={tripSchema}
+      />
 
       <section className="relative py-8 sm:py-12 lg:py-20 bg-[#F8FAFC] overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -356,6 +390,71 @@ const RouteDetailPage = () => {
           </div>
         </div>
       </section>
+
+      {/* Content Section */}
+      {!isCustomRoute && route.longDescription && (
+        <section className="py-12 sm:py-16 lg:py-20 bg-white">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-6">About {route.title}</h2>
+            <div className="prose prose-lg max-w-none text-gray-700 leading-relaxed">
+              <p className="mb-5 text-lg">{route.longDescription}</p>
+            </div>
+            
+            <div className="grid md:grid-cols-2 gap-8 mt-12">
+              <div className="bg-blue-50 p-6 rounded-2xl border border-blue-100">
+                <h3 className="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                  <MapPin className="w-5 h-5 text-blue-600" /> Distance & Duration
+                </h3>
+                <div className="space-y-3 text-gray-700">
+                  <div><span className="font-bold">Distance:</span> {route.distance}</div>
+                  <div><span className="font-bold">Travel Time:</span> {route.travelTime}</div>
+                  <div><span className="font-bold">Route Type:</span> Highway</div>
+                  <div><span className="font-bold">Vehicle Type:</span> Sedan, MUV, SUV Available</div>
+                </div>
+              </div>
+
+              <div className="bg-green-50 p-6 rounded-2xl border border-green-100">
+                <h3 className="text-xl font-black text-gray-900 mb-4 flex items-center gap-2">
+                  <Check className="w-5 h-5 text-green-600" /> Why Book With MTS Travels
+                </h3>
+                <ul className="space-y-2 text-gray-700">
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Professional & Experienced Drivers</li>
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Well-Maintained AC Vehicles</span></li>
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Transparent Pricing (No Hidden Charges)</li>
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> 24/7 Customer Support</li>
+                  <li className="flex items-start gap-2"><span className="text-green-600 font-bold mt-1">✓</span> Flexible Booking & Cancellation</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* FAQ Section */}
+      {!isCustomRoute && route.faqs && route.faqs.length > 0 && (
+        <section className="py-12 sm:py-16 lg:py-20 bg-gray-50">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
+            
+            <div className="space-y-4">
+              {route.faqs.map((faq, index) => (
+                <details key={index} className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
+                  <summary className="flex items-center justify-between cursor-pointer font-bold text-lg text-gray-900 hover:text-blue-600 transition-colors">
+                    {faq.question}
+                    <span className="text-2xl text-gray-400 group-open:text-blue-600 group-open:rotate-180 transition-transform">+</span>
+                  </summary>
+                  <p className="mt-4 text-gray-700 leading-relaxed">{faq.answer}</p>
+                </details>
+              ))}
+            </div>
+
+            <div className="mt-12 bg-blue-50 border-l-4 border-blue-600 p-6 rounded-lg">
+              <h3 className="font-black text-lg text-gray-900 mb-2">Need More Information?</h3>
+              <p className="text-gray-700 mb-4">Call us at <a href="tel:+917217667160" className="font-bold text-blue-600 hover:underline">+91-721-766-7160</a> or message us on WhatsApp for personalized assistance.</p>
+            </div>
+          </div>
+        </section>
+      )}
 
       <CTASection />
     </>

@@ -8,9 +8,9 @@ import {
 import { routesData } from '../data/routesData'; 
 
 const heroImages = [
-  { url: 'https://images.unsplash.com/photo-1715082040655-881a31faa34a?w=1920&q=80', location: 'Scenic Routes', country: 'Uttarakhand' },
-  { url: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=80', location: 'Highway Drives', country: 'Delhi to Dehradun' },
-  { url: 'https://images.unsplash.com/photo-1551952237-954a0e68786c?w=1920&q=80', location: 'Mountain Passes', country: 'Mussoorie' }
+  { url: 'https://images.unsplash.com/photo-1715082040655-881a31faa34a?w=1920&q=80', location: 'Scenic Routes', country: 'Uttarakhand', alt: 'Premium taxi service on scenic mountain routes in Uttarakhand' },
+  { url: 'https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=1920&q=80', location: 'Highway Drives', country: 'Delhi to Dehradun', alt: 'Comfortable highway taxi service from Delhi to Dehradun with professional driver' },
+  { url: 'https://images.unsplash.com/photo-1551952237-954a0e68786c?w=1920&q=80', location: 'Mountain Passes', country: 'Mussoorie', alt: 'AC taxi cab driving through scenic mountain passes to Mussoorie' }
 ];
 
 const HeroSection = () => {

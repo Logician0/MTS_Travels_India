@@ -38,7 +38,7 @@ const TourPackages = () => {
               <div className="relative h-24 sm:h-32 md:h-40 lg:h-48 overflow-hidden">
                 <img
                   src={pkg.image}
-                  alt={pkg.title}
+                  alt={`${pkg.title} - ${pkg.duration} tour package from Dehradun with ${pkg.destinations.length} destinations`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />

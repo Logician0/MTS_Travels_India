@@ -36,7 +36,7 @@ const CabCategories = () => {
               <div className="relative h-20 sm:h-36 md:h-44 lg:h-40 overflow-hidden bg-white flex items-center justify-center shrink-0 border-b border-gray-50">
                 <img
                   src={cab.image}
-                  alt={cab.name}
+                  alt={`${cab.name} - ${cab.seating} seater taxi for Dehradun cab booking with ${cab.luggage} luggage space`}
                   className="w-full h-full object-contain mix-blend-multiply group-hover:scale-110 transition-transform duration-500"
                 />
               </div>

@@ -72,12 +72,58 @@ const BikeRentalPage = () => {
     { icon: Wrench, title: 'Well Maintained', description: 'All bikes are in new and excellent condition' },
   ];
 
+  const bikeRentalSchema = {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    'name': 'Bike Rental Service - MTS Travels India',
+    'description': 'Affordable bike rental in Dehradun with new condition bikes at cheap hourly prices. Flexible rental options - hourly, daily, weekly, monthly. Fully insured with free helmet.',
+    'provider': {
+      '@type': 'LocalBusiness',
+      'name': 'MTS Travels India',
+      'address': {
+        '@type': 'PostalAddress',
+        'addressLocality': 'Dehradun',
+        'addressRegion': 'Uttarakhand',
+        'addressCountry': 'India'
+      },
+      'telephone': '+91-721-766-7160',
+      'email': 'info@mtstravelsindia.com'
+    },
+    'areaServed': {
+      '@type': 'City',
+      'name': 'Dehradun'
+    },
+    'serviceType': 'Bike and Scooter Rental',
+    'offers': [
+      {
+        '@type': 'Offer',
+        'name': 'Hourly Bike Rental',
+        'price': '99',
+        'priceCurrency': 'INR',
+        'description': 'Rent bikes by the hour'
+      },
+      {
+        '@type': 'Offer',
+        'name': 'Daily Bike Rental',
+        'price': '499',
+        'priceCurrency': 'INR',
+        'description': 'Rent bikes for a full day'
+      }
+    ],
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.7',
+      'ratingCount': '150'
+    }
+  };
+
   return (
     <>
       <SEO
         title="Bike Rental Service in Dehradun - New Bikes at Cheap Hourly Prices | MTS Travels India"
         description="Rent bikes in new condition at affordable hourly prices in Dehradun. Flexible rental options - hourly, daily, weekly. Fully insured bikes with free helmet."
         keywords="bike rental dehradun, rent bike dehradun, bike on rent, hourly bike rental, cheap bike rental, two wheeler rental dehradun"
+        schema={bikeRentalSchema}
       />
 
       {/* Hero Section */}
@@ -344,6 +390,26 @@ const BikeRentalPage = () => {
                 <p className="text-[10px] sm:text-xs text-gray-500">{term.description}</p>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* About Bike Rental Service */}
+      <section className="py-12 sm:py-16 bg-white">
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="text-center mb-8">
+            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">About Our Bike Rental Service</h2>
+          </div>
+          <div className="prose prose-sm sm:prose lg:prose-lg max-w-none">
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+              MTS Travels India offers the most affordable bike rental service in Dehradun with a fleet of new condition bikes available at cheap hourly rates. Whether you need a scooter for local commuting or a motorcycle for adventure exploring nearby hills and scenic routes, we have flexible two-wheeler rental options tailored to your needs. Our bike rental service has grown popular among tourists and locals alike who value affordability, convenience, and reliability.
+            </p>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed mb-6">
+              We offer competitive pricing for hourly, daily, weekly, and monthly bike rentals. Our hourly bike rental plan at just ₹99 per hour makes it the cheapest option for short-term rentals in Dehradun. For day-long explorations, our daily rental at ₹499 provides excellent value with no hidden charges. All our bikes—including automatic scooties like Activa and Jupiter, and geared motorcycles like Splendor and Pulsar—are maintained in new condition with regular servicing to ensure a smooth, safe riding experience. Every bike rental comes fully insured for your protection, plus a free helmet and all safety equipment.
+            </p>
+            <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
+              Renting a bike from MTS Travels India is simple and hassle-free. You need valid ID proof and a driving license, and the process is transparent with no surprise costs. Whether you're exploring the scenic beauty of Dehradun, riding to nearby attractions, or need a two-wheeler for daily activities, our bike rental service provides the perfect solution. Contact us to book your bike instantly or enquire about customized rental packages for weekly and monthly needs. Experience the freedom of riding with MTS Travels India—your trusted partner for affordable and reliable bike rental service in Dehradun.
+            </p>
           </div>
         </div>
       </section>

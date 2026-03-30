@@ -17,9 +17,9 @@ const RoutesPage = () => {
   return (
     <>
       <SEO
-        title="Taxi Routes from Dehradun"
-        description="Explore all taxi routes from Dehradun - Delhi, Mussoorie, Rishikesh, Haridwar, Nainital, Shimla, and more. Book reliable taxi service with professional drivers."
-        keywords="dehradun taxi routes, outstation taxi, cab from dehradun"
+        title="Taxi Routes from Dehradun | Delhi, Haridwar, Mussoorie, Shimla | MTS Travels"
+        description="Book taxi from Dehradun to Delhi, Haridwar, Mussoorie, Shimla, Nainital, Chandigarh, Manali. Reliable outstation cab service with professional drivers. Check routes & prices."
+        keywords="dehradun taxi routes, outstation taxi from dehradun, cab booking dehradun, dehradun to delhi taxi, dehradun haridwar taxi, mussoorie shimla tour"
       />
 
       {/* Hero */}
@@ -32,10 +32,13 @@ const RoutesPage = () => {
               Our Routes
             </span>
             <h1 className="text-2xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-[#111827] mb-4 sm:mb-6">
-              Taxi Routes from <span className="gradient-text">Dehradun</span>
+              24 Taxi Routes from <span className="gradient-text">Dehradun</span>
             </h1>
-            <p className="text-sm sm:text-lg text-[#6B7280] max-w-2xl mx-auto px-4">
-              Book reliable taxi services for all popular routes from Dehradun with professional drivers.
+            <p className="text-sm sm:text-lg text-[#6B7280] max-w-3xl mx-auto px-4 mb-6">
+              Explore all taxi routes from Dehradun across Uttarakhand, Delhi, UP, Himachal Pradesh, and Punjab. From airport transfers in Delhi and Chandigarh to pilgrimage routes for Char Dham, we offer reliable outstation cab booking at affordable prices.
+            </p>
+            <p className="text-xs sm:text-base text-[#6B7280] max-w-3xl mx-auto px-4">
+              Professional drivers, well-maintained vehicles, and 24/7 availability for Dehradun taxi service. Check routes, compare distances, travel times, and book your outstation cab online.
             </p>
           </div>
 

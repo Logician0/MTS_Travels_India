@@ -38,7 +38,7 @@ const PopularRoutes = () => {
               <div className="relative h-20 sm:h-28 md:h-32 lg:h-40 overflow-hidden">
                 <img
                   src={route.image}
-                  alt={route.title}
+                  alt={`${route.from} to ${route.to} taxi cab booking with affordable rates | ${route.distance} | ${route.travelTime}`}
                   className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent" />
