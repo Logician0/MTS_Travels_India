@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { useParams, Link, Navigate, useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Check, ArrowRight, Phone, Car, ArrowRightLeft, ShieldCheck, Map, Clock, Calendar } from 'lucide-react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';
-import { getRouteBySlug, routesData } from '../data/routesData';
+import { getRouteBySlug } from '../data/routesData';
 
 // --- EXACT PRICING DICTIONARY ---
 const basePrices: Record<string, number> = {
@@ -52,7 +52,8 @@ const RouteDetailPage = () => {
   const customTo = searchParams.get('to') || 'Custom Drop';
 
   // Build the route data dynamically based on if it's custom or predefined
-  const route = isCustomRoute 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const route: any = isCustomRoute 
     ? {
         title: `Cab from ${customFrom} to ${customTo}`,
         from: customFrom,
@@ -184,7 +185,7 @@ const RouteDetailPage = () => {
       'priceCurrency': 'INR',
       'price': calculatedPrice || 'Contact for price'
     }
-  } : null;
+  } : undefined;
 
   return (
     <>
@@ -437,7 +438,7 @@ const RouteDetailPage = () => {
             <h2 className="text-3xl sm:text-4xl font-black text-gray-900 mb-12 text-center">Frequently Asked Questions</h2>
             
             <div className="space-y-4">
-              {route.faqs.map((faq, index) => (
+              {route.faqs.map((faq: { question: string; answer: string }, index: number) => (
                 <details key={index} className="group bg-white rounded-xl border border-gray-200 p-6 shadow-sm hover:shadow-md transition-shadow">
                   <summary className="flex items-center justify-between cursor-pointer font-bold text-lg text-gray-900 hover:text-blue-600 transition-colors">
                     {faq.question}

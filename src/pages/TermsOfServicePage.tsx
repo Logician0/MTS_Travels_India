@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import { 
-  FileText, ArrowLeft, ShieldCheck, Car, Bike, 
-  CreditCard, Ban, Scale, AlertTriangle, FileSignature, MapPin 
+  FileText, ArrowLeft, Car, Bike, 
+  CreditCard, Ban, Scale, AlertTriangle, FileSignature 
 } from 'lucide-react';
 import SEO from '../components/SEO';
 

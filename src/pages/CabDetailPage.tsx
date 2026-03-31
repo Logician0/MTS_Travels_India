@@ -1,5 +1,5 @@
 import { useParams, Link, Navigate } from 'react-router-dom';
-import { Users, Briefcase, Check, ArrowRight, Phone, CreditCard, ShieldCheck, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { Users, Briefcase, Check, ArrowRight, Phone, ShieldCheck, X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 import React, { useState, useEffect } from 'react';
 import SEO from '../components/SEO';
 import CTASection from '../components/CTASection';

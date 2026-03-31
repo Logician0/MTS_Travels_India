@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle2, MapPin, Calendar, Car, ArrowRight, Printer, Phone, ShieldAlert, Mail } from 'lucide-react'; // 👈 Added Mail icon
 import SEO from '../components/SEO';

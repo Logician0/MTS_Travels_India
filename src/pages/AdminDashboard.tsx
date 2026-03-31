@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, Calendar as CalendarIcon, ArrowUpDown, Shield, Users, Car, X, CheckCircle, AlertCircle, Ban, IndianRupee, Eye, MapPin, Timer } from 'lucide-react'; 
+import { Filter, Calendar as CalendarIcon, ArrowUpDown, Shield, Users, Car, X, CheckCircle, Ban, IndianRupee, Eye, MapPin } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [pin, setPin] = useState('');
@@ -11,8 +11,8 @@ const AdminDashboard = () => {
     // 🎛️ FILTER & SORT STATES
     const [filterTrip, setFilterTrip] = useState('all');
     const [dateRange, setDateRange] = useState('all');
-    const [customStart, setCustomStart] = useState('');
-    const [customEnd, setCustomEnd] = useState('');
+    const [customStart] = useState('');
+    const [customEnd] = useState('');
     const [sortBy, setSortBy] = useState('date_desc');
     const [priorityAssign, setPriorityAssign] = useState(true);
 
@@ -23,7 +23,8 @@ const AdminDashboard = () => {
     const [driverForm, setDriverForm] = useState({ name: '', phone: '', carNumber: '' });
     const [isActionLoading, setIsActionLoading] = useState(false);
 
-    const API_URL = import.meta.env.VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const API_URL = (import.meta as any).env?.VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
@@ -59,18 +60,18 @@ const AdminDashboard = () => {
                     driverName: driverForm.name,
                     driverPhone: driverForm.phone,
                     carNumber: driverForm.carNumber,
-                    customerEmail: selectedBooking.email || selectedBooking.customerEmail, 
-                    customerName: selectedBooking.name || selectedBooking.customerName 
+                    customerEmail: selectedBooking.email || selectedBooking.customerEmail,
+                    customerName: selectedBooking.name || selectedBooking.customerName
                 })
             });
 
             const data = await response.json();
             if (data.success) {
-                setBookings(bookings.map(b => b._id === selectedBooking._id ? { 
-                    ...b, status: 'Driver Assigned', driverName: driverForm.name, driverPhone: driverForm.phone, carNumber: driverForm.carNumber 
+                setBookings(bookings.map(b => b._id === selectedBooking._id ? {
+                    ...b, status: 'Driver Assigned', driverName: driverForm.name, driverPhone: driverForm.phone, carNumber: driverForm.carNumber
                 } : b));
                 setIsDriverModalOpen(false);
-                setIsDetailsModalOpen(false); 
+                setIsDetailsModalOpen(false);
                 setDriverForm({ name: '', phone: '', carNumber: '' });
                 alert("Driver assigned & Email sent to customer successfully!");
             } else {
@@ -87,7 +88,7 @@ const AdminDashboard = () => {
         const customerName = booking.name || booking.customerName;
         const refundValue = (booking.price * 0.8).toFixed(2);
         const confirmText = `Are you sure you want to cancel this booking for ${customerName} and refund 80% (₹${refundValue})?`;
-        
+
         if (!window.confirm(confirmText)) return;
 
         try {
@@ -100,7 +101,7 @@ const AdminDashboard = () => {
             const data = await response.json();
             if (data.success) {
                 setBookings(bookings.map(b => b._id === booking._id ? { ...b, status: 'Cancelled' } : b));
-                setIsDetailsModalOpen(false); 
+                setIsDetailsModalOpen(false);
                 alert(`Success: ₹${refundValue} has been refunded.`);
             } else {
                 alert("Refund failed: " + data.message);
@@ -111,8 +112,8 @@ const AdminDashboard = () => {
     };
 
     const renderRideCountdown = (booking: any) => {
-        if (booking.status === 'Cancelled') return <span className="text-red-600 font-bold text-[10px] sm:text-xs flex items-center gap-1 mt-1"><Ban className="w-3 h-3"/> Cancelled</span>;
-        if (booking.status === 'Driver Assigned') return <span className="text-emerald-600 font-bold text-[10px] sm:text-xs flex items-center gap-1 mt-1"><CheckCircle className="w-3 h-3"/> Driver Assigned</span>;
+        if (booking.status === 'Cancelled') return <span className="text-red-600 font-bold text-[10px] sm:text-xs flex items-center gap-1 mt-1"><Ban className="w-3 h-3" /> Cancelled</span>;
+        if (booking.status === 'Driver Assigned') return <span className="text-emerald-600 font-bold text-[10px] sm:text-xs flex items-center gap-1 mt-1"><CheckCircle className="w-3 h-3" /> Driver Assigned</span>;
 
         try {
             if (!booking.date || !booking.time) return <span className="text-slate-400 text-[10px] sm:text-xs mt-1 block">Time pending</span>;
@@ -133,7 +134,7 @@ const AdminDashboard = () => {
             }
             if (diffHours <= 24 && diffHours > 5) return <span className="text-amber-500 font-bold text-[10px] sm:text-xs mt-1 block tracking-tight">{Math.floor(diffHours)} hrs left</span>;
             if (diffHours <= 5) return <span className="text-red-600 font-black text-[10px] sm:text-xs mt-1 block tracking-tight animate-pulse">URGENT: {Math.floor(diffHours)} hrs!</span>;
-        } catch(e) {
+        } catch (e) {
             return <span className="text-slate-400 text-[10px] sm:text-xs mt-1 block">Pending</span>;
         }
     };
@@ -155,16 +156,16 @@ const AdminDashboard = () => {
 
         if (dateRange !== 'all') {
             const today = new Date();
-            today.setHours(0, 0, 0, 0); 
+            today.setHours(0, 0, 0, 0);
             result = result.filter(b => {
-                if (!b.createdAt) return false; 
+                if (!b.createdAt) return false;
                 const bookingMadeDate = new Date(b.createdAt);
-                if (isNaN(bookingMadeDate.getTime())) return false; 
-                
+                if (isNaN(bookingMadeDate.getTime())) return false;
+
                 if (dateRange === 'last_7') {
                     const sevenDaysAgo = new Date(today);
                     sevenDaysAgo.setDate(today.getDate() - 7);
-                    return bookingMadeDate >= sevenDaysAgo && bookingMadeDate <= new Date(); 
+                    return bookingMadeDate >= sevenDaysAgo && bookingMadeDate <= new Date();
                 }
                 if (dateRange === 'last_30') {
                     const thirtyDaysAgo = new Date(today);
@@ -173,9 +174,9 @@ const AdminDashboard = () => {
                 }
                 if (dateRange === 'custom' && customStart && customEnd) {
                     const start = new Date(customStart);
-                    start.setHours(0,0,0,0);
+                    start.setHours(0, 0, 0, 0);
                     const end = new Date(customEnd);
-                    end.setHours(23, 59, 59, 999); 
+                    end.setHours(23, 59, 59, 999);
                     return bookingMadeDate >= start && bookingMadeDate <= end;
                 }
                 return true;
@@ -184,20 +185,20 @@ const AdminDashboard = () => {
 
         const getRideTimestamp = (obj: any) => {
             try {
-                if (!obj.date || !obj.time) return Infinity; 
+                if (!obj.date || !obj.time) return Infinity;
                 const [timePart, modifier] = obj.time.split(' ');
                 let [hours, minutes] = timePart.split(':');
                 if (hours === '12') hours = modifier === 'AM' ? '00' : '12';
                 else if (modifier === 'PM') hours = (parseInt(hours, 10) + 12).toString();
                 return new Date(`${obj.date}T${hours.padStart(2, '0')}:${minutes}:00`).getTime();
-            } catch(e) { return Infinity; }
+            } catch (e) { return Infinity; }
         };
 
         result.sort((a, b) => {
             if (priorityAssign) {
                 const aNeedsDriver = (!a.status || a.status === 'Confirmed') ? 1 : 0;
                 const bNeedsDriver = (!b.status || b.status === 'Confirmed') ? 1 : 0;
-                if (aNeedsDriver !== bNeedsDriver) return bNeedsDriver - aNeedsDriver; 
+                if (aNeedsDriver !== bNeedsDriver) return bNeedsDriver - aNeedsDriver;
                 if (aNeedsDriver === 1) return getRideTimestamp(a) - getRideTimestamp(b);
                 const getBookingTime = (obj: any) => obj.createdAt ? new Date(obj.createdAt).getTime() : 0;
                 return getBookingTime(b) - getBookingTime(a);
@@ -253,17 +254,14 @@ const AdminDashboard = () => {
 
     return (
         <div className="min-h-screen bg-slate-50 font-sans pb-20">
-            {/* Top Navigation */}
-            <nav className="bg-white border-b border-slate-200 px-4 sm:px-8 py-3 sm:py-4 sticky top-0 z-20 flex justify-between items-center shadow-sm">
-                <div className="flex items-center gap-2 sm:gap-3">
-                    <div className="bg-emerald-600 text-white px-2 py-1.5 sm:p-2 rounded-lg font-bold text-sm sm:text-xl">MTS</div>
-                    <h1 className="text-sm sm:text-xl font-bold text-slate-800">Admin Panel</h1>
-                </div>
-                <button onClick={() => window.location.reload()} className="text-slate-500 hover:text-red-600 font-medium transition-colors text-xs sm:text-base">Logout</button>
-            </nav>
+            {/* Native App Magic: Hide Scrollbars */}
+            <style>{`
+                ::-webkit-scrollbar { display: none; }
+                * { -ms-overflow-style: none; scrollbar-width: none; }
+            `}</style>
 
-            <div className="max-w-7xl mx-auto px-3 sm:px-8 mt-4 sm:mt-8">
-                
+            <div className="max-w-7xl mx-auto px-3 sm:px-8 pt-6 sm:pt-8">
+
                 {/* 🚀 COMPACT STAT CARDS FOR MOBILE */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-4 sm:mb-8">
                     <div className="bg-white p-3 sm:p-6 rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm">
@@ -300,7 +298,7 @@ const AdminDashboard = () => {
                             </select>
                         </div>
                     </div>
-                    
+
                     <div className="flex flex-row sm:flex-nowrap gap-2 sm:gap-4 w-full lg:w-auto">
                         <div onClick={() => setPriorityAssign(!priorityAssign)} className={`flex-1 flex items-center justify-center sm:justify-start gap-2 border rounded-lg sm:rounded-xl px-2 py-1.5 sm:px-4 sm:py-2 cursor-pointer transition-all select-none ${priorityAssign ? 'bg-amber-50 border-amber-300' : 'bg-slate-50 border-slate-200'}`}>
                             <input type="checkbox" checked={priorityAssign} readOnly className="w-3 h-3 sm:w-4 sm:h-4 rounded border-gray-300 text-amber-500 focus:ring-amber-500 pointer-events-none" />
@@ -321,7 +319,7 @@ const AdminDashboard = () => {
 
                 {/* 📋 RESPONSIVE DATA CONTAINER */}
                 <div className="bg-white rounded-xl sm:rounded-2xl border border-slate-200 shadow-sm sm:shadow-xl overflow-hidden">
-                    
+
                     {/* 💻 DESKTOP TABLE VIEW (Hidden on Mobile) */}
                     <div className="hidden lg:block overflow-x-auto">
                         {processedBookings.length === 0 ? (
@@ -375,11 +373,11 @@ const AdminDashboard = () => {
                                                     </button>
                                                 ) : booking.status === 'Driver Assigned' ? (
                                                     <span className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-100 whitespace-nowrap">
-                                                        <CheckCircle className="w-4 h-4"/> Assigned
+                                                        <CheckCircle className="w-4 h-4" /> Assigned
                                                     </span>
                                                 ) : (
                                                     <span className="inline-flex items-center gap-1 px-3 py-2 rounded-lg text-xs font-bold bg-slate-100 text-slate-400 whitespace-nowrap">
-                                                        <Ban className="w-4 h-4"/> Cancelled
+                                                        <Ban className="w-4 h-4" /> Cancelled
                                                     </span>
                                                 )}
                                             </td>
@@ -397,13 +395,13 @@ const AdminDashboard = () => {
                         ) : (
                             processedBookings.map((booking) => (
                                 <div key={booking._id} className={`p-4 flex flex-col gap-3 transition-colors ${priorityAssign && (!booking.status || booking.status === 'Confirmed') ? 'bg-amber-50/40 hover:bg-amber-50' : 'hover:bg-slate-50'}`}>
-                                    
+
                                     {/* Top Row: Badges & Time */}
                                     <div className="flex justify-between items-center">
                                         {booking.status === 'Cancelled' ? (
-                                            <span className="px-2 py-1 rounded bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><Ban className="w-3 h-3"/> Refunded</span>
+                                            <span className="px-2 py-1 rounded bg-slate-100 text-slate-500 text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><Ban className="w-3 h-3" /> Refunded</span>
                                         ) : (
-                                            <span className="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><CheckCircle className="w-3 h-3"/> Paid</span>
+                                            <span className="px-2 py-1 rounded bg-emerald-100 text-emerald-700 text-[9px] font-bold uppercase tracking-wider flex items-center gap-1"><CheckCircle className="w-3 h-3" /> Paid</span>
                                         )}
                                         <span className="text-[10px] text-slate-500 font-medium">{formatDateTime(booking.createdAt)}</span>
                                     </div>
@@ -434,18 +432,18 @@ const AdminDashboard = () => {
                                         <button onClick={() => { setSelectedBooking(booking); setIsDetailsModalOpen(true); }} className="flex-1 py-2.5 bg-slate-100 border border-slate-200 text-slate-700 hover:bg-slate-200 text-xs font-bold rounded-lg transition-colors flex items-center justify-center gap-1.5 active:scale-95">
                                             <Eye className="w-4 h-4" /> Details
                                         </button>
-                                        
+
                                         {(!booking.status || booking.status === 'Confirmed') ? (
                                             <button onClick={() => { setSelectedBooking(booking); setIsDriverModalOpen(true); }} className="flex-1 py-2.5 bg-slate-900 text-[#ffc800] text-xs font-bold rounded-lg hover:bg-slate-800 transition-colors flex items-center justify-center gap-1.5 shadow-md active:scale-95">
                                                 <Car className="w-4 h-4" /> Assign
                                             </button>
                                         ) : booking.status === 'Driver Assigned' ? (
                                             <span className="flex-1 py-2.5 rounded-lg text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 flex items-center justify-center gap-1.5">
-                                                <CheckCircle className="w-4 h-4"/> Assigned
+                                                <CheckCircle className="w-4 h-4" /> Assigned
                                             </span>
                                         ) : (
                                             <span className="flex-1 py-2.5 rounded-lg text-xs font-bold bg-slate-50 text-slate-400 border border-slate-100 flex items-center justify-center gap-1.5">
-                                                <Ban className="w-4 h-4"/> Cancelled
+                                                <Ban className="w-4 h-4" /> Cancelled
                                             </span>
                                         )}
                                     </div>
@@ -471,14 +469,14 @@ const AdminDashboard = () => {
                                 <X className="w-5 h-5" />
                             </button>
                         </div>
-                        
+
                         <div className="p-5 sm:p-8 space-y-4 sm:space-y-6">
-                            
+
                             <div className="flex flex-row items-center justify-between gap-3 p-3 sm:p-4 bg-slate-50 border border-slate-100 rounded-xl">
                                 <div className="flex-1">
                                     <p className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase tracking-wider mb-0.5">Route</p>
                                     <p className="text-sm sm:text-lg font-black text-slate-800 flex items-start gap-1.5 leading-tight">
-                                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 flex-shrink-0 mt-0.5" /> 
+                                        <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
                                         {selectedBooking.direction || selectedBooking.route}
                                     </p>
                                 </div>
@@ -506,17 +504,17 @@ const AdminDashboard = () => {
                                         <p className="font-medium text-slate-800 text-xs sm:text-sm">Time: {selectedBooking.time}</p>
                                     </div>
                                 </div>
-                                
+
                                 <div className="space-y-3 sm:space-y-4">
                                     <div>
                                         <p className="text-[10px] sm:text-xs text-slate-400 font-bold uppercase mb-1">Payment Info</p>
                                         <p className="text-[10px] sm:text-xs font-mono break-all text-slate-500">ID: {selectedBooking.paymentId}</p>
                                         <p className="text-slate-500 text-[10px] sm:text-xs mt-1">Booked: {formatDateTime(selectedBooking.createdAt)}</p>
                                     </div>
-                                    
+
                                     {selectedBooking.status === 'Driver Assigned' && (
                                         <div className="bg-emerald-50 border border-emerald-100 p-3 rounded-lg">
-                                            <p className="text-[10px] text-emerald-600 font-bold uppercase mb-1.5 flex items-center gap-1"><Car className="w-3 h-3"/> Driver Info</p>
+                                            <p className="text-[10px] text-emerald-600 font-bold uppercase mb-1.5 flex items-center gap-1"><Car className="w-3 h-3" /> Driver Info</p>
                                             <p className="font-bold text-slate-800 text-xs sm:text-sm">{selectedBooking.driverName}</p>
                                             <p className="text-slate-600 text-xs sm:text-sm">{selectedBooking.driverPhone}</p>
                                             <p className="text-slate-600 text-[10px] sm:text-sm font-mono mt-1 bg-white inline-block px-1 rounded">{selectedBooking.carNumber}</p>
@@ -531,7 +529,7 @@ const AdminDashboard = () => {
                                         <IndianRupee className="w-4 h-4" /> Cancel & Refund 80%
                                     </button>
                                 )}
-                                
+
                                 {(!selectedBooking.status || selectedBooking.status === 'Confirmed') && (
                                     <button onClick={() => { setIsDetailsModalOpen(false); setIsDriverModalOpen(true); }} className="w-full sm:w-auto px-4 sm:px-6 py-3 sm:py-3 bg-slate-900 text-[#ffc800] text-xs sm:text-sm font-bold rounded-xl active:scale-95 flex items-center justify-center gap-2">
                                         <Car className="w-4 h-4" /> Assign Driver Now
@@ -557,7 +555,7 @@ const AdminDashboard = () => {
                                 <X className="w-5 h-5 sm:w-6 h-6" />
                             </button>
                         </div>
-                        
+
                         <div className="p-5 sm:p-6 pb-8 sm:pb-6">
                             <div className="bg-slate-50 border border-slate-200 p-3 sm:p-4 rounded-xl mb-4 sm:mb-5 shadow-inner">
                                 <p className="text-slate-500 mb-0.5 text-[10px] sm:text-xs uppercase tracking-wider font-bold">Assigning for:</p>
@@ -568,17 +566,17 @@ const AdminDashboard = () => {
                             <form onSubmit={handleAssignDriver} className="space-y-3 sm:space-y-4">
                                 <div>
                                     <label className="block text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Driver Name</label>
-                                    <input required type="text" value={driverForm.name} onChange={e => setDriverForm({...driverForm, name: e.target.value})} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1" placeholder="e.g. Ramesh Kumar" />
+                                    <input required type="text" value={driverForm.name} onChange={e => setDriverForm({ ...driverForm, name: e.target.value })} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1" placeholder="e.g. Ramesh Kumar" />
                                 </div>
                                 <div>
                                     <label className="block text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">Driver Phone</label>
-                                    <input required type="tel" value={driverForm.phone} onChange={e => setDriverForm({...driverForm, phone: e.target.value})} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1" placeholder="10 digit number" />
+                                    <input required type="tel" value={driverForm.phone} onChange={e => setDriverForm({ ...driverForm, phone: e.target.value })} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1" placeholder="10 digit number" />
                                 </div>
                                 <div>
                                     <label className="block text-[10px] sm:text-xs font-bold text-slate-500 uppercase tracking-wider mb-1">License Plate</label>
-                                    <input required type="text" value={driverForm.carNumber} onChange={e => setDriverForm({...driverForm, carNumber: e.target.value})} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 uppercase" placeholder="e.g. UK07 AB 1234" />
+                                    <input required type="text" value={driverForm.carNumber} onChange={e => setDriverForm({ ...driverForm, carNumber: e.target.value })} className="w-full px-3 py-2.5 sm:px-4 sm:py-3 bg-white border border-slate-200 rounded-lg sm:rounded-xl text-xs sm:text-sm focus:outline-none focus:border-emerald-500 focus:ring-1 uppercase" placeholder="e.g. UK07 AB 1234" />
                                 </div>
-                                
+
                                 <button type="submit" disabled={isActionLoading} className="w-full mt-2 py-3 sm:py-3.5 bg-emerald-600 text-white rounded-lg sm:rounded-xl text-sm font-bold active:bg-emerald-700 disabled:opacity-70 flex items-center justify-center gap-2 active:scale-95 transition-transform">
                                     {isActionLoading ? 'Sending Details...' : <><Users className="w-4 h-4 sm:w-5 sm:h-5" /> Notify Customer</>}
                                 </button>
@@ -590,5 +588,6 @@ const AdminDashboard = () => {
         </div>
     );
 };
+
 
 export default AdminDashboard;

@@ -72,28 +72,31 @@ const BikeRentalPage = () => {
     { icon: Wrench, title: 'Well Maintained', description: 'All bikes are in new and excellent condition' },
   ];
 
+  // 🚨 CORRECTED SCHEMA: Changed to LocalBusiness and added required fields 🚨
   const bikeRentalSchema = {
     '@context': 'https://schema.org',
-    '@type': 'Service',
+    '@type': 'LocalBusiness',
     'name': 'Bike Rental Service - MTS Travels India',
+    'image': 'https://www.mtstravelsindia.com/images/bike-rental-hero.webp',
     'description': 'Affordable bike rental in Dehradun with new condition bikes at cheap hourly prices. Flexible rental options - hourly, daily, weekly, monthly. Fully insured with free helmet.',
-    'provider': {
-      '@type': 'LocalBusiness',
-      'name': 'MTS Travels India',
-      'address': {
-        '@type': 'PostalAddress',
-        'addressLocality': 'Dehradun',
-        'addressRegion': 'Uttarakhand',
-        'addressCountry': 'India'
-      },
-      'telephone': '+91-721-766-7160',
-      'email': 'info@mtstravelsindia.com'
+    'priceRange': '₹99 - ₹499',
+    'address': {
+      '@type': 'PostalAddress',
+      'addressLocality': 'Dehradun',
+      'addressRegion': 'Uttarakhand',
+      'addressCountry': 'India'
     },
+    'telephone': '+91-721-766-7160',
+    'email': 'info@mtstravelsindia.com',
     'areaServed': {
       '@type': 'City',
       'name': 'Dehradun'
     },
-    'serviceType': 'Bike and Scooter Rental',
+    'aggregateRating': {
+      '@type': 'AggregateRating',
+      'ratingValue': '4.7',
+      'ratingCount': '150'
+    },
     'offers': [
       {
         '@type': 'Offer',
@@ -109,12 +112,7 @@ const BikeRentalPage = () => {
         'priceCurrency': 'INR',
         'description': 'Rent bikes for a full day'
       }
-    ],
-    'aggregateRating': {
-      '@type': 'AggregateRating',
-      'ratingValue': '4.7',
-      'ratingCount': '150'
-    }
+    ]
   };
 
   return (

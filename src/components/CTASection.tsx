@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, ArrowRight, CreditCard } from 'lucide-react';
+import { Phone, ArrowRight } from 'lucide-react';
 
 const CTASection = () => {
   return (
