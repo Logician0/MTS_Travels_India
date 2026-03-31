@@ -21,6 +21,7 @@ const VerifyBookingPage = () => {
 
   const [minDate, setMinDate] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [isVerifying, setIsVerifying] = useState(false);
   const [acceptedTerms, setAcceptedTerms] = useState(false);
   
   // New state for Bike Rental age/license verification
@@ -36,6 +37,26 @@ const VerifyBookingPage = () => {
       <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
         <h2 className="text-2xl font-bold mb-4">No booking data found!</h2>
         <button onClick={() => navigate('/routes')} className="text-[#0F8A7C] underline">Go back to Routes</button>
+      </div>
+    );
+  }
+
+  if (isVerifying) {
+    return (
+      <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-[#111827] text-white">
+        <div className="relative mb-10 flex items-center justify-center">
+          <div className="absolute w-32 h-32 rounded-full border-t-4 border-[#ffc800] border-r-4 border-transparent animate-spin" style={{ animationDuration: '1s' }} />
+          <div className="absolute w-36 h-36 rounded-full border-b-4 border-[#0F8A7C] border-l-4 border-transparent animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
+          <div className="bg-white w-24 h-24 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,200,0,0.3)] relative z-10 p-4">
+            <img src="/images/logo.webp" alt="MTS Travels India" className="w-full h-auto object-contain" onError={(e: any) => { e.currentTarget.src = '/images/logo.png' }} />
+          </div>
+        </div>
+        <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 tracking-wide text-center px-4 animate-fade-in-up">
+          Redirecting to Booking Confirmation Page
+        </h2>
+        <p className="text-gray-400 font-bold tracking-widest uppercase text-sm animate-pulse">
+          Please Wait...
+        </p>
       </div>
     );
   }
@@ -116,6 +137,7 @@ const VerifyBookingPage = () => {
         order_id: orderData.order.id, 
         
         handler: async function (response: any) {
+          setIsVerifying(true);
           console.log("Payment completed on frontend, verifying with server...");
           
           const verifyResponse = await fetch(`${API_URL}/api/verify-payment`, {
@@ -140,6 +162,7 @@ const VerifyBookingPage = () => {
             });
           } else {
             alert("Payment verification failed! Please contact support.");
+            setIsVerifying(false);
             setIsProcessing(false);
           }
         },
@@ -152,6 +175,11 @@ const VerifyBookingPage = () => {
         theme: {
           color: "#111827", 
         },
+        modal: {
+          ondismiss: () => {
+            setIsProcessing(false);
+          }
+        }
       };
 
       const paymentObject = new (window as any).Razorpay(options);
