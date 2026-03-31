@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Youtube, Shield } from 'lucide-react';
+import { Phone, Mail, MapPin, Facebook, Instagram, Shield } from 'lucide-react';
 
 const Footer = () => {
   return (
@@ -32,12 +32,7 @@ const Footer = () => {
               <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg sm:rounded-xl flex items-center justify-center hover:bg-[#ffc800] hover:text-[#111827] transition-colors">
                 <Instagram className="w-4 h-4 sm:w-5 sm:h-5" />
               </a>
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg sm:rounded-xl flex items-center justify-center hover:bg-[#ffc800] hover:text-[#111827] transition-colors">
-                <Twitter className="w-4 h-4 sm:w-5 sm:h-5" />
-              </a>
-              <a href="#" className="w-8 h-8 sm:w-10 sm:h-10 bg-white/10 rounded-lg sm:rounded-xl flex items-center justify-center hover:bg-[#ffc800] hover:text-[#111827] transition-colors">
-                <Youtube className="w-4 h-4 sm:w-5 sm:h-5" />
-              </a>
+
             </div>
           </div>
 

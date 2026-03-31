@@ -257,12 +257,12 @@ const WeddingCarRental = () => {
 
                           <div className="space-y-1">
                             <label className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Date (From)</label>
-                            <input type="date" required value={form.dateFrom} onChange={(e) => setForm({...form, dateFrom: e.target.value})} className="w-full px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 font-medium focus:outline-none focus:bg-white focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 transition-all" />
+                            <input type="date" required min={new Date().toISOString().split('T')[0]} value={form.dateFrom} onChange={(e) => setForm({...form, dateFrom: e.target.value})} className="w-full px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 font-medium focus:outline-none focus:bg-white focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 transition-all" />
                           </div>
 
                           <div className="space-y-1">
                             <label className="text-[10px] sm:text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Date (To)</label>
-                            <input type="date" required value={form.dateTo} min={form.dateFrom} onChange={(e) => setForm({...form, dateTo: e.target.value})} className="w-full px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 font-medium focus:outline-none focus:bg-white focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 transition-all" />
+                            <input type="date" required value={form.dateTo} min={form.dateFrom || new Date().toISOString().split('T')[0]} onChange={(e) => setForm({...form, dateTo: e.target.value})} className="w-full px-4 py-3 sm:py-3.5 bg-gray-50 border border-gray-200 rounded-xl text-sm text-gray-900 font-medium focus:outline-none focus:bg-white focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 transition-all" />
                           </div>
                         </div>
 

@@ -319,6 +319,7 @@ const ContactPage = () => {
                       <input
                         type="date"
                         required
+                        min={new Date().toISOString().split('T')[0]}
                         value={oneWayForm.date}
                         onChange={(e) => setOneWayForm({ ...oneWayForm, date: e.target.value })}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-gray-200 focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 outline-none transition-all text-sm"
@@ -488,6 +489,7 @@ const ContactPage = () => {
                       <input
                         type="date"
                         required
+                        min={new Date().toISOString().split('T')[0]}
                         value={roundTripForm.departureDate}
                         onChange={(e) => setRoundTripForm({ ...roundTripForm, departureDate: e.target.value })}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-gray-200 focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 outline-none transition-all text-sm"
@@ -515,6 +517,7 @@ const ContactPage = () => {
                       <input
                         type="date"
                         required
+                        min={roundTripForm.departureDate || new Date().toISOString().split('T')[0]}
                         value={roundTripForm.returnDate}
                         onChange={(e) => setRoundTripForm({ ...roundTripForm, returnDate: e.target.value })}
                         className="w-full px-3 sm:px-4 py-2.5 sm:py-3 rounded-lg sm:rounded-xl border border-gray-200 focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 outline-none transition-all text-sm"
