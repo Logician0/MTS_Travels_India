@@ -132,8 +132,8 @@ const BookingSuccessPage = () => {
                   </div>
                   <div>
                     <p className="text-xs font-bold text-gray-400 uppercase tracking-wider mb-1">Route</p>
-                    <p className="font-bold text-gray-900 text-lg leading-tight">{booking.direction}</p>
-                    <p className="text-sm text-gray-500 font-medium capitalize mt-1">{booking.tripType.replace('_', ' ')}</p>
+                    <p className="font-bold text-gray-900 text-lg leading-tight">{booking.direction || 'Custom Route'}</p>
+                    <p className="text-sm text-gray-500 font-medium capitalize mt-1">{booking.tripType ? booking.tripType.replace('_', ' ') : 'N/A'}</p>
                   </div>
                 </div>
 
