@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 import { 
-  MapPin, Calendar, Search, ChevronLeft, ChevronRight,
+  MapPin, Search,
   Star, Check, ShieldCheck, Users, Plus
 } from 'lucide-react';
 import { routesData } from '../data/routesData'; 
@@ -28,13 +28,8 @@ const HeroSection = () => {
   
   const [pickup, setPickup] = useState('');
   const [dropoff, setDropoff] = useState('');
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  
   const [showPickup, setShowPickup] = useState(false);
   const [showDropoff, setShowDropoff] = useState(false);
-  const [showCalendar, setShowCalendar] = useState(false);
-  
-  const [calendarMonth, setCalendarMonth] = useState(new Date());
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -56,29 +51,7 @@ const HeroSection = () => {
   const isCustomPickup = pickup.trim() !== '' && !allCities.some(c => c.toLowerCase() === pickup.trim().toLowerCase());
   const isCustomDropoff = dropoff.trim() !== '' && !allCities.some(c => c.toLowerCase() === dropoff.trim().toLowerCase());
 
-  const getCalendarDays = () => {
-    const year = calendarMonth.getFullYear();
-    const month = calendarMonth.getMonth();
-    const firstDay = new Date(year, month, 1);
-    const lastDay = new Date(year, month + 1, 0);
-    const daysInMonth = lastDay.getDate();
-    const startingDay = firstDay.getDay();
-    
-    const days: (Date | null)[] = [];
-    for (let i = 0; i < startingDay; i++) days.push(null);
-    for (let i = 1; i <= daysInMonth; i++) days.push(new Date(year, month, i));
-    return days;
-  };
 
-  const isDateDisabled = (date: Date) => {
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-    return date < today;
-  };
-
-  const formatDate = (date: Date) => {
-    return date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-  };
 
   const handleSearch = () => {
     if (!pickup.trim() || !dropoff.trim()) {
@@ -101,7 +74,6 @@ const HeroSection = () => {
   const closeAllDropdowns = () => {
     setShowPickup(false);
     setShowDropoff(false);
-    setShowCalendar(false);
   };
 
   return (
@@ -133,7 +105,7 @@ const HeroSection = () => {
 
       <div className="relative z-[10] w-full flex flex-col items-center px-2 sm:px-4 pt-16 sm:pt-24 lg:pt-16 pb-6 sm:pb-12 h-full">
         
-        {(showPickup || showDropoff || showCalendar) && (
+        {(showPickup || showDropoff) && (
           <div className="fixed inset-0 z-[40]" onClick={closeAllDropdowns} />
         )}
 
@@ -259,47 +231,7 @@ const HeroSection = () => {
                 </AnimatePresence>
               </div>
 
-              <div className="w-px h-6 sm:h-10 bg-white/20" />
 
-              <div className="relative flex-1 min-w-0">
-                <button onClick={() => { closeAllDropdowns(); setShowCalendar(!showCalendar); }} className="w-full flex items-center justify-center sm:justify-start gap-1.5 sm:gap-3 px-1 sm:px-3 py-2 sm:py-2.5 rounded-full hover:bg-white/10 transition-all text-left border border-transparent focus:border-[#ffc800]/50 relative z-50">
-                  <Calendar className="w-3.5 h-3.5 sm:w-5 sm:h-5 text-[#ffc800] flex-shrink-0" />
-                  <div className="flex-1 min-w-0 flex flex-col items-center sm:items-start">
-                    <p className="text-[8px] sm:text-[10px] uppercase tracking-wider text-gray-300 font-bold mb-0.5 cursor-pointer">Date</p>
-                    <p className="text-[10px] sm:text-sm text-white font-semibold truncate w-full text-center sm:text-left">{selectedDate ? formatDate(selectedDate) : 'Any'}</p>
-                  </div>
-                </button>
-
-                <AnimatePresence>
-                  {showCalendar && (
-                    <motion.div initial={{ opacity: 0, y: -15 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -15 }} className="absolute top-full mt-2 right-0 sm:right-auto sm:left-0 md:left-auto md:right-0 w-[280px] sm:w-64 bg-white rounded-2xl shadow-2xl overflow-hidden border border-gray-100 z-[200]">
-                      <div className="flex items-center justify-between p-3 sm:p-3 border-b border-gray-100 bg-gray-50">
-                        <button onClick={() => { const newDate = new Date(calendarMonth); newDate.setMonth(newDate.getMonth() - 1); const today = new Date(); if (newDate.getMonth() >= today.getMonth() || newDate.getFullYear() > today.getFullYear()) setCalendarMonth(newDate); }} className="p-1 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-colors">
-                          <ChevronLeft className="w-4 h-4 sm:w-4 sm:h-4 text-gray-600" />
-                        </button>
-                        <span className="text-xs sm:text-sm font-bold text-gray-900">{calendarMonth.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</span>
-                        <button onClick={() => { const newDate = new Date(calendarMonth); newDate.setMonth(newDate.getMonth() + 1); setCalendarMonth(newDate); }} className="p-1 hover:bg-white rounded-lg border border-transparent hover:border-gray-200 transition-colors">
-                          <ChevronRight className="w-4 h-4 sm:w-4 sm:h-4 text-gray-600" />
-                        </button>
-                      </div>
-                      <div className="grid grid-cols-7 gap-1 px-3 sm:px-3 pt-2 sm:pt-2.5 pb-1">
-                        {['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'].map((day) => <div key={day} className="text-[8px] sm:text-[10px] font-bold text-gray-400 text-center uppercase">{day}</div>)}
-                      </div>
-                      <div className="grid grid-cols-7 gap-1 p-2 sm:p-2.5">
-                        {getCalendarDays().map((date, index) => (
-                          <div key={index} className="aspect-square">
-                            {date ? (
-                              <button onClick={() => { if (!isDateDisabled(date)) { setSelectedDate(date); setShowCalendar(false); } }} disabled={isDateDisabled(date)} className={`w-full h-full flex items-center justify-center rounded-md sm:rounded-lg text-xs sm:text-sm font-medium transition-all ${isDateDisabled(date) ? 'text-gray-300 cursor-not-allowed' : selectedDate && date.toDateString() === selectedDate.toDateString() ? 'bg-[#111827] text-[#ffc800] shadow-md' : date.toDateString() === new Date().toDateString() ? 'bg-amber-50 text-[#d97706] hover:bg-amber-100 border border-amber-200' : 'hover:bg-gray-100 text-gray-700'}`}>
-                                {date.getDate()}
-                              </button>
-                            ) : null}
-                          </div>
-                        ))}
-                      </div>
-                    </motion.div>
-                  )}
-                </AnimatePresence>
-              </div>
 
               <button onClick={handleSearch} className="relative z-50 w-10 h-10 sm:w-auto sm:h-auto sm:px-8 sm:py-3.5 bg-[#ffc800] text-[#111827] font-black rounded-full hover:bg-white transition-all shadow-[0_0_20px_rgba(255,200,0,0.3)] flex items-center justify-center gap-2 flex-shrink-0 mr-0.5 sm:mr-0">
                 <Search className="w-4 h-4 sm:w-5 sm:h-5" />
