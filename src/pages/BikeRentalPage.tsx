@@ -72,10 +72,11 @@ const BikeRentalPage = () => {
     { icon: Wrench, title: 'Well Maintained', description: 'All bikes are in new and excellent condition' },
   ];
 
-  // 🚨 CORRECTED SCHEMA: Changed to LocalBusiness and added required fields 🚨
+  // 🚨 CORRECTED SCHEMA: Changed to AutoRental and added @id to fix GSC error 🚨
   const bikeRentalSchema = {
     '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
+    '@type': 'AutoRental',
+    '@id': 'https://www.mtstravelsindia.com/bike-rental/#business',
     'name': 'Bike Rental Service - MTS Travels India',
     'image': 'https://www.mtstravelsindia.com/images/bike-rental-hero.webp',
     'description': 'Affordable bike rental in Dehradun with new condition bikes at cheap hourly prices. Flexible rental options - hourly, daily, weekly, monthly. Fully insured with free helmet.',

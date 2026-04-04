@@ -14,7 +14,7 @@ const HomePage = () => {
   const localBusinessSchema = {
     '@context': 'https://schema.org',
     '@type': 'LocalBusiness',
-    '@id': 'https://www.mtstravelsindia.com',
+    '@id': 'https://www.mtstravelsindia.com/#business',
     'name': 'MTS Travels India',
     'description': 'Premium government-approved taxi and car rental service in Dehradun, Uttarakhand.',
     'url': 'https://www.mtstravelsindia.com',
