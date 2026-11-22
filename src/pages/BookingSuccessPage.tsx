@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { CheckCircle2, MapPin, Calendar, Car, ArrowRight, Printer, Phone, ShieldAlert, Mail } from 'lucide-react'; // 👈 Added Mail icon
 import SEO from '../components/SEO';
@@ -15,13 +14,15 @@ const BookingSuccessPage = () => {
   }
   const { booking, paymentId } = location.state || savedConfirmation;
 
-  useEffect(() => {
-    if (!booking) {
-      navigate('/');
-    }
-  }, [booking, navigate]);
-
-  if (!booking) return null;
+  if (!booking) return (
+    <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-6">
+      <div className="max-w-md rounded-2xl bg-white p-8 text-center shadow-sm">
+        <h1 className="text-2xl font-black text-[#111827]">Booking confirmation unavailable</h1>
+        <p className="mt-3 text-gray-600">This page needs the receipt created immediately after payment. Please check your confirmation email or contact support if payment was completed.</p>
+        <button onClick={() => navigate('/')} className="mt-6 rounded-xl bg-[#111827] px-6 py-3 font-bold text-white">Return to Home</button>
+      </div>
+    </div>
+  );
 
   return (
     <>
