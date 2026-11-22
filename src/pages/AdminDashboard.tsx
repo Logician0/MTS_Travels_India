@@ -24,14 +24,16 @@ const AdminDashboard = () => {
     const [isActionLoading, setIsActionLoading] = useState(false);
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    const API_URL = (import.meta as any).env?.VITE_API_URL || 'https://mts-travels-india-backend.onrender.com';
+    const API_URL = (import.meta as any).env?.VITE_API_URL || 'https://mts-travels-api-staging.suraj-logician.workers.dev';
 
     const handleLogin = async (e: React.FormEvent) => {
         e.preventDefault();
         setLoading(true);
         setError('');
         try {
-            const response = await fetch(`${API_URL}/api/bookings?pin=${pin}`);
+            const response = await fetch(`${API_URL}/api/bookings`, {
+                headers: { 'X-Admin-Pin': pin }
+            });
             const data = await response.json();
             if (data.success) {
                 setBookings(data.bookings);
@@ -54,7 +56,7 @@ const AdminDashboard = () => {
         try {
             const response = await fetch(`${API_URL}/api/assign-driver`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Admin-Pin': pin },
                 body: JSON.stringify({
                     orderId: selectedBooking.orderId,
                     driverName: driverForm.name,
@@ -94,7 +96,7 @@ const AdminDashboard = () => {
         try {
             const response = await fetch(`${API_URL}/api/refund-booking`, {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 'Content-Type': 'application/json', 'X-Admin-Pin': pin },
                 body: JSON.stringify({ paymentId: booking.paymentId, totalAmount: booking.price })
             });
 
