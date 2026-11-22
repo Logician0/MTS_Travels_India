@@ -7,7 +7,13 @@ const BookingSuccessPage = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
-  const { booking, paymentId } = location.state || {};
+  let savedConfirmation: { booking?: any; paymentId?: string } = {};
+  try {
+    savedConfirmation = JSON.parse(sessionStorage.getItem('mts-last-booking-confirmation') || '{}');
+  } catch {
+    // A malformed or expired browser value should never break the receipt page.
+  }
+  const { booking, paymentId } = location.state || savedConfirmation;
 
   useEffect(() => {
     if (!booking) {

@@ -162,6 +162,11 @@ const VerifyBookingPage = () => {
           const verifyData = await verifyResponse.json();
 
           if (verifyData.success) {
+            // Keep the receipt available if the success page is refreshed immediately after checkout.
+            sessionStorage.setItem('mts-last-booking-confirmation', JSON.stringify({
+              booking: finalBookingData,
+              paymentId: response.razorpay_payment_id
+            }));
             navigate('/booking-success', { 
                 state: { 
                     booking: finalBookingData,
