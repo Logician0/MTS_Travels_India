@@ -14,7 +14,7 @@ const TestPaymentPage = () => {
   const handleTestSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // 1. Create a dummy booking object with the price forced to 2 Rupees
+    // 1. Create a dummy booking object with the price forced to 1 Rupee.
     const testBookingData = {
       name: formData.name,
       email: formData.email,
@@ -26,7 +26,7 @@ const TestPaymentPage = () => {
       date: new Date().toLocaleDateString(),
       time: new Date().toLocaleTimeString(),
       passengers: 1,
-      price: 2, // 🚨 THE MAGIC NUMBER: ₹2.00 (Allows 80% refunds to pass Razorpay's ₹1 minimum)
+      price: 1,
     };
 
     // 2. Redirect to your actual Verify Booking page and pass the data!
@@ -43,7 +43,7 @@ const TestPaymentPage = () => {
             <Zap className="w-6 h-6 text-[#ffc800]" />
           </div>
           <h1 className="text-xl font-bold text-white tracking-wide">Live System Test</h1>
-          <p className="text-gray-400 text-sm mt-1">Generate a ₹2.00 Test Booking</p>
+          <p className="text-gray-400 text-sm mt-1">Generate a ₹1.00 Test Booking</p>
         </div>
 
         <div className="p-6 sm:p-8">
@@ -52,7 +52,7 @@ const TestPaymentPage = () => {
             <div className="bg-blue-50 border border-blue-100 p-4 rounded-xl flex items-start gap-3">
               <ShieldAlert className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
               <p className="text-xs sm:text-sm text-blue-800 font-medium leading-relaxed">
-                Clicking proceed will redirect you to your main booking page with a locked price of <strong>₹2.00</strong> to test Razorpay safely.
+                Clicking proceed will redirect you to your main booking page with a locked price of <strong>₹1.00</strong> to test Razorpay safely.
               </p>
             </div>
 
