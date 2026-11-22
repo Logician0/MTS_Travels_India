@@ -126,9 +126,17 @@ const VerifyBookingPage = () => {
         return;
       }
 
+      const configResponse = await fetch(`${API_URL}/api/payment-config`);
+      const paymentConfig = await configResponse.json();
+      if (!configResponse.ok || !paymentConfig.keyId) {
+        alert("Payment configuration is unavailable. Please contact support.");
+        setIsProcessing(false);
+        return;
+      }
+
       const options = {
-        // 🚨 CRITICAL FIX: Pulled the key from environment variables instead of hardcoding the test key!
-        key: ((import.meta as any).env as any).VITE_RAZORPAY_KEY_ID, 
+        // The publishable key ID comes from the Worker; the Razorpay secret stays server-side.
+        key: paymentConfig.keyId,
         amount: orderData.order.amount, 
         currency: "INR",
         name: "MTS Travels India",
