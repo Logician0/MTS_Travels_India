@@ -35,29 +35,6 @@ const ContactPage = () => {
     message: '',
   });
 
-  // --- NEW: Google Sheets integration function ---
-  const submitToGoogleSheet = async (data: any, tripType: string) => {
-    // ⚠️ IMPORTANT: Replace this with your actual Google Apps Script Web App URL
-    const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbybpbgK76uDp3drv_fO9sZJAQOKASuMaOIN6aFVxXPzTnhBue-82ljC0yddfrHDhbp_hw/exec';
-    
-    try {
-      await fetch(GOOGLE_SCRIPT_URL, {
-        method: 'POST',
-        mode: 'no-cors',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          timestamp: new Date().toLocaleString(),
-          tripType: tripType,
-          ...data
-        })
-      });
-    } catch (error) {
-      console.error('Error saving to Google Sheets:', error);
-    }
-  };
-
   // --- UPDATED: One Way Submit Handler ---
   const handleOneWaySubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -67,10 +44,7 @@ const ContactPage = () => {
       return;
     }
     
-    // 1. Send data to Google Sheet silently
-    await submitToGoogleSheet(oneWayForm, 'One Way');
-
-    // 2. Format the message for WhatsApp
+    // Format the message for WhatsApp. Do not transmit customer data to an unauthenticated third party.
     const message = `*New Booking Request: One Way* 🚖
     
 *Name:* ${oneWayForm.name}
@@ -103,10 +77,7 @@ const ContactPage = () => {
       return;
     }
     
-    // 1. Send data to Google Sheet
-    await submitToGoogleSheet(roundTripForm, 'Round Trip');
-
-    // 2. Format the message for WhatsApp
+    // Format the message for WhatsApp. Do not transmit customer data to an unauthenticated third party.
     const message = `*New Booking Request: Round Trip* 🚖
     
 *Name:* ${roundTripForm.name}

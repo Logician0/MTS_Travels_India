@@ -25,7 +25,6 @@ const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const BikeRentalPage = lazy(() => import('./pages/BikeRentalPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
-const TestPaymentPage = lazy(() => import('./pages/TestPaymentPage'));
 
 // Loading component
 const PageLoader = () => (
@@ -86,8 +85,6 @@ const AppContent = () => {
               <Route path="/verify-booking" element={<VerifyBookingPage />} />
               <Route path="/booking-success" element={<BookingSuccessPage />} />
               <Route path="/admin" element={<AdminDashboard />} />
-
-              <Route path="/test-system-secret-123" element={<TestPaymentPage />} />
 
               {/* Legal Pages */}
               <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />

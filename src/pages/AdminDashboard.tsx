@@ -61,9 +61,7 @@ const AdminDashboard = () => {
                     orderId: selectedBooking.orderId,
                     driverName: driverForm.name,
                     driverPhone: driverForm.phone,
-                    carNumber: driverForm.carNumber,
-                    customerEmail: selectedBooking.email || selectedBooking.customerEmail,
-                    customerName: selectedBooking.name || selectedBooking.customerName
+                    carNumber: driverForm.carNumber
                 })
             });
 
@@ -97,7 +95,7 @@ const AdminDashboard = () => {
             const response = await fetch(`${API_URL}/api/refund-booking`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', 'X-Admin-Pin': pin },
-                body: JSON.stringify({ paymentId: booking.paymentId, totalAmount: booking.price })
+                body: JSON.stringify({ paymentId: booking.paymentId })
             });
 
             const data = await response.json();

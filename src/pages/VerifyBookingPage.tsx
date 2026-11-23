@@ -115,7 +115,8 @@ const VerifyBookingPage = () => {
       const orderResponse = await fetch(`${API_URL}/api/create-order`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: bookingData.price })
+        // The Worker derives the fare from the route/rental details; it ignores this temporary compatibility amount.
+        body: JSON.stringify({ bookingData: finalBookingData, amount: bookingData.price })
       });
       
       const orderData = await orderResponse.json();
