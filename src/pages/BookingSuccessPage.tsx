@@ -27,6 +27,15 @@ const BookingSuccessPage = () => {
   return (
     <>
       <SEO title="Booking Confirmed - MTS Travels India" description="Your booking is successful." />
+      <div role="status" className="fixed top-5 left-1/2 z-[100] w-[calc(100%-2rem)] max-w-md -translate-x-1/2 rounded-2xl border border-emerald-200 bg-white px-5 py-4 shadow-2xl animate-fade-in">
+        <div className="flex items-center gap-3">
+          <CheckCircle2 className="h-8 w-8 shrink-0 text-emerald-600" />
+          <div>
+            <p className="font-black text-slate-900">Payment received</p>
+            <p className="text-sm font-medium text-slate-600">Your booking is confirmed and a receipt has been emailed.</p>
+          </div>
+        </div>
+      </div>
       
       {/* 🚨 PRINT CSS: Forces 1 Page, Hides UI, and Removes Browser Headers */}
       <style>
