@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { Filter, Calendar as CalendarIcon, ArrowUpDown, Shield, Users, Car, X, CheckCircle, Ban, IndianRupee, Eye, MapPin } from 'lucide-react';
+import { Filter, Calendar as CalendarIcon, ArrowUpDown, Shield, Car, X, CheckCircle, Ban, IndianRupee, Eye, MapPin, LogOut, RefreshCw, Search } from 'lucide-react';
 
 const AdminDashboard = () => {
     const [pin, setPin] = useState('');
@@ -10,6 +10,8 @@ const AdminDashboard = () => {
 
     // 🎛️ FILTER & SORT STATES
     const [filterTrip, setFilterTrip] = useState('all');
+    const [filterStatus, setFilterStatus] = useState('all');
+    const [search, setSearch] = useState('');
     const [dateRange, setDateRange] = useState('all');
     const [customStart] = useState('');
     const [customEnd] = useState('');
@@ -22,6 +24,7 @@ const AdminDashboard = () => {
     const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
     const [driverForm, setDriverForm] = useState({ name: '', phone: '', carNumber: '' });
     const [isActionLoading, setIsActionLoading] = useState(false);
+    const [lastUpdated, setLastUpdated] = useState('');
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const API_URL = (import.meta as any).env?.VITE_API_URL || 'https://mts-travels-api-staging.suraj-logician.workers.dev';
@@ -38,6 +41,7 @@ const AdminDashboard = () => {
             if (data.success) {
                 setBookings(data.bookings);
                 setIsLoggedIn(true);
+                setLastUpdated(new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }));
             } else {
                 setError('Access Denied: Invalid Security PIN');
             }
@@ -46,6 +50,29 @@ const AdminDashboard = () => {
         } finally {
             setLoading(false);
         }
+    };
+
+    const refreshBookings = async () => {
+        setLoading(true);
+        setError('');
+        try {
+            const response = await fetch(`${API_URL}/api/bookings`, { headers: { 'X-Admin-Pin': pin } });
+            const data = await response.json();
+            if (!data.success) throw new Error('Unable to refresh bookings');
+            setBookings(data.bookings);
+            setLastUpdated(new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' }));
+        } catch {
+            setError('Could not refresh bookings. Please try again.');
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const logout = () => {
+        setPin('');
+        setBookings([]);
+        setIsLoggedIn(false);
+        setSelectedBooking(null);
     };
 
     const handleAssignDriver = async (e: React.FormEvent) => {
@@ -154,6 +181,18 @@ const AdminDashboard = () => {
             });
         }
 
+        if (filterStatus !== 'all') {
+            result = result.filter(b => filterStatus === 'needs_driver'
+                ? (!b.status || b.status === 'Confirmed')
+                : b.status === filterStatus);
+        }
+
+        if (search.trim()) {
+            const query = search.trim().toLowerCase();
+            result = result.filter(b => [b.customerName, b.name, b.customerPhone, b.phone, b.route, b.direction, b.orderId]
+                .some(value => String(value || '').toLowerCase().includes(query)));
+        }
+
         if (dateRange !== 'all') {
             const today = new Date();
             today.setHours(0, 0, 0, 0);
@@ -214,7 +253,7 @@ const AdminDashboard = () => {
         });
 
         return result;
-    }, [bookings, filterTrip, dateRange, customStart, customEnd, sortBy, priorityAssign]);
+    }, [bookings, filterTrip, filterStatus, search, dateRange, customStart, customEnd, sortBy, priorityAssign]);
 
     const stats = useMemo(() => {
         const activeBookings = processedBookings.filter(b => b.status !== 'Cancelled');
@@ -238,12 +277,12 @@ const AdminDashboard = () => {
                             <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-emerald-600" />
                         </div>
                         <h2 className="text-2xl sm:text-3xl font-bold text-slate-800">MTS Command</h2>
-                        <p className="text-slate-500 mt-1 text-xs sm:text-sm">Enter PIN to continue</p>
+                        <p className="text-slate-500 mt-1 text-xs sm:text-sm">Protected booking operations</p>
                     </div>
                     <form onSubmit={handleLogin} className="space-y-4">
                         <input type="password" placeholder="••••••••" value={pin} onChange={(e) => setPin(e.target.value)} className="w-full px-4 py-3 sm:py-4 border border-slate-200 rounded-xl focus:ring-2 focus:ring-emerald-500 focus:border-transparent outline-none transition-all text-center text-lg sm:text-xl tracking-widest" required />
                         <button type="submit" disabled={loading} className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 sm:py-4 rounded-xl transition-all active:scale-95 disabled:opacity-50 text-sm sm:text-base">
-                            {loading ? 'Decrypting...' : 'Unlock Dashboard'}
+                            {loading ? 'Checking access…' : 'Unlock Dashboard'}
                         </button>
                     </form>
                     {error && <div className="mt-4 p-2.5 sm:p-3 bg-red-50 text-red-600 text-xs sm:text-sm rounded-lg text-center border border-red-100">{error}</div>}
@@ -261,6 +300,22 @@ const AdminDashboard = () => {
             `}</style>
 
             <div className="max-w-7xl mx-auto px-3 sm:px-8 pt-6 sm:pt-8">
+
+                <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-5 sm:mb-7">
+                    <div>
+                        <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-700">MTS Travels India</p>
+                        <h1 className="text-2xl sm:text-3xl font-black text-slate-900">Booking command centre</h1>
+                        <p className="text-xs text-slate-500 mt-1">{lastUpdated ? `Last updated ${lastUpdated}` : 'Live booking view'}</p>
+                    </div>
+                    <div className="flex gap-2">
+                        <button onClick={refreshBookings} disabled={loading} className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-white border border-slate-200 text-slate-700 text-sm font-bold hover:bg-slate-50 disabled:opacity-60">
+                            <RefreshCw className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} /> Refresh
+                        </button>
+                        <button onClick={logout} className="inline-flex items-center justify-center gap-2 px-3.5 py-2.5 rounded-xl bg-slate-900 text-white text-sm font-bold hover:bg-slate-800">
+                            <LogOut className="w-4 h-4" /> Sign out
+                        </button>
+                    </div>
+                </header>
 
                 {/* 🚀 COMPACT STAT CARDS FOR MOBILE */}
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-4 sm:mb-8">
@@ -297,6 +352,14 @@ const AdminDashboard = () => {
                                 <option value="last_30">Last 30 Days</option>
                             </select>
                         </div>
+                        <div className="flex-1 flex items-center gap-1.5 sm:gap-2 bg-slate-50 border border-slate-200 rounded-lg sm:rounded-xl px-2.5 py-1.5 sm:px-3 sm:py-2">
+                            <select value={filterStatus} onChange={(e) => setFilterStatus(e.target.value)} className="bg-transparent outline-none text-xs sm:text-sm font-medium text-slate-700 w-full cursor-pointer" aria-label="Booking status">
+                                <option value="all">All Statuses</option>
+                                <option value="needs_driver">Needs Driver</option>
+                                <option value="Driver Assigned">Assigned</option>
+                                <option value="Cancelled">Cancelled</option>
+                            </select>
+                        </div>
                     </div>
 
                     <div className="flex flex-row sm:flex-nowrap gap-2 sm:gap-4 w-full lg:w-auto">
@@ -315,6 +378,11 @@ const AdminDashboard = () => {
                             </select>
                         </div>
                     </div>
+                </div>
+
+                <div className="relative mb-4 sm:mb-6">
+                    <Search className="w-4 h-4 text-slate-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                    <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search customer, phone, route, or order ID" className="w-full bg-white border border-slate-200 rounded-xl pl-10 pr-4 py-3 text-sm outline-none focus:ring-2 focus:ring-emerald-500" />
                 </div>
 
                 {/* 📋 RESPONSIVE DATA CONTAINER */}
