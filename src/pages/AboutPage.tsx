@@ -129,7 +129,7 @@ const AboutPage = () => {
             <div className="relative order-2 lg:order-1">
               <div className="rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl">
                 <img
-                  src="/images/about-team.webp"
+                  src="/images/marketing/heroposter.webp"
                   alt="MTS Travels Team"
                   className="w-full h-auto object-cover"
                 />

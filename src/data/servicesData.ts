@@ -17,7 +17,7 @@ export const servicesData: ServiceData[] = [
     description: "Our local taxi service in Dehradun offers convenient and affordable transportation for all your daily commute needs. Whether you need to visit the market, attend a meeting, or explore the city, our professional drivers are ready to serve you 24/7.",
     features: ["Hourly Packages", "Full Day Rentals", "Multiple Stops", "Waiting Time Included"],
     icon: "car",
-    image: "/images/service-local.webp",
+    image: "/images/services/service-local.webp",
     benefits: ["Flexible timings", "Affordable rates", "Clean and sanitized vehicles", "GPS-enabled tracking"]
   },
   {
@@ -27,7 +27,7 @@ export const servicesData: ServiceData[] = [
     description: "Never miss a flight with our punctual airport transfer service. We offer seamless pickup and drop services to Jolly Grant Airport, Dehradun with real-time flight tracking and professional drivers who ensure you reach on time.",
     features: ["Flight Tracking", "Meet & Greet", "Luggage Assistance", "24/7 Service"],
     icon: "plane",
-    image: "/images/service-airport.webp",
+    image: "/images/services/service-airport.webp",
     benefits: ["On-time guarantee", "Flight delay adjustments", "Comfortable vehicles", "Professional chauffeurs"]
   },
   {
@@ -37,7 +37,7 @@ export const servicesData: ServiceData[] = [
     description: "Our one-way taxi service allows you to travel to your destination without paying for return fare. Perfect for one-way journeys between cities, our transparent pricing ensures you only pay for the distance traveled.",
     features: ["No Return Fare", "Multiple Cities", "Transparent Pricing", "Instant Booking"],
     icon: "arrowRight",
-    image: "/images/service-oneway.webp",
+    image: "/images/services/service-oneway.webp",
     benefits: ["Cost-effective travel", "Drop anywhere service", "Multiple vehicle options", "No hidden charges"]
   },
   {
@@ -47,7 +47,7 @@ export const servicesData: ServiceData[] = [
     description: "Plan your complete trip with our round trip taxi service. Book your outward and return journey together and enjoy discounted rates. Ideal for business trips, family visits, or tourist excursions.",
     features: ["Discounted Rates", "Same Driver", "Flexible Itinerary", "Multiple Day Trips"],
     icon: "repeat",
-    image: "/images/service-roundtrip.webp",
+    image: "/images/services/service-roundtrip.webp",
     benefits: ["Better rates than one-way", "Familiar driver", "Customizable schedule", "Wait and return options"]
   },
   {
@@ -57,7 +57,7 @@ export const servicesData: ServiceData[] = [
     description: "Make your special day even more memorable with our premium wedding car service. We offer beautifully decorated luxury vehicles for wedding ceremonies, with professional chauffeurs ensuring a grand entrance.",
     features: ["Decorated Vehicles", "Luxury Cars", "Professional Chauffeurs", "Custom Decorations"],
     icon: "heart",
-    image: "/images/service-wedding.webp",
+    image: "/images/services/service-wedding.webp",
     benefits: ["Luxury experience", "Flower decorations", "Red carpet service", "Photography support"]
   },
   {
@@ -67,7 +67,7 @@ export const servicesData: ServiceData[] = [
     description: "Experience the thrill of adventure with our specially curated tour packages. From river rafting in Rishikesh to trekking in the Himalayas, we provide safe and comfortable transportation for all your adventure activities.",
     features: ["Expert Guides", "Safe Transport", "Multiple Activities", "Group Packages"],
     icon: "mountain",
-    image: "/images/service-adventure.webp",
+    image: "/images/services/service-adventure.webp",
     benefits: ["Adventure specialists", "Safety equipment", "Experienced drivers", "Flexible itineraries"]
   }
 ];

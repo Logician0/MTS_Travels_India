@@ -81,7 +81,7 @@ const WhyChooseUs = () => {
           <div className="relative order-2 lg:order-1 w-full">
             <div className="relative rounded-xl sm:rounded-2xl overflow-hidden shadow-lg sm:shadow-xl">
               <img
-                src="/images/suv1.webp"
+                src="/images/vehicles/suv1.webp"
                 alt="Why Choose MTS Travels - Premium Taxi Service"
                 className="w-full h-48 sm:h-56 md:h-64 lg:h-80 object-cover"
                 loading="lazy"

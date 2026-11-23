@@ -8,22 +8,22 @@ import { getCabBySlug, cabsData } from '../data/cabsData';
 // --- SPECIFIC MODELS DICTIONARY (TEMPO & BUS REMOVED) ---
 const categoryModels: Record<string, { name: string; images: string[]; description: string }[]> = {
   'sedan': [
-    { name: 'Maruti Swift Dzire', images: ['/images/swift-dzire-1.webp', '/images/swift-dzire-2.webp', '/images/swift-dzire-3.webp', '/images/swift-dzire-4.webp'], description: 'India’s most loved sedan. Perfect for small families with great comfort.' },
-    { name: 'Toyota Etios', images: ['/images/toyota-etios-1.webp', '/images/toyota-etios-2.webp', '/images/toyota-etios-3.webp', '/images/toyota-etios-4.webp'], description: 'Highly reliable with massive boot space for your heavy luggage.' },
-    { name: 'Honda Amaze', images: ['/images/honda-amaze-1.webp', '/images/honda-amaze-2.webp', '/images/honda-amaze-3.webp', '/images/honda-amaze-4.webp'], description: 'Premium interiors, smooth ride, and excellent legroom for outstation trips.' },
-    { name: 'Hyundai Aura', images: ['/images/hyundai-aura-1.webp', '/images/hyundai-aura-2.webp', '/images/hyundai-aura-3.webp', '/images/hyundai-aura-4.webp'], description: 'Modern styling with refined performance and excellent cabin comfort.' }
+    { name: 'Maruti Swift Dzire', images: ['/images/vehicles/swift-dzire-1.webp', '/images/vehicles/swift-dzire-2.webp', '/images/vehicles/swift-dzire-3.webp', '/images/vehicles/swift-dzire-4.webp'], description: 'India’s most loved sedan. Perfect for small families with great comfort.' },
+    { name: 'Toyota Etios', images: ['/images/vehicles/toyota-etios-1.webp', '/images/vehicles/toyota-etios-2.webp', '/images/vehicles/toyota-etios-3.webp', '/images/vehicles/toyota-etios-4.webp'], description: 'Highly reliable with massive boot space for your heavy luggage.' },
+    { name: 'Honda Amaze', images: ['/images/vehicles/honda-amaze-1.webp', '/images/vehicles/honda-amaze-2.webp', '/images/vehicles/honda-amaze-3.webp', '/images/vehicles/honda-amaze-4.webp'], description: 'Premium interiors, smooth ride, and excellent legroom for outstation trips.' },
+    { name: 'Hyundai Aura', images: ['/images/vehicles/hyundai-aura-1.webp', '/images/vehicles/hyundai-aura-2.webp', '/images/vehicles/hyundai-aura-3.webp', '/images/vehicles/hyundai-aura-4.webp'], description: 'Modern styling with refined performance and excellent cabin comfort.' }
   ],
   'suv': [
-    { name: 'Toyota Innova', images: ['/images/toyota-innova-1.webp', '/images/toyota-innova-2.webp', '/images/toyota-innova-3.webp', '/images/toyota-innova-4.webp'], description: 'The absolute gold standard for premium, reliable outstation travel.' },
-    { name: 'Innova Crysta', images: ['/images/innova-crysta-1.webp', '/images/innova-crysta-2.webp', '/images/innova-crysta-3.webp', '/images/innova-crysta-4.webp'], description: 'Luxury and power combined. The ultimate VIP experience for long routes.' },
-    { name: 'Mahindra Scorpio', images: ['/images/mahindra-scorpio-1.webp', '/images/mahindra-scorpio-2.webp', '/images/mahindra-scorpio-3.webp', '/images/mahindra-scorpio-4.webp'], description: 'Rugged and powerful, perfect for hilly terrains and adventurous trips.' },
-    { name: 'Mahindra TUV', images: ['/images/mahindra-tuv-1.webp', '/images/mahindra-tuv-2.webp', '/images/mahindra-tuv-3.webp', '/images/mahindra-tuv-4.webp'], description: 'Tough, spacious, and built to handle all types of Indian roads with ease.' },
-    { name: 'Toyota Fortuner', images: ['/images/toyota-fortuner-1.webp', '/images/toyota-fortuner-2.webp', '/images/toyota-fortuner-3.webp', '/images/toyota-fortuner-4.webp'], description: 'Top-tier luxury SUV providing unmatched road presence and maximum comfort.' }
+    { name: 'Toyota Innova', images: ['/images/vehicles/toyota-innova-1.webp', '/images/vehicles/toyota-innova-2.webp', '/images/vehicles/toyota-innova-3.webp', '/images/vehicles/toyota-innova-4.webp'], description: 'The absolute gold standard for premium, reliable outstation travel.' },
+    { name: 'Innova Crysta', images: ['/images/vehicles/innova-crysta-1.webp', '/images/vehicles/innova-crysta-2.webp', '/images/vehicles/innova-crysta-3.webp', '/images/vehicles/innova-crysta-4.webp'], description: 'Luxury and power combined. The ultimate VIP experience for long routes.' },
+    { name: 'Mahindra Scorpio', images: ['/images/vehicles/mahindra-scorpio-1.webp', '/images/vehicles/mahindra-scorpio-2.webp', '/images/vehicles/mahindra-scorpio-3.webp', '/images/vehicles/mahindra-scorpio-4.webp'], description: 'Rugged and powerful, perfect for hilly terrains and adventurous trips.' },
+    { name: 'Mahindra TUV', images: ['/images/vehicles/mahindra-tuv-1.webp', '/images/vehicles/mahindra-tuv-2.webp', '/images/vehicles/mahindra-tuv-3.webp', '/images/vehicles/mahindra-tuv-4.webp'], description: 'Tough, spacious, and built to handle all types of Indian roads with ease.' },
+    { name: 'Toyota Fortuner', images: ['/images/vehicles/toyota-fortuner-1.webp', '/images/vehicles/toyota-fortuner-2.webp', '/images/vehicles/toyota-fortuner-3.webp', '/images/vehicles/toyota-fortuner-4.webp'], description: 'Top-tier luxury SUV providing unmatched road presence and maximum comfort.' }
   ],
   'muv': [
-    { name: 'Maruti Ertiga', images: ['/images/maruti-ertiga-1.webp', '/images/maruti-ertiga-2.webp', '/images/maruti-ertiga-3.webp', '/images/maruti-ertiga-4.webp'], description: 'The perfect balance of 6-seater space and affordability for family tours.' },
-    { name: 'Toyota Rumion', images: ['/images/toyota-rumion-1.webp', '/images/toyota-rumion-2.webp', '/images/toyota-rumion-3.webp', '/images/toyota-rumion-4.webp'], description: 'A spacious and reliable multi-utility vehicle with premium Toyota engineering.' },
-    { name: 'Kia Carens', images: ['/images/kia-carens-1.webp', '/images/kia-carens-2.webp', '/images/kia-carens-3.webp', '/images/kia-carens-4.webp'], description: 'Futuristic design, plush interiors, and top-notch safety for your family.' }
+    { name: 'Maruti Ertiga', images: ['/images/vehicles/maruti-ertiga-1.webp', '/images/vehicles/maruti-ertiga-2.webp', '/images/vehicles/maruti-ertiga-3.webp', '/images/vehicles/maruti-ertiga-4.webp'], description: 'The perfect balance of 6-seater space and affordability for family tours.' },
+    { name: 'Toyota Rumion', images: ['/images/vehicles/toyota-rumion-1.webp', '/images/vehicles/toyota-rumion-2.webp', '/images/vehicles/toyota-rumion-3.webp', '/images/vehicles/toyota-rumion-4.webp'], description: 'A spacious and reliable multi-utility vehicle with premium Toyota engineering.' },
+    { name: 'Kia Carens', images: ['/images/vehicles/kia-carens-1.webp', '/images/vehicles/kia-carens-2.webp', '/images/vehicles/kia-carens-3.webp', '/images/vehicles/kia-carens-4.webp'], description: 'Futuristic design, plush interiors, and top-notch safety for your family.' }
   ]
 };
 

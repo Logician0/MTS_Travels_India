@@ -32,7 +32,7 @@ const PageLoader = () => (
     <div className="text-center">
       <div className="w-20 h-20 mx-auto mb-4 animate-pulse">
         <img
-          src="/images/logo.webp"
+          src="/images/brand/logo.webp"
           alt="MTS Travels India"
           className="w-full h-full object-contain"
         />

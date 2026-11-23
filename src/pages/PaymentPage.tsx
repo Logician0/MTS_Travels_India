@@ -17,12 +17,12 @@ const PaymentPage: React.FC = () => {
 
   // CLEANED UP: Just storing the image paths now for cleaner code
   const upiApps = [
-    { name: 'Google Pay', icon: '/images/gpay.webp' },
-    { name: 'PhonePe', icon: '/images/phonepe.webp' },
-    { name: 'Paytm', icon: '/images/paytm.webp' },
-    { name: 'BHIM', icon: '/images/bhim.webp' },
-    { name: 'Amazon Pay', icon: '/images/amazonpay.webp' },
-    { name: 'Any UPI App', icon: '/images/upi.webp' }
+    { name: 'Google Pay', icon: '/images/payments/gpay.webp' },
+    { name: 'PhonePe', icon: '/images/payments/phonepe.webp' },
+    { name: 'Paytm', icon: '/images/payments/paytm.webp' },
+    { name: 'BHIM', icon: '/images/payments/bhim.webp' },
+    { name: 'Amazon Pay', icon: '/images/payments/amazonpay.webp' },
+    { name: 'Any UPI App', icon: '/images/payments/upi.webp' }
   ];
 
   return (
@@ -63,7 +63,7 @@ const PaymentPage: React.FC = () => {
               <div className="flex justify-center mb-6">
                 <div className="bg-white p-4 rounded-2xl border-4 border-yellow-400 shadow-lg">
                   <img
-                    src="/images/qr-code.webp"
+                    src="/images/payments/qr-code.webp"
                     alt="UPI Payment QR Code - MTS Travels India"
                     className="w-48 h-48 sm:w-56 sm:h-56 rounded-xl object-contain"
                   />

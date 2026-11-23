@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Company Info */}
           <div className="col-span-2 lg:col-span-2">
             <Link to="/" className="flex items-center gap-2 mb-4 sm:mb-6">
-              <img src="/images/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" />
+              <img src="/images/brand/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" />
               <div className="flex flex-col">
                 <span className="text-lg sm:text-xl font-bold">MTS Travels</span>
                 <span className="text-[10px] sm:text-xs text-gray-400 -mt-0.5 sm:-mt-1">India</span>

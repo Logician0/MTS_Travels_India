@@ -48,7 +48,7 @@ const VerifyBookingPage = () => {
           <div className="absolute w-32 h-32 rounded-full border-t-4 border-[#ffc800] border-r-4 border-transparent animate-spin" style={{ animationDuration: '1s' }} />
           <div className="absolute w-36 h-36 rounded-full border-b-4 border-[#0F8A7C] border-l-4 border-transparent animate-spin" style={{ animationDuration: '1.5s', animationDirection: 'reverse' }} />
           <div className="bg-white w-24 h-24 rounded-full flex items-center justify-center shadow-[0_0_40px_rgba(255,200,0,0.3)] relative z-10 p-4">
-            <img src="/images/logo.webp" alt="MTS Travels India" className="w-full h-auto object-contain" onError={(e: any) => { e.currentTarget.src = '/images/logo.png' }} />
+            <img src="/images/brand/logo.webp" alt="MTS Travels India" className="w-full h-auto object-contain" onError={(e: any) => { e.currentTarget.src = '/images/brand/favicon.png' }} />
           </div>
         </div>
         <h2 className="text-xl sm:text-2xl md:text-3xl font-black mb-3 tracking-wide text-center px-4 animate-fade-in-up">
@@ -142,7 +142,7 @@ const VerifyBookingPage = () => {
         currency: "INR",
         name: "MTS Travels India",
         description: `${isBikeRental ? 'Bike Rental' : 'Cab Booking'}: ${bookingData.direction}`,
-        image: "/images/logo.png",
+        image: "/images/brand/favicon.png",
         order_id: orderData.order.id, 
         
         handler: async function (response: any) {

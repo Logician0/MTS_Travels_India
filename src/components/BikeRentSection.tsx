@@ -50,7 +50,7 @@ const BikeRentSection = () => {
           <div className="relative order-1">
             <div className="relative rounded-2xl overflow-hidden">
               <img
-                src="/images/bike-hero.webp"
+                src="/images/bike/bike-hero.webp"
                 alt="Rent Bikes in Dehradun"
                 className="w-full h-48 sm:h-64 lg:h-80 object-cover"
               />

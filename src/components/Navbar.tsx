@@ -22,7 +22,7 @@ const Navbar = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center gap-2">
             {/* Option 1: Use logo image (uncomment below and comment out the div with "M") */}
-            { <img src="/images/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" /> }
+            { <img src="/images/brand/logo.webp" alt="MTS Travels India" className="h-10 sm:h-15 w-auto" /> }
             
             
             

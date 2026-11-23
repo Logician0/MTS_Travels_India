@@ -16,27 +16,27 @@ const basePrices: Record<string, number> = {
 
 const getCategoryImage = (type: string) => {
   switch(type) {
-    case 'sedan': return '/images/sedan-card.webp';
-    case 'muv': return '/images/muv-card.webp';
-    case 'suv': return '/images/suv-card.webp';
-    case 'tempo': return '/images/tempo-traveller-card.webp';
-    case 'bus': return '/images/bus-card.webp';
-    default: return '/images/sedan-card.webp';
+    case 'sedan': return '/images/vehicles/sedan-card.webp';
+    case 'muv': return '/images/vehicles/muv-card.webp';
+    case 'suv': return '/images/vehicles/suv-card.webp';
+    case 'tempo': return '/images/vehicles/tempo-traveller-card.webp';
+    case 'bus': return '/images/vehicles/bus-card.webp';
+    default: return '/images/vehicles/sedan-card.webp';
   }
 };
 
 // --- CAR MODELS DATABASE ---
 const carModels = {
   sedan: [
-    { name: 'Swift Dzire', image: '/images/swift-dzire-1.webp' },
-    { name: 'Toyota Etios', image: '/images/toyota-etios-1.webp' },
-    { name: 'Honda Amaze', image: '/images/honda-amaze-1.webp' },
-    { name: 'Hyundai Aura', image: '/images/hyundai-aura-1.webp' }
+    { name: 'Swift Dzire', image: '/images/vehicles/swift-dzire-1.webp' },
+    { name: 'Toyota Etios', image: '/images/vehicles/toyota-etios-1.webp' },
+    { name: 'Honda Amaze', image: '/images/vehicles/honda-amaze-1.webp' },
+    { name: 'Hyundai Aura', image: '/images/vehicles/hyundai-aura-1.webp' }
   ],
   muv: [
-    { name: 'Maruti Ertiga', image: '/images/maruti-ertiga-1.webp' },
-    { name: 'Toyota Rumion', image: '/images/toyota-rumion-1.webp' },
-    { name: 'Kia Carens', image: '/images/kia-carens-1.webp' }
+    { name: 'Maruti Ertiga', image: '/images/vehicles/maruti-ertiga-1.webp' },
+    { name: 'Toyota Rumion', image: '/images/vehicles/toyota-rumion-1.webp' },
+    { name: 'Kia Carens', image: '/images/vehicles/kia-carens-1.webp' }
   ]
 };
 

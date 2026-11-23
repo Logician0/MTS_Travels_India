@@ -24,7 +24,7 @@ const SEO = ({
   author
 }: SEOProps) => {
   const siteName = 'MTS Travels India';
-  const defaultImage = '/images/og-image.webp';
+  const defaultImage = '/images/seo/og-image.webp';
   const baseUrl = 'https://www.mtstravelsindia.com';
   const fullCanonical = canonical || (url ? `${baseUrl}${url}` : baseUrl);
 

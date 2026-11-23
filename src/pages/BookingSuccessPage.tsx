@@ -79,8 +79,8 @@ const BookingSuccessPage = () => {
               <div className="flex flex-col sm:flex-row items-center gap-4 mb-4 sm:mb-0">
                 {/* 🚨 Local Logo Path (Includes a fallback to .png just in case) */}
                 <img 
-                  src="/images/logo.webp" 
-                  onError={(e) => { e.currentTarget.src = '/images/logo.png' }}
+                  src="/images/brand/logo.webp"
+                  onError={(e) => { e.currentTarget.src = '/images/brand/favicon.png' }}
                   alt="MTS Travels India" 
                   className="h-12 w-auto object-contain"
                 />

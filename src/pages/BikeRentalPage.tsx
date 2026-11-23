@@ -78,7 +78,7 @@ const BikeRentalPage = () => {
     '@type': 'AutoRental',
     '@id': 'https://www.mtstravelsindia.com/bike-rental/#business',
     'name': 'Bike Rental Service - MTS Travels India',
-    'image': 'https://www.mtstravelsindia.com/images/bike-rental-hero.webp',
+    'image': 'https://www.mtstravelsindia.com/images/bike/bike-hero.webp',
     'description': 'Affordable bike rental in Dehradun with new condition bikes at cheap hourly prices. Flexible rental options - hourly, daily, weekly, monthly. Fully insured with free helmet.',
     'priceRange': '₹99 - ₹499',
     'address': {
@@ -137,7 +137,7 @@ const BikeRentalPage = () => {
             <div className="relative order-1 lg:order-2">
               <div className="relative rounded-2xl overflow-hidden">
                 <img
-                  src="/images/bike-rental-hero.webp"
+                  src="/images/bike/bike-hero.webp"
                   onError={(e) => { e.currentTarget.src = 'https://images.unsplash.com/photo-1558981806-ec527fa84c39?auto=format&fit=crop&q=80' }}
                   alt="Bike Rental Service in Dehradun"
                   className="w-full h-56 sm:h-72 lg:h-96 object-cover"

@@ -19,11 +19,11 @@ export const cabsData: Cab[] = [
     slug: 'sedan',
     name: 'Sedan',
     type: 'Premium Sedan',
-    image: '/images/sedan-card.webp',
+    image: '/images/vehicles/sedan-card.webp',
     images: [
-      '/images/sedan1.webp',
-      '/images/sedan2.webp',
-      '/images/sedan3.webp'
+      '/images/vehicles/sedan1.webp',
+      '/images/vehicles/sedan2.webp',
+      '/images/vehicles/sedan3.webp'
     ],
     seating: '4 Passengers',
     luggage: '2 Large Bags',
@@ -44,12 +44,12 @@ export const cabsData: Cab[] = [
     slug: 'muv',
     name: 'MUV',
     type: 'Multi-Utility Vehicle',
-    image: '/images/muv-card.webp', // <--- NEW UNIQUE IMAGE
+    image: '/images/vehicles/muv-card.webp', // <--- NEW UNIQUE IMAGE
     images: [
-      '/images/muv1.webp', // <--- NEW UNIQUE IMAGES
-      '/images/muv2.webp',
-      '/images/muv3.webp',
-      '/images/muv4.webp'
+      '/images/vehicles/muv2.webp',
+      '/images/vehicles/muv2.webp',
+      '/images/vehicles/muv3.webp',
+      '/images/vehicles/muv4.webp'
     ],
     seating: '6-7 Passengers',
     luggage: '3 Large Bags',
@@ -71,12 +71,12 @@ export const cabsData: Cab[] = [
     slug: 'suv',
     name: 'SUV',
     type: 'Luxury SUV',
-    image: '/images/suv-card.webp',
+    image: '/images/vehicles/suv-card.webp',
     images: [
-      '/images/suv1.webp',
-      '/images/suv2.webp',
-      '/images/suv3.webp',
-      '/images/suv4.webp'
+      '/images/vehicles/suv1.webp',
+      '/images/vehicles/suv2.webp',
+      '/images/vehicles/suv3.webp',
+      '/images/vehicles/suv4.webp'
     ],
     seating: '6-7 Passengers',
     luggage: '4 Large Bags',
@@ -99,11 +99,11 @@ export const cabsData: Cab[] = [
     slug: 'tempo-traveller',
     name: 'Tempo Traveller',
     type: 'Group Transport',
-    image: '/images/tempo-traveller-card.webp',
+    image: '/images/vehicles/tempo-traveller-card.webp',
     images: [
-      '/images/tempo-traveller1.webp',
-      '/images/tempo-traveller2.webp',
-      '/images/tempo-traveller3.webp'
+      '/images/vehicles/tempo-traveller1.webp',
+      '/images/vehicles/tempo-traveller2.webp',
+      '/images/vehicles/tempo-traveller3.webp'
     ],
     seating: '9-16 Passengers',
     luggage: '10+ Bags',
@@ -126,12 +126,12 @@ export const cabsData: Cab[] = [
     slug: 'bus',
     name: 'AC / Non-AC Bus',
     type: 'Large Group Transport',
-    image: '/images/bus-card.webp',
+    image: '/images/vehicles/bus-card.webp',
     images: [
-      '/images/bus1.webp',
-      '/images/bus2.webp',
-      '/images/bus3.webp',
-      '/images/bus4.webp'
+      '/images/vehicles/bus1.webp',
+      '/images/vehicles/bus2.webp',
+      '/images/vehicles/bus3.webp',
+      '/images/vehicles/bus4.webp'
     ],
     seating: '20-45 Passengers',
     luggage: '20+ Bags',
