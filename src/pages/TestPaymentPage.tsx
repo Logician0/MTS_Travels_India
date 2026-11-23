@@ -1,37 +1,43 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Zap, ArrowRight, ShieldAlert } from 'lucide-react';
 
 const TestPaymentPage = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const testToken = searchParams.get('token') || '';
   
   const [formData, setFormData] = useState({
     name: 'System Tester',
-    email: 'your_email@example.com', // Put your real email here
+    email: 'suraj.logician@gmail.com',
     phone: '9876543210',
   });
 
   const handleTestSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    if (!testToken) return;
 
     // 1. Create a dummy booking object with the price forced to 1 Rupee.
     const testBookingData = {
       name: formData.name,
       email: formData.email,
       phone: formData.phone,
-      direction: 'Live System Test Route',
-      tripType: 'System Test',
-      vehicleType: 'Test Server Vehicle',
-      specificVehicle: 'Test Cab',
-      date: new Date().toLocaleDateString(),
-      time: new Date().toLocaleTimeString(),
+      direction: 'Private Live Payment Verification',
+      tripType: 'private_live_test',
+      vehicleType: 'private_test',
+      specificVehicle: 'MTS Private Test Booking',
+      date: new Date().toISOString().slice(0, 10),
+      time: '10:00 AM',
       passengers: 1,
       price: 1,
+      privateTestToken: testToken,
     };
 
     // 2. Redirect to your actual Verify Booking page and pass the data!
     navigate('/verify-booking', { state: testBookingData }); 
   };
+
+  if (!testToken) return <div className="min-h-screen flex items-center justify-center p-6 text-center font-semibold text-slate-700">This private payment check is unavailable.</div>;
 
   return (
     <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center p-4">
@@ -71,9 +77,9 @@ const TestPaymentPage = () => {
               <label className="text-xs font-bold text-gray-500 uppercase tracking-wider ml-1">Receive Email At</label>
               <input 
                 type="email" 
-                value={formData.email} 
-                onChange={e => setFormData({...formData, email: e.target.value})} 
-                className="w-full mt-1 px-4 py-3 bg-gray-50 border border-gray-200 rounded-xl text-sm focus:outline-none focus:border-[#ffc800] focus:ring-2 focus:ring-[#ffc800]/20 font-medium" 
+                value={formData.email}
+                readOnly
+                className="w-full mt-1 px-4 py-3 bg-gray-100 border border-gray-200 rounded-xl text-sm text-gray-600 font-medium"
                 required 
               />
             </div>

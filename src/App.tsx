@@ -24,6 +24,7 @@ const PackageDetailPage = lazy(() => import('./pages/PackageDetailPage'));
 const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'));
 const TermsOfServicePage = lazy(() => import('./pages/TermsOfServicePage'));
 const BikeRentalPage = lazy(() => import('./pages/BikeRentalPage'));
+const TestPaymentPage = lazy(() => import('./pages/TestPaymentPage'));
 const NotFoundPage = lazy(() => import('./pages/NotFoundPage'));
 
 // Loading component
@@ -84,6 +85,7 @@ const AppContent = () => {
               <Route path="/payment" element={<PaymentPage />} />
               <Route path="/verify-booking" element={<VerifyBookingPage />} />
               <Route path="/booking-success" element={<BookingSuccessPage />} />
+              <Route path="/private-booking-check" element={<TestPaymentPage />} />
               <Route path="/admin" element={<AdminDashboard />} />
 
               {/* Legal Pages */}
