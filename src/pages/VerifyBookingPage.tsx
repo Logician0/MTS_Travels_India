@@ -26,6 +26,16 @@ const VerifyBookingPage = () => {
   
   // New state for Bike Rental age/license verification
   const [acceptedAgeLicense, setAcceptedAgeLicense] = useState(false);
+  const [formData, setFormData] = useState({
+    name: bookingData?.name || '',
+    email: bookingData?.email || '',
+    phone: bookingData?.phone || '',
+    date: bookingData?.date || '',
+    timeHour: '10',
+    timeMinute: '00',
+    timePeriod: 'AM',
+    passengers: bookingData?.passengers || 1
+  });
 
   useEffect(() => {
     const today = new Date().toISOString().split('T')[0];
@@ -64,17 +74,6 @@ const VerifyBookingPage = () => {
   // Smart check: Is this a bike rental?
   const isBikeRental = bookingData.tripType === 'bike_rental' || bookingData.vehicleType === 'bike';
   const maxPassengers = bookingData.vehicleType === 'sedan' ? 4 : 6;
-
-  const [formData, setFormData] = useState({ 
-    name: bookingData.name || '', // Auto-fill if passed from Test Page
-    email: bookingData.email || '', 
-    phone: bookingData.phone || '', 
-    date: bookingData.date || '', // Note: Standard HTML date inputs expect YYYY-MM-DD
-    timeHour: '10',     
-    timeMinute: '00',   
-    timePeriod: 'AM',   
-    passengers: bookingData.passengers || 1 
-  });
 
   const handlePayment = async (e: React.FormEvent) => {
     e.preventDefault();
